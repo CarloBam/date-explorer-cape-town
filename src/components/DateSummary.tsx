@@ -363,12 +363,12 @@ export function DateSummary() {
             <p className="text-sm text-muted-foreground mb-4">Little touches that make the date unforgettable</p>
             <div className="grid gap-3">
               {[
-                { emoji: "💐", title: "Fresh flowers", desc: "Pick up a small bouquet from a florist on the way. R80–R200", tag: "Classic" },
-                { emoji: "🍫", title: "Artisan chocolates", desc: "A box of local chocolates to share during the date. R60–R150", tag: "Sweet" },
+                { emoji: "💐", title: "Fresh flowers", desc: "Pick up a small bouquet from a florist on the way", tag: "Classic" },
+                { emoji: "🍫", title: "Artisan chocolates", desc: "A box of local chocolates to share during the date", tag: "Sweet" },
                 { emoji: "🎵", title: "Custom playlist", desc: "Make a Spotify playlist of songs she loves. Share the QR code with her", tag: "Thoughtful" },
                 { emoji: "💌", title: "Handwritten note", desc: "Write her a short letter or card before you meet up", tag: "Personal" },
-                { emoji: "📸", title: "Disposable camera", desc: "Bring one to capture candid moments together. R150–R250", tag: "Fun" },
-                { emoji: "🧴", title: "Mini pamper kit", desc: "Face mask, lip balm, and a scented candle for after the date. R100–R200", tag: "Caring" },
+                { emoji: "📸", title: "Disposable camera", desc: "Bring one to capture candid moments together", tag: "Fun" },
+                { emoji: "🧴", title: "Mini pamper kit", desc: "Face mask, lip balm, and a scented candle for after the date", tag: "Caring" },
               ].map((extra, i) => (
                 <div key={i} className="flex items-start gap-3 rounded-lg bg-muted/50 p-3">
                   <span className="text-2xl">{extra.emoji}</span>
