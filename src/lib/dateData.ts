@@ -928,6 +928,11 @@ export const activities: Activity[] = [
     requiresCar: true,
     prepTips: ["Book at least 2 weeks in advance", "Pack sunscreen and a hat", "Eat breakfast — the tastings add up!"],
     websiteUrl: "https://www.winetram.co.za",
+    reviews: [
+      { author: "Sophie G.", rating: 5, text: "The most romantic day trip from Cape Town! The tram is charming and the wine estates are stunning. We did the Blue Line.", timeAgo: "1 week ago" },
+      { author: "Willem J.", rating: 5, text: "Book WEEKS in advance — I cannot stress this enough. We almost missed out. Every estate has incredible wine and views.", timeAgo: "3 weeks ago" },
+      { author: "Aimee R.", rating: 4, text: "Have breakfast before you go — the wine hits fast on an empty stomach! Such a gorgeous experience though.", timeAgo: "1 month ago" },
+    ],
   },
 
   // ─── DURBANVILLE & BLOUBERG ───
