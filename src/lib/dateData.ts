@@ -1,3 +1,10 @@
+export interface Review {
+  author: string;
+  rating: number;
+  text: string;
+  timeAgo: string;
+}
+
 export interface Activity {
   id: string;
   name: string;
@@ -17,6 +24,7 @@ export interface Activity {
   prepTips?: string[];
   websiteUrl?: string;
   menuUrl?: string;
+  reviews?: Review[];
 }
 
 export interface QuizAnswer {
