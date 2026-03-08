@@ -25,6 +25,7 @@ interface DateContextType {
   pricingMode: PricingMode;
   setPricingMode: (mode: PricingMode) => void;
   getDisplayCost: (cost: number) => number;
+  getDisplayRange: (cost: number, costMax?: number) => string;
 }
 
 const DateContext = createContext<DateContextType | null>(null);
