@@ -140,7 +140,7 @@ export function HeroSection() {
           <div className="grid gap-8 md:grid-cols-3 mb-16">
             {[
               { step: "1", emoji: "🧠", title: "Tell us about her", desc: "A quick quiz about her personality, vibe, and what she enjoys" },
-              { step: "2", emoji: "🗺️", title: "Pick activities", desc: "We'll recommend the best spots — you pick what feels right" },
+              { step: "2", emoji: "🗺️", title: "Pick activities", desc: "We'll recommend the best spots and you pick what feels right" },
               { step: "3", emoji: "💌", title: "Send the invite", desc: "She gets a beautiful link with the full plan & can RSVP" },
             ].map((item, i) => (
               <motion.div
