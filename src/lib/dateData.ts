@@ -318,6 +318,7 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: true,
     websiteUrl: "https://www.grootconstantia.co.za",
+    menuUrl: "https://www.grootconstantia.co.za/simons-restaurant/",
   },
   {
     id: "newlands-forest",
