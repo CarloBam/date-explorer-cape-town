@@ -635,6 +635,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "De Waterkant",
     estimatedCost: 500,
+    costMax: 700,
     durationMin: 90,
     duration: "90 min",
     description: "Fresh produce, artisan foods, and local crafts in a vibrant weekend market with harbour views.",
