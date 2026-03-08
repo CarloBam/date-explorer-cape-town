@@ -29,6 +29,7 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     activities: [],
     budget: 1000,
     quizAnswers: {},
+    scheduledDate: undefined,
   });
   const [step, setStep] = useState<"landing" | "quiz" | "browse" | "summary">("landing");
 
