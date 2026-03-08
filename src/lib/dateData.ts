@@ -708,6 +708,10 @@ export const activities: Activity[] = [
     rating: 4.3,
     requiresCar: false,
     websiteUrl: "https://www.cavegolf.co.za",
+    reviews: [
+      { author: "Bongani M.", rating: 4, text: "Such a fun date! The glow-in-the-dark setup makes it super playful. Great ice breaker for a first date.", timeAgo: "1 week ago" },
+      { author: "Kelly R.", rating: 4, text: "We made it competitive and the loser had to buy dinner. Really fun and different from the usual dinner-and-a-movie.", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "paragliding",
