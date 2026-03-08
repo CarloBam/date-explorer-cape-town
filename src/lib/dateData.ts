@@ -242,6 +242,10 @@ export const activities: Activity[] = [
     rating: 4.6,
     requiresCar: false,
     websiteUrl: "https://www.zeitzmocaa.museum",
+    reviews: [
+      { author: "Nomsa T.", rating: 5, text: "The building itself is a masterpiece. My partner and I spent hours discussing the art. Very stimulating date.", timeAgo: "1 week ago" },
+      { author: "David L.", rating: 4, text: "Free on Wednesdays for SA citizens is amazing! Some exhibits are thought-provoking and great conversation starters.", timeAgo: "2 months ago" },
+    ],
   },
   {
     id: "waterfront-wheel",
