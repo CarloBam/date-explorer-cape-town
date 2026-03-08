@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Plus, Check, Tag, MapPin, Clock, Star, ChevronRight, Car } from "lucide-react";
+import { Plus, Check, Tag, MapPin, Clock, Star, ChevronRight, Car, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Activity, getNearbyActivities, isGreatMatch } from "@/lib/dateData";
 import { useDatePlan } from "@/lib/dateContext";
@@ -70,7 +70,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
                 {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
               </div>
               {activity.estimatedCost > 0 && (
-                <div className="text-xs text-muted-foreground">per person</div>
+                <div className="text-xs text-muted-foreground">for two</div>
               )}
             </div>
           </div>
@@ -99,16 +99,28 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
 
       {/* Action area */}
       <div className="flex items-center justify-between border-t border-border px-5 py-3">
-        {nearby.length > 0 && showNearby && (
-          <button
-            onClick={() => setShowNearbyList(!showNearbyList)}
-            className="flex items-center gap-1 text-xs font-medium text-secondary hover:text-secondary/80 transition-colors"
-          >
-            <span>Nearby: {nearby.map(n => n.name).slice(0, 2).join(", ")}</span>
-            <ChevronRight className={`h-3.5 w-3.5 transition-transform ${showNearbyList ? "rotate-90" : ""}`} />
-          </button>
-        )}
-        {!nearby.length && <div />}
+        <div className="flex items-center gap-3">
+          {activity.websiteUrl && (
+            <a
+              href={activity.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <ExternalLink className="h-3 w-3" /> Book / Info
+            </a>
+          )}
+          {nearby.length > 0 && showNearby && (
+            <button
+              onClick={() => setShowNearbyList(!showNearbyList)}
+              className="flex items-center gap-1 text-xs font-medium text-secondary hover:text-secondary/80 transition-colors"
+            >
+              <span>Nearby: {nearby.map(n => n.name).slice(0, 2).join(", ")}</span>
+              <ChevronRight className={`h-3.5 w-3.5 transition-transform ${showNearbyList ? "rotate-90" : ""}`} />
+            </button>
+          )}
+        </div>
+        {!nearby.length && !activity.websiteUrl && <div />}
 
         <Button
           variant={inPlan ? "outline" : "add-to-date"}
