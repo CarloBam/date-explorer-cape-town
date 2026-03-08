@@ -30,7 +30,7 @@ export interface Activity {
 
 export interface QuizAnswer {
   personality: "introvert" | "extrovert" | "ambivert";
-  setting: "beach" | "mountains" | "city";
+  setting: "beach" | "mountains" | "city" | "waterfront";
   vibe: "nature" | "culture" | "spontaneous" | "romantic";
   energy: "chill" | "active" | "mix";
   stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "long-term";
@@ -70,6 +70,7 @@ export const quizQuestions = [
       { value: "beach", label: "Beach & Ocean", emoji: "🏖️", description: "Waves, sand & salty air" },
       { value: "mountains", label: "Nature & Mountains", emoji: "⛰️", description: "Trails, wine farms & views" },
       { value: "city", label: "City & Culture", emoji: "🏙️", description: "Cafés, streets & buzzy spots" },
+      { value: "waterfront", label: "Waterfront & Harbour", emoji: "⚓", description: "Boats, sea views & shopping" },
     ],
   },
   {
@@ -1724,6 +1725,7 @@ export function scoreActivity(activity: Activity, answers: Partial<QuizAnswer>):
     if (answers.setting === "beach" && (activity.category === "beach" || activity.tags.includes("beach"))) score += 3;
     if (answers.setting === "mountains" && (activity.category === "mountain" || activity.tags.includes("nature"))) score += 3;
     if (answers.setting === "city" && (activity.category === "culture" || activity.category === "nightlife" || activity.category === "coffee" || activity.tags.includes("culture"))) score += 3;
+    if (answers.setting === "waterfront" && (activity.area === "V&A Waterfront" || activity.tags.includes("scenic") || activity.tags.includes("luxury"))) score += 3;
   }
 
   if (answers.energy) {
