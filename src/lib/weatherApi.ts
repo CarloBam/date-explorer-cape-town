@@ -36,7 +36,7 @@ function getTip(weather: { windSpeed: number; weatherCode: number; temperature: 
     return "⚠️ Strong south-easter today. Table Mountain cables may close. Consider indoor activities!";
   }
   if (weather.weatherCode >= 60) {
-    return "🌧️ Rain expected — skip outdoor activities or bring rain gear. Great day for museums & cafés!";
+    return "🌧️ Rain expected. Skip outdoor activities or bring rain gear. Great day for museums & cafés!";
   }
   if (weather.temperature > 30) {
     return "🔥 Hot day! Beach activities, ice cream, and shady spots are your best bet.";
