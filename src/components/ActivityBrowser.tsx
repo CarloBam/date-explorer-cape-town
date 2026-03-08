@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, SlidersHorizontal, ArrowLeft, Star, CalendarIcon, Users, User } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowLeft, Star, CalendarIcon, Users, User, ArrowUpDown } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
