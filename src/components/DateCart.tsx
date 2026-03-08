@@ -40,7 +40,7 @@ export function DateCart() {
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
+    <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden flex flex-col max-h-[calc(100vh-12rem)]">
       {/* Header */}
       <div className="gradient-sunset px-5 py-4">
         <div className="flex items-center justify-between">
