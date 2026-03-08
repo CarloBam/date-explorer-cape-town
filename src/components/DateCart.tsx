@@ -58,7 +58,7 @@ export function DateCart() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="date-plan">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className="p-3">
+            <div ref={provided.innerRef} {...provided.droppableProps} className="p-3 overflow-y-auto flex-1">
               <AnimatePresence>
                 {activities.map((activity, index) => (
                   <Draggable key={activity.id} draggableId={activity.id} index={index}>
