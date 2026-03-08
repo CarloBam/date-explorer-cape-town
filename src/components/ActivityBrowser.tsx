@@ -8,6 +8,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ActivityCard } from "@/components/ActivityCard";
 import { DateCart } from "@/components/DateCart";
+import { MobileCartBar } from "@/components/MobileCartBar";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { useDatePlan } from "@/lib/dateContext";
 import { activities, getRecommendedActivities } from "@/lib/dateData";
