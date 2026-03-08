@@ -65,13 +65,13 @@ export function HeroSection() {
             </div>
 
             <h1 className="mb-4 font-display text-5xl font-extrabold leading-tight text-primary-foreground md:text-7xl">
-              Don't Hesitate.
+              Plan the
               <br />
-              <span className="text-gradient-sunset">Just Ask Her Out.</span>
+              <span className="text-gradient-sunset">Perfect Date.</span>
             </h1>
 
             <p className="mb-4 font-body text-lg text-primary-foreground/80 md:text-xl">
-              Plan a date she'll love, then send her a beautiful invite
+              Build a personalised date she'll love, then send her a beautiful invite
               with activities, a map, and everything sorted.
             </p>
 
