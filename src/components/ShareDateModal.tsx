@@ -24,7 +24,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [title, setTitle] = useState("Our Cape Town Date 💝");
+  const [title, setTitle] = useState("");
   const [allowCustomise, setAllowCustomise] = useState(true);
 
   // Get user's display name from metadata
