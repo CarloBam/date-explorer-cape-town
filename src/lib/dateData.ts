@@ -324,6 +324,10 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     prepTips: ["Bring water and a headlamp if doing sunset", "Wear proper hiking shoes", "Pack a small snack for the top", "Check the full moon calendar for extra magic"],
+    reviews: [
+      { author: "Tom H.", rating: 5, text: "Full moon hike was INCREDIBLE! Started at 5pm, reached the top for sunset. Headlamp essential for the way down.", timeAgo: "1 week ago" },
+      { author: "Palesa S.", rating: 4, text: "Challenging but worth it. My date was impressed I planned this. The chain ladder section is fun but not for the faint-hearted.", timeAgo: "3 weeks ago" },
+    ],
   },
 
   // ─── SOUTHERN SUBURBS & CONSTANTIA ───
