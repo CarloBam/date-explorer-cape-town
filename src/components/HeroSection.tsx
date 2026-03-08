@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { Heart, MapPin, Sparkles } from "lucide-react";
+import { Heart, MapPin, Sparkles, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
+import { useAuth } from "@/hooks/useAuth";
 import heroImage from "@/assets/hero-capetown.jpg";
 
 export function HeroSection() {
