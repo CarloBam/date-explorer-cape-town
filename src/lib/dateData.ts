@@ -257,6 +257,7 @@ export const activities: Activity[] = [
     category: "scenic",
     area: "V&A Waterfront",
     estimatedCost: 360,
+    costMax: 450,
     durationMin: 30,
     duration: "30 min",
     description: "Giant observation wheel with stunning harbour and mountain views. Extra romantic in the VIP gondola with bubbly!",
