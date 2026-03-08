@@ -86,6 +86,17 @@ export default function SharedDateView() {
           })
           .filter(Boolean) as Activity[];
         setCustomActivities(resolved);
+
+        // Load forecast if date is scheduled
+        if (data.date_scheduled) {
+          const scheduledDate = new Date(data.date_scheduled);
+          setHolidays(getHolidaysForDate(scheduledDate));
+          const areas = [...new Set(resolved.map(a => a.area))];
+          const daysAway = Math.ceil((scheduledDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+          if (daysAway >= 0 && daysAway <= 16) {
+            fetchForecastForDate(scheduledDate, areas).then(setForecast);
+          }
+        }
       }
     } catch (err: any) {
       setError("Something went wrong loading this date plan.");
