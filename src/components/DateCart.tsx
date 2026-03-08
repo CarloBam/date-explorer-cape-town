@@ -1,6 +1,6 @@
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { motion, AnimatePresence } from "framer-motion";
-import { GripVertical, Trash2, MapPin, Fuel, Receipt, ArrowRight, Heart, Car } from "lucide-react";
+import { GripVertical, Trash2, MapPin, Fuel, Receipt, ArrowRight, Heart, Car, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
 import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
