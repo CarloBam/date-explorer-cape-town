@@ -3,7 +3,7 @@ export interface Activity {
   name: string;
   category: "beach" | "mountain" | "food" | "adventure" | "culture" | "nightlife" | "chill" | "scenic" | "coffee" | "dessert";
   area: string;
-  estimatedCost: number;
+  estimatedCost: number; // For 2 people
   durationMin: number;
   duration: string;
   description: string;
@@ -15,6 +15,7 @@ export interface Activity {
   rating: number;
   requiresCar: boolean;
   prepTips?: string[];
+  websiteUrl?: string;
 }
 
 export interface QuizAnswer {
