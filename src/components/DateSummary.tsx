@@ -147,7 +147,7 @@ export function DateSummary() {
 
           {/* Share button */}
           <div className="mt-6 flex gap-3">
-            <Button variant="hero" className="flex-1 gap-2">
+            <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
               <Share2 className="h-4 w-4" /> Share Date Plan
             </Button>
             <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
@@ -156,6 +156,19 @@ export function DateSummary() {
           </div>
         </motion.div>
       </div>
+
+      {/* Share modal */}
+      <AnimatePresence>
+        {showShare && (
+          <ShareDateModal
+            activities={activities}
+            budget={budget}
+            totalCost={totalCost}
+            quizAnswers={datePlan.quizAnswers}
+            onClose={() => setShowShare(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
