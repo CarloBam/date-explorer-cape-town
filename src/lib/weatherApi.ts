@@ -33,16 +33,16 @@ function getWindDirection(degrees: number): string {
 
 function getTip(weather: { windSpeed: number; weatherCode: number; temperature: number }): string {
   if (weather.windSpeed > 40) {
-    return "⚠️ Strong south-easter today — Table Mountain cables may close. Consider indoor activities!";
+    return "⚠️ Strong south-easter today. Table Mountain cables may close. Consider indoor activities!";
   }
   if (weather.weatherCode >= 60) {
-    return "🌧️ Rain expected — skip outdoor activities or bring rain gear. Great day for museums & cafés!";
+    return "🌧️ Rain expected. Skip outdoor activities or bring rain gear. Great day for museums & cafés!";
   }
   if (weather.temperature > 30) {
     return "🔥 Hot day! Beach activities, ice cream, and shady spots are your best bet.";
   }
   if (weather.temperature < 15) {
-    return "🧥 Cool day — wine tasting, cozy cafés, and indoor culture are perfect picks.";
+    return "🧥 Cool day. Wine tasting, cozy cafés, and indoor culture are perfect picks.";
   }
   return "🌤️ Great weather for a date! Mix indoor and outdoor activities for the best experience.";
 }

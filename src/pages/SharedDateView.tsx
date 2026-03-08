@@ -173,7 +173,7 @@ export default function SharedDateView() {
           <p className="text-muted-foreground">{error}</p>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-secondary" />
-            <span>Cape Town Dates — Secure Sharing</span>
+            <span>Cape Town Dates • Secure Sharing</span>
           </div>
         </motion.div>
       </div>
@@ -239,7 +239,7 @@ export default function SharedDateView() {
           {holidays.length > 0 && (
             <div className="mb-4 flex items-center gap-2 rounded-xl bg-accent/15 px-4 py-3 text-sm font-medium text-accent-foreground">
               <PartyPopper className="h-4 w-4 text-primary shrink-0" />
-              {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} — expect busier spots!
+              {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} expect busier spots!
             </div>
           )}
 
@@ -326,7 +326,7 @@ export default function SharedDateView() {
                     {hasCar ? (
                       <><Car className="h-3 w-3" /> {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km drive</>
                     ) : (
-                      <>🚕 {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km — Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, displayActivities[index + 1].area))}</>
+                      <>🚕 {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km, Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, displayActivities[index + 1].area))}</>
                     )}
                   </div>
                 )}

@@ -9,7 +9,7 @@ const features = [
   { emoji: "💝", title: "Personalised for her", description: "Answer a few questions and we'll match activities to her personality" },
   { emoji: "📍", title: "Route & Map", description: "See all your spots on a map with distances and transport costs" },
   { emoji: "📱", title: "Beautiful invite link", description: "Send her a stunning date invite via WhatsApp or email" },
-  { emoji: "✏️", title: "She can customise", description: "Optionally let her swap activities — so she feels included" },
+  { emoji: "✏️", title: "She can customise", description: "Optionally let her swap activities so she feels included" },
 ];
 
 const motivations = [
@@ -71,7 +71,7 @@ export function HeroSection() {
             </h1>
 
             <p className="mb-4 font-body text-lg text-primary-foreground/80 md:text-xl">
-              Plan a date she'll love — then send her a beautiful invite
+              Plan a date she'll love, then send her a beautiful invite
               with activities, a map, and everything sorted.
             </p>
 
@@ -132,7 +132,7 @@ export function HeroSection() {
               Plan a Date She'd <span className="text-gradient-sunset">Actually Love</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              No more "so where do you wanna go?" — show up with a plan.
+              No more "so where do you wanna go?" Show up with a plan.
             </p>
           </motion.div>
 
@@ -140,7 +140,7 @@ export function HeroSection() {
           <div className="grid gap-8 md:grid-cols-3 mb-16">
             {[
               { step: "1", emoji: "🧠", title: "Tell us about her", desc: "A quick quiz about her personality, vibe, and what she enjoys" },
-              { step: "2", emoji: "🗺️", title: "Pick activities", desc: "We'll recommend the best spots — you pick what feels right" },
+              { step: "2", emoji: "🗺️", title: "Pick activities", desc: "We'll recommend the best spots and you pick what feels right" },
               { step: "3", emoji: "💌", title: "Send the invite", desc: "She gets a beautiful link with the full plan & can RSVP" },
             ].map((item, i) => (
               <motion.div

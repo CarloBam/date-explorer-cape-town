@@ -61,7 +61,7 @@ export function DateMap({ activities }: DateMapProps) {
               {i + 1}
             </span>
             <span className="text-foreground">{a.name}</span>
-            <span className="text-muted-foreground text-xs">— {a.area}</span>
+            <span className="text-muted-foreground text-xs">({a.area})</span>
           </div>
         ))}
       </div>

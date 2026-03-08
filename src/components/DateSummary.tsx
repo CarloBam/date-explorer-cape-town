@@ -114,7 +114,7 @@ export function DateSummary() {
               <div className="mt-3 flex items-center gap-2 rounded-lg bg-accent/15 px-3 py-2 text-sm font-medium text-accent-foreground">
                 <PartyPopper className="h-4 w-4 text-primary shrink-0" />
                 <span>
-                  {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} — expect busier spots!
+                  {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} expect busier spots!
                 </span>
               </div>
             )}
@@ -212,7 +212,7 @@ export function DateSummary() {
                       </>
                     ) : (
                       <>
-                        🚕 {getDistanceBetween(activity.area, activities[index + 1].area)} km — Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, activities[index + 1].area))}
+                        🚕 {getDistanceBetween(activity.area, activities[index + 1].area)} km, Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, activities[index + 1].area))}
                       </>
                     )}
                   </div>

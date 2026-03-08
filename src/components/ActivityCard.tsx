@@ -128,7 +128,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
                   <div className="flex items-center gap-1.5 mb-3">
                     <MessageSquare className="h-4 w-4 text-primary" />
                     <span className="text-sm font-semibold text-foreground">What people are saying</span>
-                    <span className="text-xs text-muted-foreground">— from Google Maps</span>
+                    <span className="text-xs text-muted-foreground">from Google Maps</span>
                   </div>
                   <div className="space-y-3">
                     {activity.reviews.map((review, i) => (
@@ -237,7 +237,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
           className="border-t border-border bg-muted/50 px-5 py-3"
         >
           <p className="mb-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            Nearby — easy to combine!
+            Nearby, easy to combine!
           </p>
           {nearby.map(n => (
             <NearbyRow key={n.id} activity={n} />

@@ -18,15 +18,15 @@ function isSpecialOccasion(date?: Date): boolean {
 
 const generalTips = [
   { emoji: "🎧", tip: "Make a playlist of songs she likes and play it during the drive or walk" },
-  { emoji: "📱", tip: "Put your phone on silent — be fully present" },
+  { emoji: "📱", tip: "Put your phone on silent. Be fully present" },
   { emoji: "👃", tip: "Smell good! A little cologne goes a long way" },
   { emoji: "👂", tip: "Ask open-ended questions and actually listen to her answers" },
-  { emoji: "😄", tip: "Compliment something specific — her laugh, her style, her energy" },
+  { emoji: "😄", tip: "Compliment something specific: her laugh, her style, her energy" },
   { emoji: "🚗", tip: "Arrive on time or 5 min early. First impressions matter" },
-  { emoji: "💡", tip: "Have a backup plan if something falls through — she'll appreciate your flexibility" },
-  { emoji: "📸", tip: "Take a sneaky photo of her smiling — send it to her after the date" },
+  { emoji: "💡", tip: "Have a backup plan if something falls through. She'll appreciate your flexibility" },
+  { emoji: "📸", tip: "Take a sneaky photo of her smiling and send it to her after the date" },
   { emoji: "🌹", tip: "If you know her favourite flower, bring one stem. Simple but powerful" },
-  { emoji: "🧥", tip: "Bring an extra jacket in case she gets cold — instant hero move" },
+  { emoji: "🧥", tip: "Bring an extra jacket in case she gets cold. Instant hero move" },
 ];
 
 function getActivityTips(activities: Activity[]): { activity: string; emoji: string; tips: string[] }[] {
@@ -51,7 +51,7 @@ function getActivityTips(activities: Activity[]): { activity: string; emoji: str
     if (a.category === "mountain" || a.tags.includes("nature")) {
       tips.push("Wear comfortable walking/hiking shoes");
       tips.push("Bring water and a light snack");
-      tips.push("Check the weather — layers are your friend");
+      tips.push("Check the weather. Layers are your friend");
     }
 
     if (a.category === "food" || a.tags.includes("food")) {
@@ -74,11 +74,11 @@ function getActivityTips(activities: Activity[]): { activity: string; emoji: str
 
     if (a.category === "adventure") {
       tips.push("Wear clothes you can move in");
-      tips.push("Check booking requirements — many need advance reservation");
+      tips.push("Check booking requirements, many need advance reservation");
     }
 
     if (a.category === "coffee") {
-      tips.push("Try something she hasn't had before — ask the barista for recommendations");
+      tips.push("Try something she hasn't had before. Ask the barista for recommendations");
     }
 
     if (tips.length > 0) {
@@ -186,7 +186,7 @@ export function DateTips({ activities, scheduledDate }: DateTipsProps) {
         </AnimatePresence>
       </div>
 
-      {/* Love letter option — only for dates a week+ away */}
+      {/* Love letter option, only for dates a week+ away */}
       {showLoveLetterOption && (
         <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
           <button

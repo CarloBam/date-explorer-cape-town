@@ -178,7 +178,7 @@ export function ActivityBrowser() {
               <div className="mb-2 rounded-lg bg-ocean-light/50 border border-secondary/20 px-4 py-3">
                 <p className="text-sm font-medium text-foreground flex items-center gap-1">
                   <Star className="h-4 w-4 text-accent" />
-                  Curated picks based on her vibe — activities with ⭐ are great matches!
+                  Curated picks based on her vibe. Activities with ⭐ are great matches!
                 </p>
               </div>
             )}
