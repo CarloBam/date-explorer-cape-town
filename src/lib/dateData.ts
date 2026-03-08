@@ -328,7 +328,7 @@ export function getDistanceBetween(area1: string, area2: string): number {
   return areaDistances[area1]?.[area2] ?? 0;
 }
 
-export function calculatePetrolCost(distanceKm: number, pricePerLitre: number = 23.5, consumption: number = 8): number {
+export function calculatePetrolCost(distanceKm: number, pricePerLitre: number = 19.47, consumption: number = 8): number {
   return Math.round((distanceKm / 100) * consumption * pricePerLitre);
 }
 

@@ -21,6 +21,16 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/80" />
       </div>
 
+      {/* User bar */}
+      {user && (
+        <div className="absolute top-4 right-4 z-20 flex items-center gap-3">
+          <span className="text-sm text-primary-foreground/70">{user.email}</span>
+          <Button variant="ghost" size="sm" onClick={signOut} className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 gap-1">
+            <LogOut className="h-4 w-4" /> Sign Out
+          </Button>
+        </div>
+      )}
+
       {/* Content */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center">
         <motion.div
