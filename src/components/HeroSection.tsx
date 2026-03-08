@@ -71,7 +71,7 @@ export function HeroSection() {
             </h1>
 
             <p className="mb-4 font-body text-lg text-primary-foreground/80 md:text-xl">
-              Plan a date she'll love — then send her a beautiful invite
+              Plan a date she'll love, then send her a beautiful invite
               with activities, a map, and everything sorted.
             </p>
 
