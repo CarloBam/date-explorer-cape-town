@@ -40,7 +40,7 @@ export function DateCart() {
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
+    <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden flex flex-col max-h-[calc(100vh-12rem)]">
       {/* Header */}
       <div className="gradient-sunset px-5 py-4">
         <div className="flex items-center justify-between">
@@ -58,7 +58,7 @@ export function DateCart() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="date-plan">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className="p-3">
+            <div ref={provided.innerRef} {...provided.droppableProps} className="p-3 overflow-y-auto flex-1">
               <AnimatePresence>
                 {activities.map((activity, index) => (
                   <Draggable key={activity.id} draggableId={activity.id} index={index}>
