@@ -186,6 +186,7 @@ export const activities: Activity[] = [
     category: "culture",
     area: "V&A Waterfront",
     estimatedCost: 500,
+    costMax: 600,
     durationMin: 90,
     duration: "90 min",
     description: "Explore the wonders of the Atlantic and Indian Oceans. Perfect for a unique, memorable date.",
