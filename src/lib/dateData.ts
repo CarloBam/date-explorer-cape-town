@@ -694,6 +694,7 @@ export const activities: Activity[] = [
     category: "chill",
     area: "Kalk Bay",
     estimatedCost: 200,
+    costMax: 400,
     durationMin: 90,
     duration: "90 min",
     description: "Browse antique shops, art galleries, and quirky bookstores in this charming seaside village. Grab fish & chips at Kalky's!",
