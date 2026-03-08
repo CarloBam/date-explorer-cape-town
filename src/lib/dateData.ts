@@ -500,6 +500,7 @@ export const activities: Activity[] = [
     rating: 4.8,
     requiresCar: false,
     websiteUrl: "https://www.truthcoffee.com",
+    menuUrl: "https://www.truthcoffee.com/pages/menu",
   },
   {
     id: "rooftop-shift",
