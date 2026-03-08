@@ -239,7 +239,7 @@ export default function SharedDateView() {
           {holidays.length > 0 && (
             <div className="mb-4 flex items-center gap-2 rounded-xl bg-accent/15 px-4 py-3 text-sm font-medium text-accent-foreground">
               <PartyPopper className="h-4 w-4 text-primary shrink-0" />
-              {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} — expect busier spots!
+              {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} expect busier spots!
             </div>
           )}
 
