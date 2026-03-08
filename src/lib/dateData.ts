@@ -671,6 +671,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Kalk Bay",
     estimatedCost: 1200,
+    costMax: 1800,
     durationMin: 120,
     duration: "2 hours",
     description: "Upscale seafood right on the ocean. Waves literally crash against the windows. One of Cape Town's most romantic restaurants.",
