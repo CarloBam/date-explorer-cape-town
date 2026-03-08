@@ -168,7 +168,7 @@ export function ActivityBrowser() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 pb-36 lg:pb-6">
         <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
           {/* Activity list */}
           <div className="space-y-4">
@@ -193,12 +193,15 @@ export function ActivityBrowser() {
             ))}
           </div>
 
-          {/* Cart sidebar */}
-          <div className="lg:sticky lg:top-40 lg:self-start">
+          {/* Cart sidebar — desktop only */}
+          <div className="hidden lg:block lg:sticky lg:top-40 lg:self-start">
             <DateCart />
           </div>
         </div>
       </div>
+
+      {/* Mobile sticky cart bar */}
+      <MobileCartBar />
     </div>
   );
 }
