@@ -126,9 +126,9 @@ export function DateCart() {
       <div className="border-t border-border bg-muted/30 p-4 space-y-2">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground flex items-center gap-1">
-            <Receipt className="h-3.5 w-3.5" /> Activities
+            <Receipt className="h-3.5 w-3.5" /> Activities {pricingMode === "per-person" ? "(pp)" : "(×2)"}
           </span>
-          <span className="font-semibold text-foreground">R{totalCost}</span>
+          <span className="font-semibold text-foreground">R{pricingMode === "per-person" ? Math.round(totalCost / 2) : totalCost}</span>
         </div>
 
         {totalDistance > 0 && (
