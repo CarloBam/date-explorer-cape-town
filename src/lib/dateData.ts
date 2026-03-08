@@ -304,6 +304,10 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: true,
     prepTips: ["Bring a blanket and cushion", "Pack a bottle of wine/bubbly and glasses", "Arrive 45 min before sunset for a good spot", "Bring a Bluetooth speaker for soft music"],
+    reviews: [
+      { author: "Marco F.", rating: 5, text: "Best free date in Cape Town. We brought wine, cheese, and a blanket. Watched the sun go down with the city lights coming on. Pure magic.", timeAgo: "4 days ago" },
+      { author: "Zanele K.", rating: 5, text: "My boyfriend surprised me here with a picnic. The views are insane! Get there early.", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "lions-head",
