@@ -234,6 +234,7 @@ export const activities: Activity[] = [
     category: "culture",
     area: "V&A Waterfront",
     estimatedCost: 460,
+    costMax: 500,
     durationMin: 90,
     duration: "90 min",
     description: "Africa's largest contemporary art museum in a stunning converted grain silo. Thought-provoking and inspiring.",
