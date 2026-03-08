@@ -805,6 +805,7 @@ export const activities: Activity[] = [
     category: "dessert",
     area: "CBD",
     estimatedCost: 240,
+    costMax: 360,
     durationMin: 45,
     duration: "45 min",
     description: "Bean-to-bar chocolate in a cozy courtyard café. Try the hot chocolate and truffles — pure indulgence.",
