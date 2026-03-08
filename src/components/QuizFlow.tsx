@@ -87,9 +87,19 @@ export function QuizFlow() {
             <span>R2,000</span>
           </div>
 
-          <Button variant="hero" size="lg" onClick={handleFinish} className="px-10">
-            Find Activities <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <div className="flex flex-col items-center gap-3">
+            <Button variant="hero" size="lg" onClick={handleFinish} className="px-10">
+              Find Activities <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowDescribe(true)}
+              className="gap-1.5 text-muted-foreground"
+            >
+              <Mic className="h-4 w-4" /> Want to describe her? (optional)
+            </Button>
+          </div>
         </motion.div>
       </div>
     );
