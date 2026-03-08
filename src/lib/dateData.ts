@@ -24,6 +24,7 @@ export interface QuizAnswer {
   setting: "beach" | "mountains" | "city";
   vibe: "nature" | "culture" | "spontaneous" | "romantic";
   energy: "chill" | "active" | "mix";
+  stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "long-term";
   food: "coffee" | "restaurant" | "street-food";
   time: "morning" | "afternoon" | "evening" | "fullday";
   hasCar: boolean;
@@ -31,6 +32,17 @@ export interface QuizAnswer {
 }
 
 export const quizQuestions = [
+  {
+    id: "stage",
+    question: "Where are you in the journey?",
+    subtitle: "This helps us set the right tone",
+    options: [
+      { value: "first-date", label: "First Date", emoji: "🦋", description: "Making that first impression" },
+      { value: "early-dating", label: "Still Early Days", emoji: "🌱", description: "A few dates in, still getting to know each other" },
+      { value: "relationship", label: "In a Relationship", emoji: "💑", description: "Official & looking to keep the spark alive" },
+      { value: "anniversary", label: "Anniversary / Special", emoji: "🥂", description: "Celebrating a milestone together" },
+    ],
+  },
   {
     id: "personality",
     question: "What's she like?",
@@ -880,6 +892,158 @@ export const activities: Activity[] = [
     rating: 4.5,
     requiresCar: true,
   },
+
+  // ─── SPA & PAMPERING ───
+  {
+    id: "couples-spa",
+    name: "Couples Spa Treatment",
+    category: "chill",
+    area: "V&A Waterfront",
+    estimatedCost: 2400,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Side-by-side massages, hot stone therapy, and relaxation in a luxury setting. The ultimate pampering date.",
+    vibe: ["romantic", "chill", "introvert"],
+    tags: ["romantic", "luxury", "indoor"],
+    image: "💆",
+    rating: 4.8,
+    requiresCar: false,
+    websiteUrl: "https://www.onespagroup.co.za",
+    menuUrl: "https://www.onespagroup.co.za/treatments/",
+  },
+  {
+    id: "wellness-massage",
+    name: "Hot Stone Couples Massage",
+    category: "chill",
+    area: "Camps Bay",
+    estimatedCost: 1800,
+    durationMin: 90,
+    duration: "90 min",
+    description: "Relaxing hot stone massage for two with ocean views. Includes welcome drinks and a relaxation lounge.",
+    vibe: ["romantic", "chill"],
+    tags: ["romantic", "luxury", "indoor"],
+    image: "🧖",
+    rating: 4.7,
+    requiresCar: false,
+    websiteUrl: "https://www.12apostleshotel.com/spa",
+  },
+
+  // ─── CHOCOLATE & SWEET EXPERIENCES ───
+  {
+    id: "chocolate-tasting",
+    name: "Chocolate Tasting Experience",
+    category: "dessert",
+    area: "Constantia",
+    estimatedCost: 400,
+    durationMin: 75,
+    duration: "75 min",
+    description: "Guided bean-to-bar chocolate tasting at a boutique chocolatier. Learn to pair chocolate with wine. Sweet and sophisticated!",
+    vibe: ["romantic", "introvert", "chill"],
+    tags: ["dessert", "romantic", "culture", "indoor"],
+    image: "🍫",
+    rating: 4.6,
+    requiresCar: true,
+    websiteUrl: "https://www.belgianchocolate.co.za",
+  },
+
+  // ─── MORE ROMANTIC ACTIVITIES ───
+  {
+    id: "pottery-class",
+    name: "Couples Pottery Class",
+    category: "culture",
+    area: "Woodstock",
+    estimatedCost: 700,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Get your hands dirty together making pottery. Think Ghost movie vibes! Great for laughs and a unique keepsake.",
+    vibe: ["romantic", "chill", "introvert"],
+    tags: ["culture", "romantic", "fun", "indoor"],
+    image: "🏺",
+    rating: 4.5,
+    requiresCar: false,
+    websiteUrl: "https://www.theceramicstudio.co.za",
+  },
+  {
+    id: "horse-riding",
+    name: "Beach Horse Riding",
+    category: "adventure",
+    area: "Noordhoek",
+    estimatedCost: 1400,
+    durationMin: 90,
+    duration: "90 min",
+    description: "Ride horses along Noordhoek's wild beach at sunset. Incredibly romantic and unforgettable. No experience needed!",
+    vibe: ["romantic", "adventurous"],
+    tags: ["adventure", "romantic", "nature", "scenic"],
+    image: "🐴",
+    rating: 4.9,
+    requiresCar: true,
+    websiteUrl: "https://www.horseridingcapetown.co.za",
+    prepTips: ["Wear long pants and closed shoes", "Book the sunset ride for maximum romance", "Bring a camera — the photos are incredible"],
+  },
+  {
+    id: "stargazing",
+    name: "Stargazing Experience",
+    category: "scenic",
+    area: "Cape Point",
+    estimatedCost: 600,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Guided stargazing away from city lights. Learn constellations together under the Southern Hemisphere sky. Magical!",
+    vibe: ["romantic", "introvert", "chill"],
+    tags: ["romantic", "nature", "scenic"],
+    image: "🌌",
+    rating: 4.7,
+    requiresCar: true,
+    prepTips: ["Bring warm blankets — it gets cold at night", "Pack hot chocolate in a thermos", "Check moon phase — less moon = more stars"],
+  },
+  {
+    id: "paint-sip",
+    name: "Paint & Sip Night",
+    category: "culture",
+    area: "De Waterkant",
+    estimatedCost: 700,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Paint a masterpiece together while sipping wine. No art skills needed — just fun, laughs, and a canvas to take home.",
+    vibe: ["extrovert", "romantic", "chill"],
+    tags: ["culture", "fun", "romantic", "indoor"],
+    image: "🎨",
+    rating: 4.4,
+    requiresCar: false,
+    websiteUrl: "https://www.paintsipct.co.za",
+  },
+  {
+    id: "helicopter-tour",
+    name: "Helicopter Scenic Flight",
+    category: "adventure",
+    area: "V&A Waterfront",
+    estimatedCost: 4500,
+    durationMin: 20,
+    duration: "20 min",
+    description: "Fly over Table Mountain, the Twelve Apostles, and Camps Bay. The ultimate wow-factor date for a special occasion.",
+    vibe: ["adventurous", "romantic"],
+    tags: ["adventure", "scenic", "luxury"],
+    image: "🚁",
+    rating: 4.9,
+    requiresCar: false,
+    websiteUrl: "https://www.nachelicopters.co.za",
+  },
+  {
+    id: "flower-market",
+    name: "Flower Market & Bouquet",
+    category: "chill",
+    area: "CBD",
+    estimatedCost: 200,
+    durationMin: 30,
+    duration: "30 min",
+    description: "Pick out fresh flowers together at Adderley Street's famous flower market. A sweet, thoughtful touch to any date.",
+    vibe: ["romantic", "chill"],
+    tags: ["romantic", "fun"],
+    image: "💐",
+    rating: 4.3,
+    requiresCar: false,
+    prepTips: ["Go early for the best selection", "Ask her favourite colour — pick flowers to match", "If you're brave, surprise her with a pre-made bouquet"],
+  },
 ];
 
 // Point-based scoring algorithm
@@ -909,6 +1073,15 @@ export function scoreActivity(activity: Activity, answers: Partial<QuizAnswer>):
     if (answers.vibe === "culture" && activity.tags.includes("culture")) score += 2;
     if (answers.vibe === "spontaneous" && activity.tags.includes("fun")) score += 2;
     if (answers.vibe === "romantic" && activity.tags.includes("romantic")) score += 2;
+  }
+
+  // Stage-based scoring
+  if (answers.stage) {
+    if (answers.stage === "first-date" && activity.tags.includes("fun")) score += 2;
+    if (answers.stage === "early-dating" && activity.tags.includes("romantic")) score += 1;
+    if (answers.stage === "relationship" && activity.tags.includes("romantic")) score += 2;
+    if (answers.stage === "anniversary" && activity.tags.includes("luxury")) score += 3;
+    if (answers.stage === "anniversary" && activity.tags.includes("romantic")) score += 2;
   }
 
   return score;
