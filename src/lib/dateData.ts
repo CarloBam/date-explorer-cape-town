@@ -581,6 +581,7 @@ export const activities: Activity[] = [
     category: "nightlife",
     area: "CBD",
     estimatedCost: 560,
+    costMax: 900,
     durationMin: 120,
     duration: "2 hours",
     description: "Craft cocktails with panoramic city views from a trendy rooftop. Perfect for a sunset start or nightcap.",
