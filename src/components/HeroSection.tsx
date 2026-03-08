@@ -132,7 +132,7 @@ export function HeroSection() {
               Plan a Date She'd <span className="text-gradient-sunset">Actually Love</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              No more "so where do you wanna go?" — show up with a plan.
+              No more "so where do you wanna go?" Show up with a plan.
             </p>
           </motion.div>
 
