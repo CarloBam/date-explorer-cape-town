@@ -25,6 +25,7 @@ interface DateContextType {
   pricingMode: PricingMode;
   setPricingMode: (mode: PricingMode) => void;
   getDisplayCost: (cost: number) => number;
+  getDisplayRange: (cost: number, costMax?: number) => string;
 }
 
 const DateContext = createContext<DateContextType | null>(null);
@@ -79,6 +80,14 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     return pricingMode === "per-person" ? Math.round(cost / 2) : cost;
   }, [pricingMode]);
 
+  const getDisplayRange = useCallback((cost: number, costMax?: number) => {
+    if (cost === 0) return "FREE";
+    const min = pricingMode === "per-person" ? Math.round(cost / 2) : cost;
+    if (!costMax || costMax === cost) return `R${min}`;
+    const max = pricingMode === "per-person" ? Math.round(costMax / 2) : costMax;
+    return `R${min} – R${max}`;
+  }, [pricingMode]);
+
   const totalCost = datePlan.activities.reduce((sum, a) => sum + a.estimatedCost, 0);
 
   const isInPlan = useCallback((id: string) => {
@@ -86,7 +95,7 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
   }, [datePlan.activities]);
 
   return (
-    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, setScheduledDate, totalCost, isInPlan, step, setStep, pricingMode, setPricingMode, getDisplayCost }}>
+    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, setScheduledDate, totalCost, isInPlan, step, setStep, pricingMode, setPricingMode, getDisplayCost, getDisplayRange }}>
       {children}
     </DateContext.Provider>
   );

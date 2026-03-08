@@ -10,7 +10,8 @@ export interface Activity {
   name: string;
   category: "beach" | "mountain" | "food" | "adventure" | "culture" | "nightlife" | "chill" | "scenic" | "coffee" | "dessert";
   area: string;
-  estimatedCost: number; // For 2 people
+  estimatedCost: number; // For 2 people (minimum)
+  costMax?: number; // Upper range for 2 people
   durationMin: number;
   duration: string;
   description: string;
@@ -185,6 +186,7 @@ export const activities: Activity[] = [
     category: "culture",
     area: "V&A Waterfront",
     estimatedCost: 500,
+    costMax: 600,
     durationMin: 90,
     duration: "90 min",
     description: "Explore the wonders of the Atlantic and Indian Oceans. Perfect for a unique, memorable date.",
@@ -208,6 +210,7 @@ export const activities: Activity[] = [
     category: "adventure",
     area: "V&A Waterfront",
     estimatedCost: 600,
+    costMax: 800,
     durationMin: 75,
     duration: "75 min",
     description: "Sail into the sunset with Table Mountain as your backdrop. Complimentary sparkling wine included.",
@@ -231,6 +234,7 @@ export const activities: Activity[] = [
     category: "culture",
     area: "V&A Waterfront",
     estimatedCost: 460,
+    costMax: 500,
     durationMin: 90,
     duration: "90 min",
     description: "Africa's largest contemporary art museum in a stunning converted grain silo. Thought-provoking and inspiring.",
@@ -253,6 +257,7 @@ export const activities: Activity[] = [
     category: "scenic",
     area: "V&A Waterfront",
     estimatedCost: 360,
+    costMax: 450,
     durationMin: 30,
     duration: "30 min",
     description: "Giant observation wheel with stunning harbour and mountain views. Extra romantic in the VIP gondola with bubbly!",
@@ -337,6 +342,7 @@ export const activities: Activity[] = [
     category: "mountain",
     area: "Southern Suburbs",
     estimatedCost: 500,
+    costMax: 650,
     durationMin: 150,
     duration: "2.5 hours",
     description: "World-class botanical gardens with the Boomslang tree canopy walkway. Pack a picnic for the ultimate date.",
@@ -360,6 +366,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Constantia",
     estimatedCost: 440,
+    costMax: 700,
     durationMin: 150,
     duration: "2.5 hours",
     description: "Historic wine estates in SA's oldest wine region. Tastings, cheese boards, and gorgeous gardens.",
@@ -551,6 +558,7 @@ export const activities: Activity[] = [
     category: "coffee",
     area: "CBD",
     estimatedCost: 260,
+    costMax: 400,
     durationMin: 75,
     duration: "75 min",
     description: "Voted best coffee shop in the world. Steampunk-themed interior with incredible coffee and conversation vibes.",
@@ -573,6 +581,7 @@ export const activities: Activity[] = [
     category: "nightlife",
     area: "CBD",
     estimatedCost: 560,
+    costMax: 900,
     durationMin: 120,
     duration: "2 hours",
     description: "Craft cocktails with panoramic city views from a trendy rooftop. Perfect for a sunset start or nightcap.",
@@ -603,6 +612,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Bo-Kaap",
     estimatedCost: 1700,
+    costMax: 2000,
     durationMin: 180,
     duration: "3 hours",
     description: "Learn to cook traditional Cape Malay dishes together in a local home. Includes the meal you make! Intimate and unique.",
@@ -625,6 +635,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "De Waterkant",
     estimatedCost: 500,
+    costMax: 700,
     durationMin: 90,
     duration: "90 min",
     description: "Fresh produce, artisan foods, and local crafts in a vibrant weekend market with harbour views.",
@@ -642,6 +653,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Woodstock",
     estimatedCost: 440,
+    costMax: 650,
     durationMin: 90,
     duration: "90 min",
     description: "Street food from around the world, craft vendors, and live music. Cape Town's favourite Saturday market.",
@@ -659,6 +671,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Kalk Bay",
     estimatedCost: 1200,
+    costMax: 1800,
     durationMin: 120,
     duration: "2 hours",
     description: "Upscale seafood right on the ocean. Waves literally crash against the windows. One of Cape Town's most romantic restaurants.",
@@ -681,6 +694,7 @@ export const activities: Activity[] = [
     category: "chill",
     area: "Kalk Bay",
     estimatedCost: 200,
+    costMax: 400,
     durationMin: 90,
     duration: "90 min",
     description: "Browse antique shops, art galleries, and quirky bookstores in this charming seaside village. Grab fish & chips at Kalky's!",
@@ -791,6 +805,7 @@ export const activities: Activity[] = [
     category: "dessert",
     area: "CBD",
     estimatedCost: 240,
+    costMax: 360,
     durationMin: 45,
     duration: "45 min",
     description: "Bean-to-bar chocolate in a cozy courtyard café. Try the hot chocolate and truffles — pure indulgence.",

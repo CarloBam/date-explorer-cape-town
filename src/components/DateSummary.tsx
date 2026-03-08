@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus, Info, Gift, Heart } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -257,6 +257,43 @@ export function DateSummary() {
             <div className={`flex justify-between text-sm mt-1 ${budget - grandTotal < 0 ? "text-destructive" : "text-secondary"}`}>
               <span>{budget - grandTotal >= 0 ? "✓ Budget remaining" : "⚠️ Over budget"}</span>
               <span className="font-bold">R{budget - grandTotal}</span>
+            </div>
+
+            {/* Price disclaimer */}
+            <div className="mt-4 flex items-start gap-2 rounded-lg bg-muted px-3 py-2.5 text-xs text-muted-foreground">
+              <Info className="h-4 w-4 shrink-0 mt-0.5 text-primary" />
+              <span>
+                Prices shown are estimates for two people. Actual costs may vary depending on what you order, seasonal pricing, and availability. We recommend checking each venue's website or menu for the latest prices before your date.
+              </span>
+            </div>
+          </div>
+
+          {/* Surprise Extras */}
+          <div className="mt-6 rounded-xl border border-border bg-card p-5 shadow-card">
+            <h3 className="font-display text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+              <Gift className="h-5 w-5 text-primary" /> Surprise Extras
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4">Little touches that make the date unforgettable</p>
+            <div className="grid gap-3">
+              {[
+                { emoji: "💐", title: "Fresh flowers", desc: "Pick up a small bouquet from a florist on the way. R80–R200", tag: "Classic" },
+                { emoji: "🍫", title: "Artisan chocolates", desc: "A box of local chocolates to share during the date. R60–R150", tag: "Sweet" },
+                { emoji: "🎵", title: "Custom playlist", desc: "Make a Spotify playlist of songs she loves. Share the QR code with her", tag: "Thoughtful" },
+                { emoji: "💌", title: "Handwritten note", desc: "Write her a short letter or card before you meet up", tag: "Personal" },
+                { emoji: "📸", title: "Disposable camera", desc: "Bring one to capture candid moments together. R150–R250", tag: "Fun" },
+                { emoji: "🧴", title: "Mini pamper kit", desc: "Face mask, lip balm, and a scented candle for after the date. R100–R200", tag: "Caring" },
+              ].map((extra, i) => (
+                <div key={i} className="flex items-start gap-3 rounded-lg bg-muted/50 p-3">
+                  <span className="text-2xl">{extra.emoji}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-foreground">{extra.title}</span>
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">{extra.tag}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">{extra.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

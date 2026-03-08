@@ -228,10 +228,13 @@ export default function SharedDateView() {
               </p>
             )}
             {dateData.date_scheduled && (
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-foreground">
-                <CalendarIcon className="h-4 w-4 text-primary" />
-                {format(new Date(dateData.date_scheduled), "EEEE, d MMMM yyyy")}
-              </div>
+              <>
+                <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-foreground">
+                  <CalendarIcon className="h-4 w-4 text-primary" />
+                  {format(new Date(dateData.date_scheduled), "EEEE, d MMMM yyyy")}
+                </div>
+                <CountdownTimer targetDate={new Date(dateData.date_scheduled)} />
+              </>
             )}
           </div>
 
@@ -480,4 +483,51 @@ export default function SharedDateView() {
       </div>
     </div>
   );
+}
+
+function CountdownTimer({ targetDate }: { targetDate: Date }) {
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft(targetDate));
+
+  useEffect(() => {
+    const timer = setInterval(() => setTimeLeft(getTimeLeft(targetDate)), 1000);
+    return () => clearInterval(timer);
+  }, [targetDate]);
+
+  if (timeLeft.total <= 0) {
+    return (
+      <div className="mt-3 text-sm font-medium text-primary">
+        ✨ Today's the day! Have an amazing date ✨
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-4 flex items-center justify-center gap-3">
+      {[
+        { value: timeLeft.days, label: "days" },
+        { value: timeLeft.hours, label: "hrs" },
+        { value: timeLeft.minutes, label: "min" },
+        { value: timeLeft.seconds, label: "sec" },
+      ].map((unit) => (
+        <div key={unit.label} className="flex flex-col items-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 font-display text-xl font-bold text-foreground">
+            {String(unit.value).padStart(2, "0")}
+          </div>
+          <span className="mt-1 text-xs text-muted-foreground">{unit.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function getTimeLeft(target: Date) {
+  const now = new Date();
+  const total = target.getTime() - now.getTime();
+  return {
+    total,
+    days: Math.max(0, Math.floor(total / (1000 * 60 * 60 * 24))),
+    hours: Math.max(0, Math.floor((total / (1000 * 60 * 60)) % 24)),
+    minutes: Math.max(0, Math.floor((total / (1000 * 60)) % 60)),
+    seconds: Math.max(0, Math.floor((total / 1000) % 60)),
+  };
 }
