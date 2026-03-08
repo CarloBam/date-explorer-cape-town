@@ -79,6 +79,14 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     return pricingMode === "per-person" ? Math.round(cost / 2) : cost;
   }, [pricingMode]);
 
+  const getDisplayRange = useCallback((cost: number, costMax?: number) => {
+    if (cost === 0) return "FREE";
+    const min = pricingMode === "per-person" ? Math.round(cost / 2) : cost;
+    if (!costMax || costMax === cost) return `R${min}`;
+    const max = pricingMode === "per-person" ? Math.round(costMax / 2) : costMax;
+    return `R${min} – R${max}`;
+  }, [pricingMode]);
+
   const totalCost = datePlan.activities.reduce((sum, a) => sum + a.estimatedCost, 0);
 
   const isInPlan = useCallback((id: string) => {
