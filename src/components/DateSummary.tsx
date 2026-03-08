@@ -21,6 +21,15 @@ export function DateSummary() {
   const [showShare, setShowShare] = useState(false);
   const { activities, budget, scheduledDate } = datePlan;
   const hasCar = datePlan.quizAnswers.hasCar !== false;
+  
+  // Adjustable prices per activity
+  const [priceOverrides, setPriceOverrides] = useState<Record<string, number>>({});
+  
+  const getActivityCost = (a: { id: string; estimatedCost: number }) => {
+    return priceOverrides[a.id] ?? a.estimatedCost;
+  };
+  
+  const adjustedTotalCost = activities.reduce((sum, a) => sum + getActivityCost(a), 0);
 
   const [forecast, setForecast] = useState<ForecastData | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
