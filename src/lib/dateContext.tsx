@@ -64,6 +64,10 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     setDatePlan(prev => ({ ...prev, quizAnswers: { ...prev.quizAnswers, ...answers } }));
   }, []);
 
+  const setScheduledDate = useCallback((date: Date | undefined) => {
+    setDatePlan(prev => ({ ...prev, scheduledDate: date }));
+  }, []);
+
   const totalCost = datePlan.activities.reduce((sum, a) => sum + a.estimatedCost, 0);
 
   const isInPlan = useCallback((id: string) => {
