@@ -371,6 +371,10 @@ export const activities: Activity[] = [
     requiresCar: true,
     websiteUrl: "https://www.grootconstantia.co.za",
     menuUrl: "https://www.grootconstantia.co.za/simons-restaurant/",
+    reviews: [
+      { author: "André P.", rating: 5, text: "Groot Constantia never disappoints. The wine tasting is excellent value and the grounds are beautiful for a stroll afterwards.", timeAgo: "1 week ago" },
+      { author: "Michelle D.", rating: 4, text: "We did the wine and chocolate pairing — amazing! The estate is gorgeous for photos.", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "newlands-forest",
