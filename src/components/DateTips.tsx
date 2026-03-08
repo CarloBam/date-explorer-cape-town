@@ -21,7 +21,7 @@ const generalTips = [
   { emoji: "📱", tip: "Put your phone on silent. Be fully present" },
   { emoji: "👃", tip: "Smell good! A little cologne goes a long way" },
   { emoji: "👂", tip: "Ask open-ended questions and actually listen to her answers" },
-  { emoji: "😄", tip: "Compliment something specific — her laugh, her style, her energy" },
+  { emoji: "😄", tip: "Compliment something specific: her laugh, her style, her energy" },
   { emoji: "🚗", tip: "Arrive on time or 5 min early. First impressions matter" },
   { emoji: "💡", tip: "Have a backup plan if something falls through — she'll appreciate your flexibility" },
   { emoji: "📸", tip: "Take a sneaky photo of her smiling — send it to her after the date" },
