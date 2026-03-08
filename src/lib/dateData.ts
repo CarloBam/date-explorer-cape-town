@@ -283,6 +283,11 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     websiteUrl: "https://www.tablemountain.net",
+    reviews: [
+      { author: "Anna B.", rating: 5, text: "A MUST DO! The views from the top are breathtaking. We stayed for 2 hours just taking it all in. Book online to skip the queue!", timeAgo: "1 week ago" },
+      { author: "Kagiso M.", rating: 5, text: "Took my girlfriend for her birthday. She cried happy tears at the top. Best date ever.", timeAgo: "3 weeks ago" },
+      { author: "Sarah W.", rating: 4, text: "Go on a clear day! We went when it was cloudy and couldn't see much. But when it's clear — absolutely magical.", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "signal-hill",
