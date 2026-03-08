@@ -1,12 +1,15 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
 import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
+import { ShareDateModal } from "@/components/ShareDateModal";
 
 export function DateSummary() {
   const { datePlan, totalCost, setStep } = useDatePlan();
+  const [showShare, setShowShare] = useState(false);
   const { activities, budget } = datePlan;
   const hasCar = datePlan.quizAnswers.hasCar !== false;
 
@@ -144,7 +147,7 @@ export function DateSummary() {
 
           {/* Share button */}
           <div className="mt-6 flex gap-3">
-            <Button variant="hero" className="flex-1 gap-2">
+            <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
               <Share2 className="h-4 w-4" /> Share Date Plan
             </Button>
             <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
@@ -153,6 +156,19 @@ export function DateSummary() {
           </div>
         </motion.div>
       </div>
+
+      {/* Share modal */}
+      <AnimatePresence>
+        {showShare && (
+          <ShareDateModal
+            activities={activities}
+            budget={budget}
+            totalCost={totalCost}
+            quizAnswers={datePlan.quizAnswers}
+            onClose={() => setShowShare(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -77,12 +77,17 @@ export type Database = {
       saved_dates: {
         Row: {
           activities: Json
+          allow_customise: boolean
           budget: number
           created_at: string
+          customised_activities: Json | null
+          date_response: string | null
           date_scheduled: string | null
+          girl_name: string | null
           girl_profile_id: string | null
           id: string
           quiz_answers: Json | null
+          response_message: string | null
           share_expires_at: string | null
           share_token: string | null
           title: string
@@ -92,12 +97,17 @@ export type Database = {
         }
         Insert: {
           activities?: Json
+          allow_customise?: boolean
           budget?: number
           created_at?: string
+          customised_activities?: Json | null
+          date_response?: string | null
           date_scheduled?: string | null
+          girl_name?: string | null
           girl_profile_id?: string | null
           id?: string
           quiz_answers?: Json | null
+          response_message?: string | null
           share_expires_at?: string | null
           share_token?: string | null
           title: string
@@ -107,12 +117,17 @@ export type Database = {
         }
         Update: {
           activities?: Json
+          allow_customise?: boolean
           budget?: number
           created_at?: string
+          customised_activities?: Json | null
+          date_response?: string | null
           date_scheduled?: string | null
+          girl_name?: string | null
           girl_profile_id?: string | null
           id?: string
           quiz_answers?: Json | null
+          response_message?: string | null
           share_expires_at?: string | null
           share_token?: string | null
           title?: string
