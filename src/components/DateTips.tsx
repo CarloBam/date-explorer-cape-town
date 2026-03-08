@@ -26,7 +26,7 @@ const generalTips = [
   { emoji: "💡", tip: "Have a backup plan if something falls through. She'll appreciate your flexibility" },
   { emoji: "📸", tip: "Take a sneaky photo of her smiling and send it to her after the date" },
   { emoji: "🌹", tip: "If you know her favourite flower, bring one stem. Simple but powerful" },
-  { emoji: "🧥", tip: "Bring an extra jacket in case she gets cold — instant hero move" },
+  { emoji: "🧥", tip: "Bring an extra jacket in case she gets cold. Instant hero move" },
 ];
 
 function getActivityTips(activities: Activity[]): { activity: string; emoji: string; tips: string[] }[] {
