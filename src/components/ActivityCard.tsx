@@ -99,7 +99,18 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
 
       {/* Action area */}
       <div className="flex items-center justify-between border-t border-border px-5 py-3">
-        {nearby.length > 0 && showNearby && (
+        <div className="flex items-center gap-3">
+          {activity.websiteUrl && (
+            <a
+              href={activity.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <ExternalLink className="h-3 w-3" /> Book / Info
+            </a>
+          )}
+          {nearby.length > 0 && showNearby && (
           <button
             onClick={() => setShowNearbyList(!showNearbyList)}
             className="flex items-center gap-1 text-xs font-medium text-secondary hover:text-secondary/80 transition-colors"
