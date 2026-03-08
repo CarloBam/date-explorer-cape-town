@@ -343,6 +343,16 @@ export function DateSummary() {
                 Prices shown are estimates for two people. Adjust sliders to match what you expect to spend at each venue.
               </span>
             </div>
+
+            {/* Send invite + edit right after cost */}
+            <div className="mt-4 flex gap-3">
+              <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
+                <Share2 className="h-4 w-4" /> Send Date Invite
+              </Button>
+              <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
+                Edit Plan
+              </Button>
+            </div>
           </div>
 
           {/* Surprise Extras */}
