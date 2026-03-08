@@ -119,7 +119,9 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
             <ChevronRight className={`h-3.5 w-3.5 transition-transform ${showNearbyList ? "rotate-90" : ""}`} />
           </button>
         )}
-        {!nearby.length && <div />}
+          )}
+        </div>
+        {!nearby.length && !activity.websiteUrl && <div />}
 
         <Button
           variant={inPlan ? "outline" : "add-to-date"}
