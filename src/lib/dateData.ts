@@ -30,7 +30,7 @@ export interface Activity {
 
 export interface QuizAnswer {
   personality: "introvert" | "extrovert" | "ambivert";
-  setting: "beach" | "mountains" | "city";
+  setting: "beach" | "mountains" | "city" | "waterfront";
   vibe: "nature" | "culture" | "spontaneous" | "romantic";
   energy: "chill" | "active" | "mix";
   stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "long-term";
