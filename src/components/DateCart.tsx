@@ -124,6 +124,23 @@ export function DateCart() {
 
       {/* Summary */}
       <div className="border-t border-border bg-muted/30 p-4 space-y-2">
+        {/* Total time */}
+        {activities.length > 0 && (
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5" /> Total time
+            </span>
+            <span className="font-semibold text-foreground">
+              ~{(() => {
+                const mins = activities.reduce((s, a) => s + a.durationMin, 0) + Math.max(0, activities.length - 1) * 10;
+                const h = Math.floor(mins / 60);
+                const m = mins % 60;
+                return h > 0 ? (m > 0 ? `${h}h ${m}min` : `${h}h`) : `${m} min`;
+              })()}
+            </span>
+          </div>
+        )}
+
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground flex items-center gap-1">
             <Receipt className="h-3.5 w-3.5" /> Activities {pricingMode === "per-person" ? "(pp)" : "(×2)"}
