@@ -10,7 +10,8 @@ export interface Activity {
   name: string;
   category: "beach" | "mountain" | "food" | "adventure" | "culture" | "nightlife" | "chill" | "scenic" | "coffee" | "dessert";
   area: string;
-  estimatedCost: number; // For 2 people
+  estimatedCost: number; // For 2 people (minimum)
+  costMax?: number; // Upper range for 2 people
   durationMin: number;
   duration: string;
   description: string;
