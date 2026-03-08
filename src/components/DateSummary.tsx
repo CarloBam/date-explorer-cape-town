@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus, Info, Gift, Heart } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
