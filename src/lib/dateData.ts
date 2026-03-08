@@ -342,6 +342,7 @@ export const activities: Activity[] = [
     category: "mountain",
     area: "Southern Suburbs",
     estimatedCost: 500,
+    costMax: 650,
     durationMin: 150,
     duration: "2.5 hours",
     description: "World-class botanical gardens with the Boomslang tree canopy walkway. Pack a picnic for the ultimate date.",
