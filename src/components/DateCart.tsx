@@ -6,7 +6,7 @@ import { useDatePlan } from "@/lib/dateContext";
 import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 
 export function DateCart() {
-  const { datePlan, removeActivity, reorderActivities, totalCost, setStep } = useDatePlan();
+  const { datePlan, removeActivity, reorderActivities, totalCost, setStep, getDisplayCost, pricingMode } = useDatePlan();
   const { activities, budget } = datePlan;
   const hasCar = datePlan.quizAnswers.hasCar !== false;
 
