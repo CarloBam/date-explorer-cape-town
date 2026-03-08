@@ -70,7 +70,8 @@ export const quizQuestions = [
       { value: "beach", label: "Beach & Ocean", emoji: "🏖️", description: "Waves, sand & salty air" },
       { value: "mountains", label: "Nature & Mountains", emoji: "⛰️", description: "Trails, wine farms & views" },
       { value: "city", label: "City & Culture", emoji: "🏙️", description: "Cafés, streets & buzzy spots" },
-      { value: "waterfront", label: "Waterfront & Harbour", emoji: "⚓", description: "Boats, sea views & shopping" },
+      { value: "winelands", label: "Winelands & Countryside", emoji: "🍇", description: "Wine estates, rolling hills & slow vibes" },
+      { value: "cozy-indoor", label: "Cozy & Indoor", emoji: "🕯️", description: "Coffee shops, galleries & intimate spots" },
     ],
   },
   {
