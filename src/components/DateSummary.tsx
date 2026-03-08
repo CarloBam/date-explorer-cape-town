@@ -279,7 +279,7 @@ export function DateSummary() {
                 variant="outline"
                 className="w-full gap-2"
                 onClick={() => downloadICS(
-                  datePlan.quizAnswers?.title || "Cape Town Date 💝",
+                  "Cape Town Date 💝",
                   scheduledDate,
                   activities
                 )}
