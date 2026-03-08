@@ -64,7 +64,8 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
 
       if (error) throw error;
 
-      const url = `${window.location.origin}/date/${token}`;
+      const safeName = userName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") || "someone";
+      const url = `${window.location.origin}/from/${safeName}/${token}`;
       setShareUrl(url);
       toast.success("Share link created! 🎉");
     } catch (err: any) {
