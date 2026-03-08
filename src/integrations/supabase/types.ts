@@ -14,7 +14,122 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      girl_profiles: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          personality: string | null
+          preferences: Json | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          personality?: string | null
+          preferences?: Json | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          personality?: string | null
+          preferences?: Json | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_dates: {
+        Row: {
+          activities: Json
+          budget: number
+          created_at: string
+          date_scheduled: string | null
+          girl_profile_id: string | null
+          id: string
+          quiz_answers: Json | null
+          share_expires_at: string | null
+          share_token: string | null
+          title: string
+          total_cost: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          activities?: Json
+          budget?: number
+          created_at?: string
+          date_scheduled?: string | null
+          girl_profile_id?: string | null
+          id?: string
+          quiz_answers?: Json | null
+          share_expires_at?: string | null
+          share_token?: string | null
+          title: string
+          total_cost?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          activities?: Json
+          budget?: number
+          created_at?: string
+          date_scheduled?: string | null
+          girl_profile_id?: string | null
+          id?: string
+          quiz_answers?: Json | null
+          share_expires_at?: string | null
+          share_token?: string | null
+          title?: string
+          total_cost?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_dates_girl_profile_id_fkey"
+            columns: ["girl_profile_id"]
+            isOneToOne: false
+            referencedRelation: "girl_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
