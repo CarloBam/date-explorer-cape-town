@@ -260,19 +260,41 @@ export function DateSummary() {
             </div>
           </div>
 
+          {/* Map */}
+          {activities.length > 0 && (
+            <div className="mt-6">
+              <DateMap activities={activities} />
+            </div>
+          )}
+
           {/* Tips section */}
           <div className="mt-6">
             <DateTips activities={activities} scheduledDate={scheduledDate} />
           </div>
 
-          {/* Share button */}
-          <div className="mt-6 flex gap-3">
-            <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
-              <Share2 className="h-4 w-4" /> Share Date Plan
-            </Button>
-            <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
-              Edit Plan
-            </Button>
+          {/* Calendar & Share buttons */}
+          <div className="mt-6 space-y-3">
+            {scheduledDate && (
+              <Button
+                variant="outline"
+                className="w-full gap-2"
+                onClick={() => downloadICS(
+                  datePlan.quizAnswers?.title || "Cape Town Date 💝",
+                  scheduledDate,
+                  activities
+                )}
+              >
+                <CalendarPlus className="h-4 w-4" /> Save to Calendar
+              </Button>
+            )}
+            <div className="flex gap-3">
+              <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
+                <Share2 className="h-4 w-4" /> Send Date Invite
+              </Button>
+              <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
+                Edit Plan
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>
