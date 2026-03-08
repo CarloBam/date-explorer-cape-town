@@ -23,7 +23,7 @@ const generalTips = [
   { emoji: "👂", tip: "Ask open-ended questions and actually listen to her answers" },
   { emoji: "😄", tip: "Compliment something specific: her laugh, her style, her energy" },
   { emoji: "🚗", tip: "Arrive on time or 5 min early. First impressions matter" },
-  { emoji: "💡", tip: "Have a backup plan if something falls through — she'll appreciate your flexibility" },
+  { emoji: "💡", tip: "Have a backup plan if something falls through. She'll appreciate your flexibility" },
   { emoji: "📸", tip: "Take a sneaky photo of her smiling — send it to her after the date" },
   { emoji: "🌹", tip: "If you know her favourite flower, bring one stem. Simple but powerful" },
   { emoji: "🧥", tip: "Bring an extra jacket in case she gets cold — instant hero move" },
