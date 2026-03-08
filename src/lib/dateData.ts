@@ -33,7 +33,7 @@ export interface QuizAnswer {
   setting: "beach" | "mountains" | "city" | "winelands" | "cozy-indoor";
   vibe: "nature" | "culture" | "spontaneous" | "romantic";
   energy: "chill" | "active" | "mix";
-  stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "long-term";
+  stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "birthday" | "long-term";
   food: "coffee" | "restaurant" | "street-food";
   time: "morning" | "afternoon" | "evening" | "fullday";
   hasCar: boolean;
@@ -50,6 +50,7 @@ export const quizQuestions = [
       { value: "early-dating", label: "Still Early Days", emoji: "🌱", description: "A few dates in, still getting to know each other" },
       { value: "relationship", label: "In a Relationship", emoji: "💑", description: "Official & looking to keep the spark alive" },
       { value: "anniversary", label: "Anniversary / Special", emoji: "🥂", description: "Celebrating a milestone together" },
+      { value: "birthday", label: "Plan Birthday Outing", emoji: "🎂", description: "Make their birthday unforgettable" },
     ],
   },
   {

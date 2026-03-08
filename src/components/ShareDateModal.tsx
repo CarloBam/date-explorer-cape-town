@@ -24,7 +24,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [title, setTitle] = useState("Our Cape Town Date 💝");
+  const [title, setTitle] = useState("");
   const [allowCustomise, setAllowCustomise] = useState(true);
 
   // Get user's display name from metadata
@@ -50,7 +50,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
 
       const { error } = await supabase.from("saved_dates").insert({
         user_id: user.id,
-        title,
+        title: title || "Date Plan",
         activities: activities.map(a => ({ id: a.id, name: a.name, area: a.area, estimatedCost: a.estimatedCost, duration: a.duration, image: a.image, description: a.description, deals: a.deals })),
         budget,
         total_cost: totalCost,
@@ -90,10 +90,11 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
   const shareWhatsApp = () => {
     if (!shareUrl) return;
     const customiseNote = allowCustomise ? "\n\n✏️ You can also propose changes to the plan if you'd like!" : "";
+    const titleText = title ? ` — "${title}"` : "";
     const message = encodeURIComponent(
-      `Hey! 💝\n\n${userName} would like to ask you to go on a date!${dateTimeText}\n\n🔗 Click here to see the activities planned for you:\n${shareUrl}${customiseNote}\n\n🤗🤗🤗`
+      `Hey! 💝\n\n${userName} would like to ask you to go on a date!${titleText}${dateTimeText}\n\n🔗 Click here to see the activities planned for you:\n${shareUrl}${customiseNote}\n\n🤗🤗🤗`
     );
-    window.open(`https://wa.me/?text=${message}`, "_blank");
+    window.open(`https://web.whatsapp.com/send?text=${message}`, "_blank");
   };
 
   const shareEmail = () => {
@@ -131,7 +132,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
               {/* Title */}
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">Date title</label>
-                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Our Cape Town Date" />
+                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Optional — e.g. Our Cape Town Date 💝" />
               </div>
 
               {/* Scheduled date display */}
