@@ -113,6 +113,12 @@ export function DateSummary() {
               Date Plan Ready!
             </h1>
             <p className="text-muted-foreground">Here's your curated Cape Town date</p>
+            {activities.length > 0 && (
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                <Clock className="h-4 w-4" />
+                Total time: ~{formatTotalTime(totalTimeMin)} (incl. travel)
+              </div>
+            )}
           </div>
 
           {/* Date Picker */}
