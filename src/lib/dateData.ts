@@ -599,6 +599,7 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: true,
     websiteUrl: "https://www.harbourhouse.co.za",
+    menuUrl: "https://www.harbourhouse.co.za/kalk-bay-menu/",
   },
   {
     id: "kalk-bay-stroll",
