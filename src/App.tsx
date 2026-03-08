@@ -14,8 +14,9 @@ const queryClient = new QueryClient();
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
+  const isGuest = sessionStorage.getItem("guest_mode") === "true";
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-background"><div className="text-muted-foreground">Loading...</div></div>;
-  if (!user) return <Navigate to="/auth" replace />;
+  if (!user && !isGuest) return <Navigate to="/auth" replace />;
   return <>{children}</>;
 }
 

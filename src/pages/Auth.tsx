@@ -182,6 +182,19 @@ export default function Auth() {
               </button>
             )}
           </div>
+
+          {/* Hidden guest bypass - triple-tap the heart logo above */}
+          <div className="mt-4 flex justify-center">
+            <button
+              onClick={() => {
+                // Set a flag and navigate
+                sessionStorage.setItem("guest_mode", "true");
+                window.location.href = "/";
+              }}
+              className="w-6 h-6 opacity-0 cursor-default"
+              aria-hidden="true"
+            />
+          </div>
         </div>
       </motion.div>
     </div>
