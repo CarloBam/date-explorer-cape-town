@@ -33,7 +33,7 @@ function getWindDirection(degrees: number): string {
 
 function getTip(weather: { windSpeed: number; weatherCode: number; temperature: number }): string {
   if (weather.windSpeed > 40) {
-    return "⚠️ Strong south-easter today — Table Mountain cables may close. Consider indoor activities!";
+    return "⚠️ Strong south-easter today. Table Mountain cables may close. Consider indoor activities!";
   }
   if (weather.weatherCode >= 60) {
     return "🌧️ Rain expected — skip outdoor activities or bring rain gear. Great day for museums & cafés!";
