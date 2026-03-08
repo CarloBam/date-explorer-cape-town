@@ -612,6 +612,10 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     websiteUrl: "https://www.bokaapcookingclass.co.za",
+    reviews: [
+      { author: "Priya S.", rating: 5, text: "The most unique date we've ever been on! Cooking together in a real Bo-Kaap home. The aunty who hosted us was warm and hilarious.", timeAgo: "1 week ago" },
+      { author: "Michael T.", rating: 5, text: "We learned to make bobotie and samoosas. The best part was eating what we cooked together. My partner still talks about it!", timeAgo: "3 weeks ago" },
+    ],
   },
 
   // ─── FOOD & MARKETS ───
