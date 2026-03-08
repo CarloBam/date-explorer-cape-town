@@ -111,14 +111,13 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
             </a>
           )}
           {nearby.length > 0 && showNearby && (
-          <button
-            onClick={() => setShowNearbyList(!showNearbyList)}
-            className="flex items-center gap-1 text-xs font-medium text-secondary hover:text-secondary/80 transition-colors"
-          >
-            <span>Nearby: {nearby.map(n => n.name).slice(0, 2).join(", ")}</span>
-            <ChevronRight className={`h-3.5 w-3.5 transition-transform ${showNearbyList ? "rotate-90" : ""}`} />
-          </button>
-        )}
+            <button
+              onClick={() => setShowNearbyList(!showNearbyList)}
+              className="flex items-center gap-1 text-xs font-medium text-secondary hover:text-secondary/80 transition-colors"
+            >
+              <span>Nearby: {nearby.map(n => n.name).slice(0, 2).join(", ")}</span>
+              <ChevronRight className={`h-3.5 w-3.5 transition-transform ${showNearbyList ? "rotate-90" : ""}`} />
+            </button>
           )}
         </div>
         {!nearby.length && !activity.websiteUrl && <div />}
