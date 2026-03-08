@@ -75,7 +75,7 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
   }, [datePlan.activities]);
 
   return (
-    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, totalCost, isInPlan, step, setStep }}>
+    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, setScheduledDate, totalCost, isInPlan, step, setStep }}>
       {children}
     </DateContext.Provider>
   );
