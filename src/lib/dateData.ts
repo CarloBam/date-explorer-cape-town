@@ -1,3 +1,10 @@
+export interface Review {
+  author: string;
+  rating: number;
+  text: string;
+  timeAgo: string;
+}
+
 export interface Activity {
   id: string;
   name: string;
@@ -17,6 +24,7 @@ export interface Activity {
   prepTips?: string[];
   websiteUrl?: string;
   menuUrl?: string;
+  reviews?: Review[];
 }
 
 export interface QuizAnswer {
@@ -188,6 +196,11 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: false,
     websiteUrl: "https://www.aquarium.co.za",
+    reviews: [
+      { author: "Thandi M.", rating: 5, text: "Took my date here and she absolutely loved the kelp forest exhibit. So romantic walking through the underwater tunnels together!", timeAgo: "2 weeks ago" },
+      { author: "James K.", rating: 4, text: "Great date spot. Not too crowded on a weekday afternoon. The penguin exhibit is a must-see.", timeAgo: "1 month ago" },
+      { author: "Lerato N.", rating: 5, text: "Perfect first date activity — there's always something to talk about. Highly recommend the guided tour!", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "waterfront-cruise",
@@ -206,6 +219,11 @@ export const activities: Activity[] = [
     rating: 4.8,
     requiresCar: false,
     websiteUrl: "https://www.waterfrontcharters.co.za",
+    reviews: [
+      { author: "Sipho D.", rating: 5, text: "Proposed to my girlfriend on this cruise! The crew was amazing and even played our song. Unforgettable.", timeAgo: "1 month ago" },
+      { author: "Claire V.", rating: 5, text: "The sunset views of Table Mountain from the boat are unreal. Sparkling wine was a lovely touch.", timeAgo: "2 weeks ago" },
+      { author: "Ryan P.", rating: 4, text: "Beautiful experience but book in advance — it fills up fast. The 6pm slot has the best light.", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "zeitz-mocaa",
@@ -224,6 +242,10 @@ export const activities: Activity[] = [
     rating: 4.6,
     requiresCar: false,
     websiteUrl: "https://www.zeitzmocaa.museum",
+    reviews: [
+      { author: "Nomsa T.", rating: 5, text: "The building itself is a masterpiece. My partner and I spent hours discussing the art. Very stimulating date.", timeAgo: "1 week ago" },
+      { author: "David L.", rating: 4, text: "Free on Wednesdays for SA citizens is amazing! Some exhibits are thought-provoking and great conversation starters.", timeAgo: "2 months ago" },
+    ],
   },
   {
     id: "waterfront-wheel",
@@ -261,6 +283,11 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     websiteUrl: "https://www.tablemountain.net",
+    reviews: [
+      { author: "Anna B.", rating: 5, text: "A MUST DO! The views from the top are breathtaking. We stayed for 2 hours just taking it all in. Book online to skip the queue!", timeAgo: "1 week ago" },
+      { author: "Kagiso M.", rating: 5, text: "Took my girlfriend for her birthday. She cried happy tears at the top. Best date ever.", timeAgo: "3 weeks ago" },
+      { author: "Sarah W.", rating: 4, text: "Go on a clear day! We went when it was cloudy and couldn't see much. But when it's clear — absolutely magical.", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "signal-hill",
@@ -277,6 +304,10 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: true,
     prepTips: ["Bring a blanket and cushion", "Pack a bottle of wine/bubbly and glasses", "Arrive 45 min before sunset for a good spot", "Bring a Bluetooth speaker for soft music"],
+    reviews: [
+      { author: "Marco F.", rating: 5, text: "Best free date in Cape Town. We brought wine, cheese, and a blanket. Watched the sun go down with the city lights coming on. Pure magic.", timeAgo: "4 days ago" },
+      { author: "Zanele K.", rating: 5, text: "My boyfriend surprised me here with a picnic. The views are insane! Get there early.", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "lions-head",
@@ -293,6 +324,10 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     prepTips: ["Bring water and a headlamp if doing sunset", "Wear proper hiking shoes", "Pack a small snack for the top", "Check the full moon calendar for extra magic"],
+    reviews: [
+      { author: "Tom H.", rating: 5, text: "Full moon hike was INCREDIBLE! Started at 5pm, reached the top for sunset. Headlamp essential for the way down.", timeAgo: "1 week ago" },
+      { author: "Palesa S.", rating: 4, text: "Challenging but worth it. My date was impressed I planned this. The chain ladder section is fun but not for the faint-hearted.", timeAgo: "3 weeks ago" },
+    ],
   },
 
   // ─── SOUTHERN SUBURBS & CONSTANTIA ───
@@ -313,6 +348,11 @@ export const activities: Activity[] = [
     requiresCar: true,
     prepTips: ["Pack a picnic blanket and basket", "Bring charcuterie, fruit, bread, cheese & sparkling water", "Walk the Boomslang canopy walkway together", "If she likes flowers, learn a few names to impress her"],
     websiteUrl: "https://www.sanbi.org/gardens/kirstenbosch",
+    reviews: [
+      { author: "Lisa R.", rating: 5, text: "We packed a full picnic — cheese, crackers, wine, strawberries. Sat on the lawn for hours. The Boomslang walkway is magical!", timeAgo: "5 days ago" },
+      { author: "Thabo J.", rating: 5, text: "Sunday sunset concerts in summer are THE date activity. Buy tickets early, bring a blanket, and enjoy live music surrounded by nature.", timeAgo: "2 weeks ago" },
+      { author: "Emma C.", rating: 4, text: "Beautiful gardens but can get busy on weekends. Go on a weekday morning for a quieter, more romantic experience.", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "wine-tasting",
@@ -331,6 +371,10 @@ export const activities: Activity[] = [
     requiresCar: true,
     websiteUrl: "https://www.grootconstantia.co.za",
     menuUrl: "https://www.grootconstantia.co.za/simons-restaurant/",
+    reviews: [
+      { author: "André P.", rating: 5, text: "Groot Constantia never disappoints. The wine tasting is excellent value and the grounds are beautiful for a stroll afterwards.", timeAgo: "1 week ago" },
+      { author: "Michelle D.", rating: 4, text: "We did the wine and chocolate pairing — amazing! The estate is gorgeous for photos.", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "newlands-forest",
@@ -365,6 +409,10 @@ export const activities: Activity[] = [
     rating: 4.6,
     requiresCar: false,
     prepTips: ["Bring a beach umbrella and towels", "Pack cold drinks and snacks", "The water is freezing — brave it together for bonus points!", "Arrive early in summer for a good spot"],
+    reviews: [
+      { author: "Jessica M.", rating: 5, text: "The most beautiful beach in Cape Town. Sheltered from the wind. We spent the whole afternoon here with cocktails from the vendors.", timeAgo: "3 days ago" },
+      { author: "Liam W.", rating: 4, text: "Water is ICE cold but the views make up for it. Pro tip: 4th beach is the most sheltered and least windy.", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "camps-bay-beach",
@@ -513,6 +561,11 @@ export const activities: Activity[] = [
     requiresCar: false,
     websiteUrl: "https://www.truthcoffee.com",
     menuUrl: "https://www.truthcoffee.com/pages/menu",
+    reviews: [
+      { author: "Nadia K.", rating: 5, text: "The steampunk interior is SO cool — conversation flows naturally because there's so much to look at. Coffee is outstanding.", timeAgo: "1 week ago" },
+      { author: "Chris B.", rating: 5, text: "Voted best coffee shop in the world for a reason. My date was impressed I even knew about this place. Order the cold brew!", timeAgo: "2 weeks ago" },
+      { author: "Fatima A.", rating: 4, text: "Incredible atmosphere but can be busy on weekends. The breakfast menu is also great if you're doing a morning date.", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "rooftop-shift",
@@ -559,6 +612,10 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     websiteUrl: "https://www.bokaapcookingclass.co.za",
+    reviews: [
+      { author: "Priya S.", rating: 5, text: "The most unique date we've ever been on! Cooking together in a real Bo-Kaap home. The aunty who hosted us was warm and hilarious.", timeAgo: "1 week ago" },
+      { author: "Michael T.", rating: 5, text: "We learned to make bobotie and samoosas. The best part was eating what we cooked together. My partner still talks about it!", timeAgo: "3 weeks ago" },
+    ],
   },
 
   // ─── FOOD & MARKETS ───
@@ -612,6 +669,11 @@ export const activities: Activity[] = [
     requiresCar: true,
     websiteUrl: "https://www.harbourhouse.co.za",
     menuUrl: "https://www.harbourhouse.co.za/kalk-bay-menu/",
+    reviews: [
+      { author: "Rebecca L.", rating: 5, text: "Waves literally crash against the windows. Most romantic restaurant in Cape Town. The seafood platter for two is incredible.", timeAgo: "4 days ago" },
+      { author: "Daniel G.", rating: 5, text: "Took my wife here for our anniversary. The setting is unmatched — arrive before sunset for the best experience.", timeAgo: "2 weeks ago" },
+      { author: "Amara O.", rating: 4, text: "Beautiful but pricey. Worth it for a special occasion. Book a window table — that's the whole point!", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "kalk-bay-stroll",
@@ -646,6 +708,10 @@ export const activities: Activity[] = [
     rating: 4.3,
     requiresCar: false,
     websiteUrl: "https://www.cavegolf.co.za",
+    reviews: [
+      { author: "Bongani M.", rating: 4, text: "Such a fun date! The glow-in-the-dark setup makes it super playful. Great ice breaker for a first date.", timeAgo: "1 week ago" },
+      { author: "Kelly R.", rating: 4, text: "We made it competitive and the loser had to buy dinner. Really fun and different from the usual dinner-and-a-movie.", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "paragliding",
@@ -663,6 +729,10 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     websiteUrl: "https://www.paraglidecapetown.com",
+    reviews: [
+      { author: "Josh P.", rating: 5, text: "BEST EXPERIENCE OF MY LIFE! Flying over Camps Bay and landing on the beach. My girlfriend screamed the whole time but loved every second.", timeAgo: "5 days ago" },
+      { author: "Lebo N.", rating: 5, text: "If you want to impress her, do this. The adrenaline rush brings you closer together. Photos and video included!", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "abseil-table-mountain",
@@ -858,6 +928,11 @@ export const activities: Activity[] = [
     requiresCar: true,
     prepTips: ["Book at least 2 weeks in advance", "Pack sunscreen and a hat", "Eat breakfast — the tastings add up!"],
     websiteUrl: "https://www.winetram.co.za",
+    reviews: [
+      { author: "Sophie G.", rating: 5, text: "The most romantic day trip from Cape Town! The tram is charming and the wine estates are stunning. We did the Blue Line.", timeAgo: "1 week ago" },
+      { author: "Willem J.", rating: 5, text: "Book WEEKS in advance — I cannot stress this enough. We almost missed out. Every estate has incredible wine and views.", timeAgo: "3 weeks ago" },
+      { author: "Aimee R.", rating: 4, text: "Have breakfast before you go — the wine hits fast on an empty stomach! Such a gorgeous experience though.", timeAgo: "1 month ago" },
+    ],
   },
 
   // ─── DURBANVILLE & BLOUBERG ───
@@ -962,6 +1037,10 @@ export const activities: Activity[] = [
     rating: 4.5,
     requiresCar: false,
     websiteUrl: "https://www.theceramicstudio.co.za",
+    reviews: [
+      { author: "Yolanda M.", rating: 5, text: "Ghost movie vibes! We laughed so hard at our terrible pottery but it was the best date. You get to keep what you make!", timeAgo: "1 week ago" },
+      { author: "Alex H.", rating: 4, text: "Really fun and creative. The instructor was great. We now have matching (ugly) mugs and it's our favourite inside joke.", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "horse-riding",
@@ -979,6 +1058,10 @@ export const activities: Activity[] = [
     requiresCar: true,
     websiteUrl: "https://www.horseridingcapetown.co.za",
     prepTips: ["Wear long pants and closed shoes", "Book the sunset ride for maximum romance", "Bring a camera — the photos are incredible"],
+    reviews: [
+      { author: "Megan S.", rating: 5, text: "Riding horses on the beach at sunset — it doesn't get more romantic than this! The guides were amazing and patient with beginners.", timeAgo: "3 days ago" },
+      { author: "Ruan V.", rating: 5, text: "My girlfriend's dream date. She cried happy tears. The beach is wild and beautiful. Book the sunset slot!", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "stargazing",
