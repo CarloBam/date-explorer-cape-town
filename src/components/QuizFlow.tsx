@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Wallet } from "lucide-react";
+import { ArrowLeft, ArrowRight, Wallet, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
 import { quizQuestions } from "@/lib/dateData";
@@ -23,8 +23,7 @@ export function QuizFlow() {
     setAnswers(newAnswers);
 
     if (isLastQuestion) {
-      // Show describe her step before budget
-      setShowDescribe(true);
+      setShowBudget(true);
     } else {
       setTimeout(() => setCurrentQ(prev => prev + 1), 300);
     }
@@ -88,9 +87,19 @@ export function QuizFlow() {
             <span>R2,000</span>
           </div>
 
-          <Button variant="hero" size="lg" onClick={handleFinish} className="px-10">
-            Find Activities <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <div className="flex flex-col items-center gap-3">
+            <Button variant="hero" size="lg" onClick={handleFinish} className="px-10">
+              Find Activities <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowDescribe(true)}
+              className="gap-1.5 text-muted-foreground"
+            >
+              <Mic className="h-4 w-4" /> Want to describe her? (optional)
+            </Button>
+          </div>
         </motion.div>
       </div>
     );
