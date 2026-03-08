@@ -1,17 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useDatePlan } from "@/lib/dateContext";
 import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { ShareDateModal } from "@/components/ShareDateModal";
+import { fetchForecastForDate, type ForecastData } from "@/lib/weatherForecast";
+import { getHolidaysForDate } from "@/lib/saHolidays";
+import { cn } from "@/lib/utils";
 
 export function DateSummary() {
-  const { datePlan, totalCost, setStep } = useDatePlan();
+  const { datePlan, totalCost, setStep, setScheduledDate } = useDatePlan();
   const [showShare, setShowShare] = useState(false);
-  const { activities, budget } = datePlan;
+  const { activities, budget, scheduledDate } = datePlan;
   const hasCar = datePlan.quizAnswers.hasCar !== false;
+
+  const [forecast, setForecast] = useState<ForecastData | null>(null);
+  const [forecastLoading, setForecastLoading] = useState(false);
+  const [holidays, setHolidays] = useState<{ name: string; emoji: string }[]>([]);
+
+  const areas = [...new Set(activities.map(a => a.area))];
+
+  useEffect(() => {
+    if (!scheduledDate) {
+      setForecast(null);
+      setHolidays([]);
+      return;
+    }
+
+    setHolidays(getHolidaysForDate(scheduledDate));
+
+    // Only fetch forecast for dates within 16 days (Open-Meteo limit)
+    const daysAway = Math.ceil((scheduledDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    if (daysAway >= 0 && daysAway <= 16) {
+      setForecastLoading(true);
+      fetchForecastForDate(scheduledDate, areas).then(data => {
+        setForecast(data);
+        setForecastLoading(false);
+      });
+    } else {
+      setForecast(null);
+      setForecastLoading(false);
+    }
+  }, [scheduledDate]);
 
   let totalDistance = 0;
   for (let i = 0; i < activities.length - 1; i++) {
@@ -41,7 +76,84 @@ export function DateSummary() {
             <p className="text-muted-foreground">Here's your curated Cape Town date</p>
           </div>
 
-          {/* Weather */}
+          {/* Date Picker */}
+          <div className="mb-6 rounded-xl border border-border bg-card p-5 shadow-card">
+            <h3 className="font-display text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+              <CalendarIcon className="h-5 w-5 text-primary" /> When's the date?
+            </h3>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !scheduledDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {scheduledDate ? format(scheduledDate, "EEEE, d MMMM yyyy") : "Pick a date"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={scheduledDate}
+                  onSelect={(date) => setScheduledDate(date)}
+                  disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+
+            {/* Holidays */}
+            {holidays.length > 0 && (
+              <div className="mt-3 flex items-center gap-2 rounded-lg bg-accent/15 px-3 py-2 text-sm font-medium text-accent-foreground">
+                <PartyPopper className="h-4 w-4 text-primary shrink-0" />
+                <span>
+                  {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} — expect busier spots!
+                </span>
+              </div>
+            )}
+
+            {/* Forecast */}
+            {scheduledDate && forecastLoading && (
+              <div className="mt-3 rounded-lg bg-muted p-3 animate-pulse">
+                <div className="h-5 bg-muted-foreground/10 rounded w-3/4" />
+              </div>
+            )}
+            {forecast && !forecastLoading && (
+              <div className={`mt-3 rounded-lg p-3 ${
+                forecast.precipitationProbability > 50 || forecast.windSpeed > 40
+                  ? "bg-destructive/5 border border-destructive/20"
+                  : "bg-muted"
+              }`}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-medium text-foreground flex items-center gap-2">
+                    {forecast.icon} {forecast.condition}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {forecast.minTemp}°–{forecast.maxTemp}°C
+                  </span>
+                </div>
+                <p className={`text-sm ${
+                  forecast.precipitationProbability > 50 || forecast.windSpeed > 40
+                    ? "text-destructive font-medium"
+                    : "text-muted-foreground"
+                }`}>
+                  {forecast.precipitationProbability > 50 && <AlertTriangle className="h-3.5 w-3.5 inline mr-1" />}
+                  {forecast.tip}
+                </p>
+              </div>
+            )}
+            {scheduledDate && !forecastLoading && !forecast && (
+              <p className="mt-3 text-xs text-muted-foreground">
+                📅 Weather forecast available closer to the date (within 16 days)
+              </p>
+            )}
+          </div>
+
+          {/* Current Weather */}
           <div className="mb-6">
             <WeatherWidget />
           </div>
@@ -165,6 +277,7 @@ export function DateSummary() {
             budget={budget}
             totalCost={totalCost}
             quizAnswers={datePlan.quizAnswers}
+            scheduledDate={scheduledDate}
             onClose={() => setShowShare(false)}
           />
         )}

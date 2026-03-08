@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Share2, Copy, Check, Mail, MessageCircle, Shield, Link2, X, Loader2 } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -14,16 +15,20 @@ interface ShareDateModalProps {
   budget: number;
   totalCost: number;
   quizAnswers: Record<string, any>;
+  scheduledDate?: Date;
   onClose: () => void;
 }
 
-export function ShareDateModal({ activities, budget, totalCost, quizAnswers, onClose }: ShareDateModalProps) {
+export function ShareDateModal({ activities, budget, totalCost, quizAnswers, scheduledDate, onClose }: ShareDateModalProps) {
   const { user } = useAuth();
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [title, setTitle] = useState("Our Cape Town Date 💝");
   const [allowCustomise, setAllowCustomise] = useState(true);
+
+  // Get user's display name from metadata
+  const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Someone special";
 
   const generateShareLink = async () => {
     if (!user) {
@@ -33,11 +38,12 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, onC
 
     setLoading(true);
     try {
-      // Generate a clean, readable token
-      const tokenBase = btoa(JSON.stringify({ ts: Date.now(), uid: user.id.slice(0, 8) }))
-        .replace(/[=/+]/g, "")
-        .slice(0, 24)
-        .toUpperCase();
+      // Generate a friendly, short token
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let token = "";
+      for (let i = 0; i < 8; i++) {
+        token += chars[Math.floor(Math.random() * chars.length)];
+      }
 
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 7);
@@ -48,16 +54,17 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, onC
         activities: activities.map(a => ({ id: a.id, name: a.name, area: a.area, estimatedCost: a.estimatedCost, duration: a.duration, image: a.image, description: a.description, deals: a.deals })),
         budget,
         total_cost: totalCost,
-        quiz_answers: quizAnswers,
-        share_token: tokenBase,
+        quiz_answers: { ...quizAnswers, senderName: userName },
+        share_token: token,
         share_expires_at: expiresAt.toISOString(),
         allow_customise: allowCustomise,
         date_response: "pending",
+        date_scheduled: scheduledDate ? scheduledDate.toISOString() : null,
       });
 
       if (error) throw error;
 
-      const url = `${window.location.origin}/date/${tokenBase}`;
+      const url = `${window.location.origin}/date/${token}`;
       setShareUrl(url);
       toast.success("Share link created! 🎉");
     } catch (err: any) {
@@ -78,8 +85,9 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, onC
   const shareWhatsApp = () => {
     if (!shareUrl) return;
     const actList = activities.map((a, i) => `${i + 1}. ${a.image} ${a.name} (${a.area})`).join("\n");
+    const dateText = scheduledDate ? `\n📅 ${format(scheduledDate, "EEEE, d MMMM yyyy")}` : "";
     const message = encodeURIComponent(
-      `Hey! 🌊 I've planned a Cape Town date for us!\n\n${actList}\n\nEstimated total: R${totalCost}\n\nView the full plan: ${shareUrl}`
+      `Hey! 🌊 I've planned a Cape Town date for us!\n\n${actList}${dateText}\n\nCheck it out: ${shareUrl}`
     );
     window.open(`https://wa.me/?text=${message}`, "_blank");
   };
@@ -87,9 +95,9 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, onC
   const shareEmail = () => {
     if (!shareUrl) return;
     const subject = encodeURIComponent("I planned a date for us! 💝");
-    const actList = activities.map((a, i) => `${i + 1}. ${a.image} ${a.name} (${a.area})`).join("%0A");
+    const dateText = scheduledDate ? `\n📅 ${format(scheduledDate, "EEEE, d MMMM yyyy")}` : "";
     const body = encodeURIComponent(
-      `Hey!\n\nI've planned a Cape Town date for us! 🌊\n\n${activities.map((a, i) => `${i + 1}. ${a.image} ${a.name} (${a.area})`).join("\n")}\n\nEstimated total: R${totalCost}\n\nView the full plan and let me know: ${shareUrl}\n\n💝`
+      `Hey!\n\nI've planned a Cape Town date for us! 🌊\n\n${activities.map((a, i) => `${i + 1}. ${a.image} ${a.name} (${a.area})`).join("\n")}${dateText}\n\nView the full plan and let me know: ${shareUrl}\n\n💝`
     );
     window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
   };
@@ -121,6 +129,13 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, onC
                 <label className="text-sm font-medium text-foreground mb-1.5 block">Date title</label>
                 <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Our Cape Town Date" />
               </div>
+
+              {/* Scheduled date display */}
+              {scheduledDate && (
+                <div className="flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm text-foreground">
+                  📅 {format(scheduledDate, "EEEE, d MMMM yyyy")}
+                </div>
+              )}
 
               {/* Allow customise toggle */}
               <div className="flex items-center justify-between">
