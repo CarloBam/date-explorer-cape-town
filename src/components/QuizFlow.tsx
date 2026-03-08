@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Wallet } from "lucide-react";
+import { ArrowLeft, ArrowRight, Wallet, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
 import { quizQuestions } from "@/lib/dateData";
