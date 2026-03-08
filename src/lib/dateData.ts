@@ -1037,6 +1037,10 @@ export const activities: Activity[] = [
     rating: 4.5,
     requiresCar: false,
     websiteUrl: "https://www.theceramicstudio.co.za",
+    reviews: [
+      { author: "Yolanda M.", rating: 5, text: "Ghost movie vibes! We laughed so hard at our terrible pottery but it was the best date. You get to keep what you make!", timeAgo: "1 week ago" },
+      { author: "Alex H.", rating: 4, text: "Really fun and creative. The instructor was great. We now have matching (ugly) mugs and it's our favourite inside joke.", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "horse-riding",
