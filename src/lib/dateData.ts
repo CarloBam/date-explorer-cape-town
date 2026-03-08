@@ -669,6 +669,11 @@ export const activities: Activity[] = [
     requiresCar: true,
     websiteUrl: "https://www.harbourhouse.co.za",
     menuUrl: "https://www.harbourhouse.co.za/kalk-bay-menu/",
+    reviews: [
+      { author: "Rebecca L.", rating: 5, text: "Waves literally crash against the windows. Most romantic restaurant in Cape Town. The seafood platter for two is incredible.", timeAgo: "4 days ago" },
+      { author: "Daniel G.", rating: 5, text: "Took my wife here for our anniversary. The setting is unmatched — arrive before sunset for the best experience.", timeAgo: "2 weeks ago" },
+      { author: "Amara O.", rating: 4, text: "Beautiful but pricey. Worth it for a special occasion. Book a window table — that's the whole point!", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "kalk-bay-stroll",
