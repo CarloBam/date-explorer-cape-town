@@ -196,6 +196,11 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: false,
     websiteUrl: "https://www.aquarium.co.za",
+    reviews: [
+      { author: "Thandi M.", rating: 5, text: "Took my date here and she absolutely loved the kelp forest exhibit. So romantic walking through the underwater tunnels together!", timeAgo: "2 weeks ago" },
+      { author: "James K.", rating: 4, text: "Great date spot. Not too crowded on a weekday afternoon. The penguin exhibit is a must-see.", timeAgo: "1 month ago" },
+      { author: "Lerato N.", rating: 5, text: "Perfect first date activity — there's always something to talk about. Highly recommend the guided tour!", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "waterfront-cruise",
