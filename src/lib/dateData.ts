@@ -409,6 +409,10 @@ export const activities: Activity[] = [
     rating: 4.6,
     requiresCar: false,
     prepTips: ["Bring a beach umbrella and towels", "Pack cold drinks and snacks", "The water is freezing — brave it together for bonus points!", "Arrive early in summer for a good spot"],
+    reviews: [
+      { author: "Jessica M.", rating: 5, text: "The most beautiful beach in Cape Town. Sheltered from the wind. We spent the whole afternoon here with cocktails from the vendors.", timeAgo: "3 days ago" },
+      { author: "Liam W.", rating: 4, text: "Water is ICE cold but the views make up for it. Pro tip: 4th beach is the most sheltered and least windy.", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "camps-bay-beach",
