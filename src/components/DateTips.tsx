@@ -51,7 +51,7 @@ function getActivityTips(activities: Activity[]): { activity: string; emoji: str
     if (a.category === "mountain" || a.tags.includes("nature")) {
       tips.push("Wear comfortable walking/hiking shoes");
       tips.push("Bring water and a light snack");
-      tips.push("Check the weather — layers are your friend");
+      tips.push("Check the weather. Layers are your friend");
     }
 
     if (a.category === "food" || a.tags.includes("food")) {
