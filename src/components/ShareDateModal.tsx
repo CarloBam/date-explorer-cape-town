@@ -132,7 +132,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
               {/* Title */}
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">Date title</label>
-                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Our Cape Town Date" />
+                <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="Optional — e.g. Our Cape Town Date 💝" />
               </div>
 
               {/* Scheduled date display */}
