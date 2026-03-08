@@ -42,6 +42,8 @@ export default function SharedDateView() {
   const [showCustomise, setShowCustomise] = useState(false);
   const [customActivities, setCustomActivities] = useState<Activity[]>([]);
   const [hasResponded, setHasResponded] = useState(false);
+  const [forecast, setForecast] = useState<ForecastData | null>(null);
+  const [holidays, setHolidays] = useState<{ name: string; emoji: string }[]>([]);
 
   useEffect(() => {
     if (!token) return;
