@@ -219,12 +219,57 @@ export default function SharedDateView() {
             <h1 className="font-display text-3xl font-bold text-foreground mb-2">
               {dateData.title || "A Date Plan for You!"}
             </h1>
-            <p className="text-muted-foreground">
-              Someone special has planned a Cape Town date — just for you ✨
+            <p className="text-lg text-foreground font-medium mb-1">
+              {dateData.quiz_answers?.senderName || "Someone special"} is asking to take you on a date ✨
             </p>
+            {dateData.allow_customise && (
+              <p className="text-sm text-muted-foreground">
+                You may propose changes to the activities if you'd like 💫
+              </p>
+            )}
+            {dateData.date_scheduled && (
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-foreground">
+                <CalendarIcon className="h-4 w-4 text-primary" />
+                {format(new Date(dateData.date_scheduled), "EEEE, d MMMM yyyy")}
+              </div>
+            )}
           </div>
 
-          {/* Weather */}
+          {/* Holidays */}
+          {holidays.length > 0 && (
+            <div className="mb-4 flex items-center gap-2 rounded-xl bg-accent/15 px-4 py-3 text-sm font-medium text-accent-foreground">
+              <PartyPopper className="h-4 w-4 text-primary shrink-0" />
+              {holidays.map(h => `${h.emoji} ${h.name}`).join(" • ")} — expect busier spots!
+            </div>
+          )}
+
+          {/* Date forecast */}
+          {forecast && (
+            <div className={`mb-4 rounded-xl p-4 ${
+              forecast.precipitationProbability > 50 || forecast.windSpeed > 40
+                ? "bg-destructive/5 border border-destructive/20"
+                : "border border-border bg-card"
+            }`}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium text-foreground flex items-center gap-2">
+                  {forecast.icon} {forecast.condition} on date day
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  {forecast.minTemp}°–{forecast.maxTemp}°C
+                </span>
+              </div>
+              <p className={`text-sm ${
+                forecast.precipitationProbability > 50 || forecast.windSpeed > 40
+                  ? "text-destructive font-medium"
+                  : "text-muted-foreground"
+              }`}>
+                {forecast.precipitationProbability > 50 && <AlertTriangle className="h-3.5 w-3.5 inline mr-1" />}
+                {forecast.tip}
+              </p>
+            </div>
+          )}
+
+          {/* Current Weather */}
           <div className="mb-6">
             <WeatherWidget />
           </div>
