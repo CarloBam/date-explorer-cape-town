@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -10,8 +10,10 @@ import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { ShareDateModal } from "@/components/ShareDateModal";
 import { DateTips } from "@/components/DateTips";
+import { DateMap } from "@/components/DateMap";
 import { fetchForecastForDate, type ForecastData } from "@/lib/weatherForecast";
 import { getHolidaysForDate } from "@/lib/saHolidays";
+import { downloadICS } from "@/lib/calendarExport";
 import { cn } from "@/lib/utils";
 
 export function DateSummary() {
