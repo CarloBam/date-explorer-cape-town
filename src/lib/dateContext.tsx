@@ -15,6 +15,7 @@ interface DateContextType {
   reorderActivities: (startIndex: number, endIndex: number) => void;
   setBudget: (budget: number) => void;
   setQuizAnswers: (answers: Partial<QuizAnswer>) => void;
+  setScheduledDate: (date: Date | undefined) => void;
   totalCost: number;
   isInPlan: (id: string) => boolean;
   step: "landing" | "quiz" | "browse" | "summary";
