@@ -1058,6 +1058,10 @@ export const activities: Activity[] = [
     requiresCar: true,
     websiteUrl: "https://www.horseridingcapetown.co.za",
     prepTips: ["Wear long pants and closed shoes", "Book the sunset ride for maximum romance", "Bring a camera — the photos are incredible"],
+    reviews: [
+      { author: "Megan S.", rating: 5, text: "Riding horses on the beach at sunset — it doesn't get more romantic than this! The guides were amazing and patient with beginners.", timeAgo: "3 days ago" },
+      { author: "Ruan V.", rating: 5, text: "My girlfriend's dream date. She cried happy tears. The beach is wild and beautiful. Book the sunset slot!", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "stargazing",
