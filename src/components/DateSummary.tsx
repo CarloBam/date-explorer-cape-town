@@ -212,7 +212,7 @@ export function DateSummary() {
                       </>
                     ) : (
                       <>
-                        🚕 {getDistanceBetween(activity.area, activities[index + 1].area)} km — Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, activities[index + 1].area))}
+                        🚕 {getDistanceBetween(activity.area, activities[index + 1].area)} km, Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, activities[index + 1].area))}
                       </>
                     )}
                   </div>

@@ -78,7 +78,7 @@ function getActivityTips(activities: Activity[]): { activity: string; emoji: str
     }
 
     if (a.category === "coffee") {
-      tips.push("Try something she hasn't had before — ask the barista for recommendations");
+      tips.push("Try something she hasn't had before. Ask the barista for recommendations");
     }
 
     if (tips.length > 0) {
