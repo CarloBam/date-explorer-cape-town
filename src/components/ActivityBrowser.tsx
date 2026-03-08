@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, SlidersHorizontal, ArrowLeft, Star } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowLeft, Star, CalendarIcon, Users, User } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ActivityCard } from "@/components/ActivityCard";
 import { DateCart } from "@/components/DateCart";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { useDatePlan } from "@/lib/dateContext";
 import { activities, getRecommendedActivities } from "@/lib/dateData";
+import { cn } from "@/lib/utils";
 
 const categories = [
   { value: "all", label: "All", emoji: "✨" },
@@ -24,7 +28,7 @@ const categories = [
 ];
 
 export function ActivityBrowser() {
-  const { datePlan, setStep } = useDatePlan();
+  const { datePlan, setStep, setScheduledDate, pricingMode, setPricingMode } = useDatePlan();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [showRecommended, setShowRecommended] = useState(
@@ -34,7 +38,6 @@ export function ActivityBrowser() {
   const recommended = getRecommendedActivities(datePlan.quizAnswers);
   const baseActivities = showRecommended ? recommended : activities;
 
-  // Filter car-required activities if no car
   const filtered = baseActivities.filter(a => {
     if (datePlan.quizAnswers.hasCar === false && a.requiresCar) return false;
     const matchesSearch = a.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -61,6 +64,61 @@ export function ActivityBrowser() {
               <span className="text-sm text-muted-foreground font-body">
                 Budget: <span className="font-bold text-foreground">R{datePlan.budget}</span>
               </span>
+            </div>
+          </div>
+
+          {/* Date picker + Pricing toggle row */}
+          <div className="flex items-center gap-3 mb-3">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className={cn(
+                    "gap-1.5 text-sm",
+                    !datePlan.scheduledDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="h-3.5 w-3.5" />
+                  {datePlan.scheduledDate ? format(datePlan.scheduledDate, "d MMM yyyy") : "Set date"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={datePlan.scheduledDate}
+                  onSelect={(date) => setScheduledDate(date)}
+                  disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+
+            {/* Pricing toggle */}
+            <div className="flex items-center rounded-lg border border-border overflow-hidden">
+              <button
+                onClick={() => setPricingMode("for-two")}
+                className={cn(
+                  "flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors",
+                  pricingMode === "for-two"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-background text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <Users className="h-3 w-3" /> For Two
+              </button>
+              <button
+                onClick={() => setPricingMode("per-person")}
+                className={cn(
+                  "flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors",
+                  pricingMode === "per-person"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-background text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <User className="h-3 w-3" /> Per Person
+              </button>
             </div>
           </div>
 

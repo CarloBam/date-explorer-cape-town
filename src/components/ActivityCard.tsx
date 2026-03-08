@@ -11,7 +11,7 @@ interface ActivityCardProps {
 }
 
 export function ActivityCard({ activity, showNearby = true }: ActivityCardProps) {
-  const { addActivity, removeActivity, isInPlan, datePlan } = useDatePlan();
+  const { addActivity, removeActivity, isInPlan, datePlan, getDisplayCost, pricingMode } = useDatePlan();
   const inPlan = isInPlan(activity.id);
   const [showNearbyList, setShowNearbyList] = useState(false);
   const nearby = showNearby ? getNearbyActivities(activity.id) : [];
@@ -67,10 +67,10 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
 
             <div className={`text-right shrink-0 ${greatMatch ? "mt-6" : ""}`}>
               <div className={`font-display text-lg font-bold ${activity.estimatedCost === 0 ? "text-secondary" : "text-foreground"}`}>
-                {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
+                {activity.estimatedCost === 0 ? "FREE" : `R${getDisplayCost(activity.estimatedCost)}`}
               </div>
               {activity.estimatedCost > 0 && (
-                <div className="text-xs text-muted-foreground">for two</div>
+                <div className="text-xs text-muted-foreground">{pricingMode === "for-two" ? "for two" : "per person"}</div>
               )}
             </div>
           </div>
@@ -108,6 +108,16 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
               className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
             >
               <ExternalLink className="h-3 w-3" /> Book / Info
+            </a>
+          )}
+          {activity.menuUrl && (
+            <a
+              href={activity.menuUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <ExternalLink className="h-3 w-3" /> Menu
             </a>
           )}
           {nearby.length > 0 && showNearby && (

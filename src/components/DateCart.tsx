@@ -6,7 +6,7 @@ import { useDatePlan } from "@/lib/dateContext";
 import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 
 export function DateCart() {
-  const { datePlan, removeActivity, reorderActivities, totalCost, setStep } = useDatePlan();
+  const { datePlan, removeActivity, reorderActivities, totalCost, setStep, getDisplayCost, pricingMode } = useDatePlan();
   const { activities, budget } = datePlan;
   const hasCar = datePlan.quizAnswers.hasCar !== false;
 
@@ -88,7 +88,7 @@ export function DateCart() {
                           </div>
 
                           <span className="text-sm font-bold text-foreground shrink-0">
-                            {activity.estimatedCost === 0 ? "Free" : `R${activity.estimatedCost}`}
+                            {activity.estimatedCost === 0 ? "Free" : `R${getDisplayCost(activity.estimatedCost)}`}
                           </span>
 
                           <button
@@ -126,9 +126,9 @@ export function DateCart() {
       <div className="border-t border-border bg-muted/30 p-4 space-y-2">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground flex items-center gap-1">
-            <Receipt className="h-3.5 w-3.5" /> Activities
+            <Receipt className="h-3.5 w-3.5" /> Activities {pricingMode === "per-person" ? "(pp)" : "(×2)"}
           </span>
-          <span className="font-semibold text-foreground">R{totalCost}</span>
+          <span className="font-semibold text-foreground">R{pricingMode === "per-person" ? Math.round(totalCost / 2) : totalCost}</span>
         </div>
 
         {totalDistance > 0 && (

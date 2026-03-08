@@ -16,6 +16,7 @@ export interface Activity {
   requiresCar: boolean;
   prepTips?: string[];
   websiteUrl?: string;
+  menuUrl?: string;
 }
 
 export interface QuizAnswer {
@@ -317,6 +318,7 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: true,
     websiteUrl: "https://www.grootconstantia.co.za",
+    menuUrl: "https://www.grootconstantia.co.za/simons-restaurant/",
   },
   {
     id: "newlands-forest",
@@ -498,6 +500,7 @@ export const activities: Activity[] = [
     rating: 4.8,
     requiresCar: false,
     websiteUrl: "https://www.truthcoffee.com",
+    menuUrl: "https://www.truthcoffee.com/pages/menu",
   },
   {
     id: "rooftop-shift",
@@ -596,6 +599,7 @@ export const activities: Activity[] = [
     rating: 4.7,
     requiresCar: true,
     websiteUrl: "https://www.harbourhouse.co.za",
+    menuUrl: "https://www.harbourhouse.co.za/kalk-bay-menu/",
   },
   {
     id: "kalk-bay-stroll",
@@ -697,6 +701,7 @@ export const activities: Activity[] = [
     rating: 4.4,
     requiresCar: false,
     websiteUrl: "https://www.unframed.co.za",
+    menuUrl: "https://www.unframed.co.za/flavours",
   },
   {
     id: "honest-chocolate",
@@ -713,6 +718,7 @@ export const activities: Activity[] = [
     rating: 4.6,
     requiresCar: false,
     websiteUrl: "https://www.honestchocolate.co.za",
+    menuUrl: "https://www.honestchocolate.co.za/pages/cafe",
   },
 
   // ─── CHILL & PICNIC ───

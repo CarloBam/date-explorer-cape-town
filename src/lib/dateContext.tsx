@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
 import { Activity, QuizAnswer } from "./dateData";
 
+export type PricingMode = "for-two" | "per-person";
+
 interface DatePlan {
   activities: Activity[];
   budget: number;
@@ -20,6 +22,9 @@ interface DateContextType {
   isInPlan: (id: string) => boolean;
   step: "landing" | "quiz" | "browse" | "summary";
   setStep: (step: "landing" | "quiz" | "browse" | "summary") => void;
+  pricingMode: PricingMode;
+  setPricingMode: (mode: PricingMode) => void;
+  getDisplayCost: (cost: number) => number;
 }
 
 const DateContext = createContext<DateContextType | null>(null);
@@ -32,6 +37,7 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     scheduledDate: undefined,
   });
   const [step, setStep] = useState<"landing" | "quiz" | "browse" | "summary">("landing");
+  const [pricingMode, setPricingMode] = useState<PricingMode>("for-two");
 
   const addActivity = useCallback((activity: Activity) => {
     setDatePlan(prev => {
@@ -68,6 +74,11 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     setDatePlan(prev => ({ ...prev, scheduledDate: date }));
   }, []);
 
+  const getDisplayCost = useCallback((cost: number) => {
+    if (cost === 0) return 0;
+    return pricingMode === "per-person" ? Math.round(cost / 2) : cost;
+  }, [pricingMode]);
+
   const totalCost = datePlan.activities.reduce((sum, a) => sum + a.estimatedCost, 0);
 
   const isInPlan = useCallback((id: string) => {
@@ -75,7 +86,7 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
   }, [datePlan.activities]);
 
   return (
-    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, setScheduledDate, totalCost, isInPlan, step, setStep }}>
+    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, setScheduledDate, totalCost, isInPlan, step, setStep, pricingMode, setPricingMode, getDisplayCost }}>
       {children}
     </DateContext.Provider>
   );
