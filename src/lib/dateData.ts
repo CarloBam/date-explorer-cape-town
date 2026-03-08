@@ -210,6 +210,7 @@ export const activities: Activity[] = [
     category: "adventure",
     area: "V&A Waterfront",
     estimatedCost: 600,
+    costMax: 800,
     durationMin: 75,
     duration: "75 min",
     description: "Sail into the sunset with Table Mountain as your backdrop. Complimentary sparkling wine included.",
