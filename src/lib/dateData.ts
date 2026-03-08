@@ -219,6 +219,11 @@ export const activities: Activity[] = [
     rating: 4.8,
     requiresCar: false,
     websiteUrl: "https://www.waterfrontcharters.co.za",
+    reviews: [
+      { author: "Sipho D.", rating: 5, text: "Proposed to my girlfriend on this cruise! The crew was amazing and even played our song. Unforgettable.", timeAgo: "1 month ago" },
+      { author: "Claire V.", rating: 5, text: "The sunset views of Table Mountain from the boat are unreal. Sparkling wine was a lovely touch.", timeAgo: "2 weeks ago" },
+      { author: "Ryan P.", rating: 4, text: "Beautiful experience but book in advance — it fills up fast. The 6pm slot has the best light.", timeAgo: "3 weeks ago" },
+    ],
   },
   {
     id: "zeitz-mocaa",
