@@ -653,6 +653,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Woodstock",
     estimatedCost: 440,
+    costMax: 650,
     durationMin: 90,
     duration: "90 min",
     description: "Street food from around the world, craft vendors, and live music. Cape Town's favourite Saturday market.",
