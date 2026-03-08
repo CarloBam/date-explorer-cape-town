@@ -18,7 +18,7 @@ function isSpecialOccasion(date?: Date): boolean {
 
 const generalTips = [
   { emoji: "🎧", tip: "Make a playlist of songs she likes and play it during the drive or walk" },
-  { emoji: "📱", tip: "Put your phone on silent — be fully present" },
+  { emoji: "📱", tip: "Put your phone on silent. Be fully present" },
   { emoji: "👃", tip: "Smell good! A little cologne goes a long way" },
   { emoji: "👂", tip: "Ask open-ended questions and actually listen to her answers" },
   { emoji: "😄", tip: "Compliment something specific — her laugh, her style, her energy" },
