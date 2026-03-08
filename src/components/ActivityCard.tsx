@@ -67,10 +67,10 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
 
             <div className={`text-right shrink-0 ${greatMatch ? "mt-6" : ""}`}>
               <div className={`font-display text-lg font-bold ${activity.estimatedCost === 0 ? "text-secondary" : "text-foreground"}`}>
-                {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
+                {activity.estimatedCost === 0 ? "FREE" : `R${getDisplayCost(activity.estimatedCost)}`}
               </div>
               {activity.estimatedCost > 0 && (
-                <div className="text-xs text-muted-foreground">for two</div>
+                <div className="text-xs text-muted-foreground">{pricingMode === "for-two" ? "for two" : "per person"}</div>
               )}
             </div>
           </div>
