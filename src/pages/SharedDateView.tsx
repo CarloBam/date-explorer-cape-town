@@ -28,6 +28,7 @@ interface SavedDate {
   response_message: string | null;
   customised_activities: any;
   quiz_answers: any;
+  date_scheduled: string | null;
 }
 
 export default function SharedDateView() {
