@@ -24,6 +24,7 @@ export interface QuizAnswer {
   setting: "beach" | "mountains" | "city";
   vibe: "nature" | "culture" | "spontaneous" | "romantic";
   energy: "chill" | "active" | "mix";
+  stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "long-term";
   food: "coffee" | "restaurant" | "street-food";
   time: "morning" | "afternoon" | "evening" | "fullday";
   hasCar: boolean;
@@ -31,6 +32,17 @@ export interface QuizAnswer {
 }
 
 export const quizQuestions = [
+  {
+    id: "stage",
+    question: "Where are you in the journey?",
+    subtitle: "This helps us set the right tone",
+    options: [
+      { value: "first-date", label: "First Date", emoji: "🦋", description: "Making that first impression" },
+      { value: "early-dating", label: "Still Early Days", emoji: "🌱", description: "A few dates in, still getting to know each other" },
+      { value: "relationship", label: "In a Relationship", emoji: "💑", description: "Official & looking to keep the spark alive" },
+      { value: "anniversary", label: "Anniversary / Special", emoji: "🥂", description: "Celebrating a milestone together" },
+    ],
+  },
   {
     id: "personality",
     question: "What's she like?",
