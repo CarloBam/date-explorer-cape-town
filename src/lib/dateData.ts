@@ -33,7 +33,7 @@ export interface QuizAnswer {
   setting: "beach" | "mountains" | "city" | "winelands" | "cozy-indoor";
   vibe: "nature" | "culture" | "spontaneous" | "romantic";
   energy: "chill" | "active" | "mix";
-  stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "long-term";
+  stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "birthday" | "long-term";
   food: "coffee" | "restaurant" | "street-food";
   time: "morning" | "afternoon" | "evening" | "fullday";
   hasCar: boolean;
