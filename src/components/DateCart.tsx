@@ -88,7 +88,7 @@ export function DateCart() {
                           </div>
 
                           <span className="text-sm font-bold text-foreground shrink-0">
-                            {activity.estimatedCost === 0 ? "Free" : `R${activity.estimatedCost}`}
+                            {activity.estimatedCost === 0 ? "Free" : `R${getDisplayCost(activity.estimatedCost)}`}
                           </span>
 
                           <button
