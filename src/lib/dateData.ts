@@ -14,6 +14,7 @@ export interface Activity {
   image: string;
   rating: number;
   requiresCar: boolean;
+  prepTips?: string[];
 }
 
 export interface QuizAnswer {
@@ -112,11 +113,19 @@ export const areaCoordinates: Record<string, { lat: number; lng: number }> = {
   "Newlands": { lat: -33.988, lng: 18.458 },
   "Muizenberg": { lat: -34.109, lng: 18.471 },
   "Kalk Bay": { lat: -34.130, lng: 18.448 },
+  "Stellenbosch": { lat: -33.934, lng: 18.860 },
+  "Franschhoek": { lat: -33.913, lng: 19.118 },
+  "Observatory": { lat: -33.937, lng: 18.472 },
+  "Bo-Kaap": { lat: -33.920, lng: 18.416 },
+  "Noordhoek": { lat: -34.107, lng: 18.375 },
+  "Durbanville": { lat: -33.832, lng: 18.647 },
+  "Bloubergstrand": { lat: -33.810, lng: 18.459 },
+  "Hermanus": { lat: -34.418, lng: 19.235 },
 };
 
 // Haversine formula for accurate distance calculation
 function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
-  const R = 6371; // Earth's radius in km
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLng = ((lng2 - lng1) * Math.PI) / 180;
   const a =
@@ -124,7 +133,7 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
     Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) *
     Math.sin(dLng / 2) * Math.sin(dLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return Math.round(R * c * 1.3 * 10) / 10; // 1.3x factor for road vs straight-line
+  return Math.round(R * c * 1.3 * 10) / 10;
 }
 
 export function getDistanceBetween(area1: string, area2: string): number {
@@ -147,19 +156,20 @@ export function calculateUberEstimate(distanceKm: number): number {
 }
 
 export const activities: Activity[] = [
+  // ─── V&A WATERFRONT ───
   {
     id: "aquarium",
     name: "Two Oceans Aquarium",
     category: "culture",
     area: "V&A Waterfront",
-    estimatedCost: 220,
+    estimatedCost: 250,
     durationMin: 90,
     duration: "90 min",
     description: "Explore the wonders of the Atlantic and Indian Oceans. Perfect for a unique, memorable date.",
     vibe: ["introvert", "romantic"],
     tags: ["culture", "romantic", "indoor"],
     deals: "Book online for R20 off!",
-    nearbyIds: ["waterfront-cruise", "zeitz-mocaa", "unframed-icecream"],
+    nearbyIds: ["waterfront-cruise", "zeitz-mocaa", "unframed-icecream", "waterfront-wheel"],
     image: "🐠",
     rating: 4.7,
     requiresCar: false,
@@ -169,7 +179,7 @@ export const activities: Activity[] = [
     name: "Harbour Sunset Cruise",
     category: "adventure",
     area: "V&A Waterfront",
-    estimatedCost: 280,
+    estimatedCost: 300,
     durationMin: 75,
     duration: "75 min",
     description: "Sail into the sunset with Table Mountain as your backdrop. Complimentary sparkling wine included.",
@@ -186,7 +196,7 @@ export const activities: Activity[] = [
     name: "Zeitz MOCAA Museum",
     category: "culture",
     area: "V&A Waterfront",
-    estimatedCost: 200,
+    estimatedCost: 230,
     durationMin: 90,
     duration: "90 min",
     description: "Africa's largest contemporary art museum in a stunning converted grain silo. Thought-provoking and inspiring.",
@@ -199,17 +209,36 @@ export const activities: Activity[] = [
     requiresCar: false,
   },
   {
+    id: "waterfront-wheel",
+    name: "Cape Wheel",
+    category: "scenic",
+    area: "V&A Waterfront",
+    estimatedCost: 180,
+    durationMin: 30,
+    duration: "30 min",
+    description: "Giant observation wheel with stunning harbour and mountain views. Extra romantic in the VIP gondola with bubbly!",
+    vibe: ["romantic", "chill"],
+    tags: ["scenic", "romantic", "fun"],
+    deals: "VIP gondola with champagne: R450 for two",
+    nearbyIds: ["aquarium", "zeitz-mocaa"],
+    image: "🎡",
+    rating: 4.3,
+    requiresCar: false,
+  },
+
+  // ─── TABLE MOUNTAIN & SIGNAL HILL ───
+  {
     id: "table-mountain",
     name: "Table Mountain Cable Car",
     category: "mountain",
     area: "Table Mountain",
-    estimatedCost: 390,
+    estimatedCost: 430,
     durationMin: 120,
     duration: "2 hours",
     description: "Ride the revolving cable car for panoramic views of Cape Town, the ocean, and beyond. A must-do experience.",
     vibe: ["adventurous", "romantic"],
     tags: ["nature", "scenic", "adventure"],
-    deals: "Book online to skip the queue",
+    deals: "Book online to skip the queue. Afternoon tickets from R370",
     image: "🏔️",
     rating: 4.9,
     requiresCar: false,
@@ -228,6 +257,7 @@ export const activities: Activity[] = [
     image: "🌅",
     rating: 4.7,
     requiresCar: true,
+    prepTips: ["Bring a blanket and cushion", "Pack a bottle of wine/bubbly and glasses", "Arrive 45 min before sunset for a good spot", "Bring a Bluetooth speaker for soft music"],
   },
   {
     id: "lions-head",
@@ -243,13 +273,16 @@ export const activities: Activity[] = [
     image: "🦁",
     rating: 4.9,
     requiresCar: false,
+    prepTips: ["Bring water and a headlamp if doing sunset", "Wear proper hiking shoes", "Pack a small snack for the top", "Check the full moon calendar for extra magic"],
   },
+
+  // ─── SOUTHERN SUBURBS & CONSTANTIA ───
   {
     id: "kirstenbosch",
     name: "Kirstenbosch Gardens",
     category: "mountain",
     area: "Southern Suburbs",
-    estimatedCost: 220,
+    estimatedCost: 250,
     durationMin: 150,
     duration: "2.5 hours",
     description: "World-class botanical gardens with the Boomslang tree canopy walkway. Pack a picnic for the ultimate date.",
@@ -259,23 +292,42 @@ export const activities: Activity[] = [
     image: "🌿",
     rating: 4.8,
     requiresCar: true,
+    prepTips: ["Pack a picnic blanket and basket", "Bring charcuterie, fruit, bread, cheese & sparkling water", "Walk the Boomslang canopy walkway together", "If she likes flowers, learn a few names to impress her"],
   },
   {
     id: "wine-tasting",
     name: "Constantia Wine Tasting",
     category: "food",
     area: "Constantia",
-    estimatedCost: 200,
+    estimatedCost: 220,
     durationMin: 150,
     duration: "2.5 hours",
     description: "Historic wine estates in SA's oldest wine region. Tastings, cheese boards, and gorgeous gardens.",
     vibe: ["romantic", "chill", "introvert"],
     tags: ["culture", "romantic", "luxury", "food"],
-    deals: "Groot Constantia: R100 for 5 wines",
+    deals: "Groot Constantia: R120 for 5 wines",
     image: "🍷",
     rating: 4.7,
     requiresCar: true,
   },
+  {
+    id: "newlands-forest",
+    name: "Newlands Forest Walk",
+    category: "mountain",
+    area: "Newlands",
+    estimatedCost: 0,
+    durationMin: 90,
+    duration: "90 min",
+    description: "Shady forest trails with towering trees and a gentle stream. Peaceful, quiet, and incredibly romantic.",
+    vibe: ["introvert", "romantic", "chill"],
+    tags: ["nature", "romantic", "free"],
+    image: "🌲",
+    rating: 4.5,
+    requiresCar: true,
+    prepTips: ["Bring water and a light jacket — it's cooler under the trees", "The contour path is gentle and perfect for chatting"],
+  },
+
+  // ─── BEACHES ───
   {
     id: "clifton-beach",
     name: "Clifton 4th Beach",
@@ -290,13 +342,29 @@ export const activities: Activity[] = [
     image: "🏖️",
     rating: 4.6,
     requiresCar: false,
+    prepTips: ["Bring a beach umbrella and towels", "Pack cold drinks and snacks", "The water is freezing — brave it together for bonus points!", "Arrive early in summer for a good spot"],
+  },
+  {
+    id: "camps-bay-beach",
+    name: "Camps Bay Beach & Strip",
+    category: "beach",
+    area: "Camps Bay",
+    estimatedCost: 0,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Palm-lined beach with the Twelve Apostles as backdrop. Walk the strip, grab a drink at one of the beachfront restaurants.",
+    vibe: ["extrovert", "romantic", "chill"],
+    tags: ["beach", "scenic", "free", "romantic"],
+    image: "🌴",
+    rating: 4.5,
+    requiresCar: false,
   },
   {
     id: "boulder-penguins",
     name: "Boulders Beach Penguins",
     category: "beach",
     area: "Simon's Town",
-    estimatedCost: 215,
+    estimatedCost: 220,
     durationMin: 90,
     duration: "90 min",
     description: "See the famous African penguin colony up close. A truly unique Cape Town experience she'll never forget.",
@@ -307,11 +375,59 @@ export const activities: Activity[] = [
     requiresCar: true,
   },
   {
+    id: "muizenberg-surf",
+    name: "Muizenberg Surf Lesson",
+    category: "adventure",
+    area: "Muizenberg",
+    estimatedCost: 500,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Learn to surf together on beginner-friendly waves. Colourful beach huts make the perfect photo backdrop.",
+    vibe: ["adventurous", "extrovert"],
+    tags: ["adventure", "beach", "active", "fun"],
+    deals: "Couples lessons available — ask for a deal!",
+    image: "🏄",
+    rating: 4.6,
+    requiresCar: true,
+  },
+  {
+    id: "muizenberg-walk",
+    name: "Muizenberg Beach Walk",
+    category: "beach",
+    area: "Muizenberg",
+    estimatedCost: 0,
+    durationMin: 60,
+    duration: "1 hour",
+    description: "Stroll along the iconic colourful beach huts. Warm water, long sandy beach, and a relaxed False Bay vibe.",
+    vibe: ["romantic", "chill"],
+    tags: ["beach", "scenic", "free", "romantic"],
+    image: "🎨",
+    rating: 4.4,
+    requiresCar: true,
+  },
+  {
+    id: "llandudno",
+    name: "Llandudno Beach",
+    category: "beach",
+    area: "Atlantic Seaboard",
+    estimatedCost: 0,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Secluded, stunning, and uncrowded. Massive boulders create a private paradise — perfect for a romantic escape.",
+    vibe: ["romantic", "introvert", "chill"],
+    tags: ["beach", "scenic", "free", "romantic"],
+    image: "🪨",
+    rating: 4.7,
+    requiresCar: true,
+  },
+
+  // ─── SCENIC DRIVES & NATURE ───
+  {
     id: "chapmans-peak",
     name: "Chapman's Peak Drive",
     category: "scenic",
     area: "Hout Bay",
-    estimatedCost: 55,
+    estimatedCost: 60,
     durationMin: 60,
     duration: "1 hour",
     description: "One of the world's most scenic coastal drives. Stop at viewpoints for photos and jaw-dropping ocean views.",
@@ -322,11 +438,45 @@ export const activities: Activity[] = [
     requiresCar: true,
   },
   {
+    id: "cape-point",
+    name: "Cape Point Nature Reserve",
+    category: "adventure",
+    area: "Cape Point",
+    estimatedCost: 380,
+    durationMin: 240,
+    duration: "4 hours",
+    description: "Where the Atlantic meets the Indian Ocean. Dramatic cliffs, hiking, and the iconic lighthouse.",
+    vibe: ["adventurous", "romantic"],
+    tags: ["nature", "adventure", "scenic"],
+    deals: "Bring a picnic — restaurants are pricey",
+    image: "🌊",
+    rating: 4.8,
+    requiresCar: true,
+    prepTips: ["Pack lunch and snacks — food inside is expensive", "Wear layers — it's windy at the point", "Walk to the old lighthouse for the best views"],
+  },
+  {
+    id: "noordhoek-beach",
+    name: "Noordhoek Long Beach Walk",
+    category: "beach",
+    area: "Noordhoek",
+    estimatedCost: 0,
+    durationMin: 90,
+    duration: "90 min",
+    description: "8km of wild, untouched beach. Dramatic dunes, shipwreck views, and total serenity. Great for horse riding too!",
+    vibe: ["romantic", "chill", "introvert"],
+    tags: ["beach", "nature", "free", "scenic"],
+    image: "🐎",
+    rating: 4.6,
+    requiresCar: true,
+  },
+
+  // ─── CITY / CBD / BO-KAAP ───
+  {
     id: "truth-coffee",
     name: "Truth Coffee Roasting",
     category: "coffee",
     area: "CBD",
-    estimatedCost: 120,
+    estimatedCost: 130,
     durationMin: 75,
     duration: "75 min",
     description: "Voted best coffee shop in the world. Steampunk-themed interior with incredible coffee and conversation vibes.",
@@ -337,11 +487,58 @@ export const activities: Activity[] = [
     requiresCar: false,
   },
   {
+    id: "rooftop-shift",
+    name: "Rooftop Bar at The Shift",
+    category: "nightlife",
+    area: "CBD",
+    estimatedCost: 280,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Craft cocktails with panoramic city views from a trendy rooftop. Perfect for a sunset start or nightcap.",
+    vibe: ["extrovert", "romantic"],
+    tags: ["nightlife", "romantic", "luxury"],
+    image: "🍸",
+    rating: 4.5,
+    requiresCar: false,
+  },
+  {
+    id: "bo-kaap-walk",
+    name: "Bo-Kaap Walking Tour",
+    category: "culture",
+    area: "Bo-Kaap",
+    estimatedCost: 0,
+    durationMin: 60,
+    duration: "1 hour",
+    description: "Wander through the colourful streets of the Bo-Kaap. Learn the history, take stunning photos, and soak in the charm.",
+    vibe: ["introvert", "romantic", "chill"],
+    tags: ["culture", "scenic", "free", "romantic"],
+    image: "🏘️",
+    rating: 4.5,
+    requiresCar: false,
+  },
+  {
+    id: "bo-kaap-cooking",
+    name: "Cape Malay Cooking Class",
+    category: "food",
+    area: "Bo-Kaap",
+    estimatedCost: 850,
+    durationMin: 180,
+    duration: "3 hours",
+    description: "Learn to cook traditional Cape Malay dishes together in a local home. Includes the meal you make! Intimate and unique.",
+    vibe: ["introvert", "romantic"],
+    tags: ["food", "culture", "romantic", "indoor"],
+    image: "👨‍🍳",
+    rating: 4.9,
+    requiresCar: false,
+  },
+
+  // ─── FOOD & MARKETS ───
+  {
     id: "ozcf-market",
     name: "Oranjezicht City Farm Market",
     category: "food",
     area: "De Waterkant",
-    estimatedCost: 220,
+    estimatedCost: 250,
     durationMin: 90,
     duration: "90 min",
     description: "Fresh produce, artisan foods, and local crafts in a vibrant weekend market with harbour views.",
@@ -353,11 +550,59 @@ export const activities: Activity[] = [
     requiresCar: false,
   },
   {
+    id: "neighbourgoods",
+    name: "Neighbourgoods Market",
+    category: "food",
+    area: "Woodstock",
+    estimatedCost: 220,
+    durationMin: 90,
+    duration: "90 min",
+    description: "Street food from around the world, craft vendors, and live music. Cape Town's favourite Saturday market.",
+    vibe: ["extrovert", "chill"],
+    tags: ["food", "culture", "fun"],
+    deals: "Saturdays only! 9am – 2pm",
+    image: "🎪",
+    rating: 4.5,
+    requiresCar: false,
+  },
+  {
+    id: "harbour-house",
+    name: "Harbour House Kalk Bay",
+    category: "food",
+    area: "Kalk Bay",
+    estimatedCost: 600,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Upscale seafood right on the ocean. Waves literally crash against the windows. One of Cape Town's most romantic restaurants.",
+    vibe: ["romantic", "introvert"],
+    tags: ["food", "romantic", "luxury", "scenic"],
+    image: "🦞",
+    rating: 4.7,
+    requiresCar: true,
+  },
+  {
+    id: "kalk-bay-stroll",
+    name: "Kalk Bay Village Stroll",
+    category: "chill",
+    area: "Kalk Bay",
+    estimatedCost: 100,
+    durationMin: 90,
+    duration: "90 min",
+    description: "Browse antique shops, art galleries, and quirky bookstores in this charming seaside village. Grab fish & chips at Kalky's!",
+    vibe: ["introvert", "romantic", "chill"],
+    tags: ["culture", "scenic", "romantic"],
+    image: "🎣",
+    rating: 4.5,
+    requiresCar: true,
+  },
+
+  // ─── ADVENTURE & FUN ───
+  {
     id: "cave-golf",
     name: "Cave Golf",
     category: "adventure",
     area: "Canal Walk",
-    estimatedCost: 130,
+    estimatedCost: 140,
     durationMin: 90,
     duration: "90 min",
     description: "Glow-in-the-dark mini golf in a cave setting. Fun, competitive, and great for breaking the ice!",
@@ -369,11 +614,59 @@ export const activities: Activity[] = [
     requiresCar: false,
   },
   {
+    id: "paragliding",
+    name: "Tandem Paragliding",
+    category: "adventure",
+    area: "Signal Hill",
+    estimatedCost: 1600,
+    durationMin: 30,
+    duration: "30 min",
+    description: "Fly off Signal Hill and land on the beach! An adrenaline-pumping experience with insane views of Cape Town.",
+    vibe: ["adventurous", "extrovert"],
+    tags: ["adventure", "active", "scenic"],
+    deals: "Book for two and ask for a discount",
+    image: "🪂",
+    rating: 4.9,
+    requiresCar: false,
+  },
+  {
+    id: "abseil-table-mountain",
+    name: "Table Mountain Abseil",
+    category: "adventure",
+    area: "Table Mountain",
+    estimatedCost: 1250,
+    durationMin: 60,
+    duration: "1 hour",
+    description: "Abseil off the top of Table Mountain — 112m drop! The world's highest commercial abseil. Not for the faint-hearted!",
+    vibe: ["adventurous", "extrovert"],
+    tags: ["adventure", "active", "scenic"],
+    image: "🧗",
+    rating: 4.8,
+    requiresCar: false,
+  },
+  {
+    id: "kayak-simons-town",
+    name: "Kayaking with Penguins",
+    category: "adventure",
+    area: "Simon's Town",
+    estimatedCost: 600,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Paddle alongside African penguins in Simon's Town harbour. Guides included. A once-in-a-lifetime date!",
+    vibe: ["adventurous", "romantic"],
+    tags: ["adventure", "nature", "active"],
+    image: "🛶",
+    rating: 4.7,
+    requiresCar: true,
+  },
+
+  // ─── DESSERT & SWEET SPOTS ───
+  {
     id: "unframed-icecream",
     name: "Unframed Ice Cream",
     category: "dessert",
     area: "De Waterkant",
-    estimatedCost: 80,
+    estimatedCost: 90,
     durationMin: 30,
     duration: "30 min",
     description: "Artisan ice cream made with local ingredients. Perfect sweet stop between activities.",
@@ -384,26 +677,28 @@ export const activities: Activity[] = [
     requiresCar: false,
   },
   {
-    id: "rooftop-shift",
-    name: "Rooftop Bar at The Shift",
-    category: "nightlife",
+    id: "honest-chocolate",
+    name: "Honest Chocolate Café",
+    category: "dessert",
     area: "CBD",
-    estimatedCost: 260,
-    durationMin: 120,
-    duration: "2 hours",
-    description: "Craft cocktails with panoramic city views from a trendy rooftop. Perfect for a sunset start or nightcap.",
-    vibe: ["extrovert", "romantic"],
-    tags: ["nightlife", "romantic", "luxury"],
-    image: "🍸",
-    rating: 4.5,
+    estimatedCost: 120,
+    durationMin: 45,
+    duration: "45 min",
+    description: "Bean-to-bar chocolate in a cozy courtyard café. Try the hot chocolate and truffles — pure indulgence.",
+    vibe: ["introvert", "romantic", "chill"],
+    tags: ["dessert", "romantic", "indoor"],
+    image: "🍫",
+    rating: 4.6,
     requiresCar: false,
   },
+
+  // ─── CHILL & PICNIC ───
   {
     id: "green-point-picnic",
     name: "Green Point Park Picnic",
     category: "chill",
     area: "Green Point",
-    estimatedCost: 160,
+    estimatedCost: 180,
     durationMin: 120,
     duration: "2 hours",
     description: "Beautiful urban park with a biodiversity garden. Pack a picnic basket and enjoy the sunshine together.",
@@ -412,22 +707,14 @@ export const activities: Activity[] = [
     image: "🧺",
     rating: 4.3,
     requiresCar: false,
-  },
-  {
-    id: "neighbourgoods",
-    name: "Neighbourgoods Market",
-    category: "food",
-    area: "Woodstock",
-    estimatedCost: 200,
-    durationMin: 90,
-    duration: "90 min",
-    description: "Street food from around the world, craft vendors, and live music. Cape Town's favourite Saturday market.",
-    vibe: ["extrovert", "chill"],
-    tags: ["food", "culture", "fun"],
-    deals: "Saturdays only! 9am – 2pm",
-    image: "🎪",
-    rating: 4.5,
-    requiresCar: false,
+    prepTips: [
+      "Pack a proper picnic: cheese board, baguette, grapes, cold meats, hummus",
+      "Bring a big blanket and cushions for comfort",
+      "Add a small bouquet of her favourite flowers",
+      "Bring sparkling water or juice with wine glasses (real ones!)",
+      "Pack wet wipes and a small cutting board",
+      "A Bluetooth speaker with a soft playlist goes a long way",
+    ],
   },
   {
     id: "sea-point-promenade",
@@ -445,19 +732,118 @@ export const activities: Activity[] = [
     requiresCar: false,
   },
   {
-    id: "cape-point",
-    name: "Cape Point Nature Reserve",
-    category: "adventure",
-    area: "Cape Point",
-    estimatedCost: 360,
-    durationMin: 240,
-    duration: "4 hours",
-    description: "Where the Atlantic meets the Indian Ocean. Dramatic cliffs, hiking, and the iconic lighthouse.",
-    vibe: ["adventurous", "romantic"],
-    tags: ["nature", "adventure", "scenic"],
-    deals: "Bring a picnic — restaurants are pricey",
-    image: "🌊",
+    id: "observatory-lower-main",
+    name: "Lower Main Road Obs",
+    category: "nightlife",
+    area: "Observatory",
+    estimatedCost: 200,
+    durationMin: 120,
+    duration: "2 hours",
+    description: "Bohemian bars, live music, and quirky restaurants in Cape Town's most eclectic neighbourhood. Great for a fun night out.",
+    vibe: ["extrovert", "adventurous"],
+    tags: ["nightlife", "fun", "culture"],
+    image: "🎵",
+    rating: 4.3,
+    requiresCar: false,
+  },
+
+  // ─── COFFEE ───
+  {
+    id: "rosetta-roastery",
+    name: "Rosetta Roastery",
+    category: "coffee",
+    area: "De Waterkant",
+    estimatedCost: 100,
+    durationMin: 60,
+    duration: "1 hour",
+    description: "Specialty single-origin coffee in a minimal, design-forward space. Great for quiet morning dates.",
+    vibe: ["introvert", "chill"],
+    tags: ["coffee", "indoor"],
+    image: "☕",
+    rating: 4.6,
+    requiresCar: false,
+  },
+  {
+    id: "espresso-lab",
+    name: "Espresso Lab",
+    category: "coffee",
+    area: "CBD",
+    estimatedCost: 110,
+    durationMin: 60,
+    duration: "1 hour",
+    description: "Trendy micro-roastery with a lab-like setup. Watch them brew with precision. Great conversation starter.",
+    vibe: ["introvert", "chill"],
+    tags: ["coffee", "culture", "indoor"],
+    image: "🧪",
+    rating: 4.5,
+    requiresCar: false,
+  },
+
+  // ─── WINELANDS ───
+  {
+    id: "stellenbosch-wine",
+    name: "Stellenbosch Wine Route",
+    category: "food",
+    area: "Stellenbosch",
+    estimatedCost: 400,
+    durationMin: 300,
+    duration: "5 hours",
+    description: "Visit 2-3 stunning wine estates in the heart of the Winelands. Tastings, cheese platters, and oak-lined streets.",
+    vibe: ["romantic", "chill", "introvert"],
+    tags: ["food", "romantic", "luxury", "culture"],
+    deals: "Consider a wine tram for a car-free option!",
+    image: "🍇",
     rating: 4.8,
+    requiresCar: true,
+    prepTips: ["Book tastings in advance — popular estates fill up", "Spier, Delaire Graff, and Jordan are great picks", "Have a designated driver or book a wine tour"],
+  },
+  {
+    id: "franschhoek-tram",
+    name: "Franschhoek Wine Tram",
+    category: "food",
+    area: "Franschhoek",
+    estimatedCost: 320,
+    durationMin: 300,
+    duration: "5 hours",
+    description: "Hop-on-hop-off wine tram through the Franschhoek valley. Visit multiple estates without driving. Pure romance!",
+    vibe: ["romantic", "chill"],
+    tags: ["food", "romantic", "luxury", "culture", "scenic"],
+    deals: "Book weeks in advance — sells out fast!",
+    image: "🚂",
+    rating: 4.9,
+    requiresCar: true,
+    prepTips: ["Book at least 2 weeks in advance", "Pack sunscreen and a hat", "Eat breakfast — the tastings add up!"],
+  },
+
+  // ─── DURBANVILLE & BLOUBERG ───
+  {
+    id: "durbanville-wine",
+    name: "Durbanville Wine Valley",
+    category: "food",
+    area: "Durbanville",
+    estimatedCost: 280,
+    durationMin: 180,
+    duration: "3 hours",
+    description: "Lesser-known wine farms with stunning views. Less crowds, more intimate. Try D'Aria or Hillcrest for great setups.",
+    vibe: ["romantic", "chill", "introvert"],
+    tags: ["food", "romantic", "scenic"],
+    image: "🏡",
+    rating: 4.4,
+    requiresCar: true,
+  },
+  {
+    id: "blouberg-sunset",
+    name: "Bloubergstrand Sunset",
+    category: "beach",
+    area: "Bloubergstrand",
+    estimatedCost: 0,
+    durationMin: 90,
+    duration: "90 min",
+    description: "The iconic Table Mountain photo spot across the bay. Long beach walk with golden sunset views.",
+    vibe: ["romantic", "chill"],
+    tags: ["beach", "scenic", "free", "romantic"],
+    image: "📸",
+    rating: 4.5,
     requiresCar: true,
   },
 ];
@@ -466,28 +852,24 @@ export const activities: Activity[] = [
 export function scoreActivity(activity: Activity, answers: Partial<QuizAnswer>): number {
   let score = 0;
 
-  // +3 personality match
   if (answers.personality) {
     if (answers.personality === "introvert" && activity.vibe.includes("introvert")) score += 3;
     if (answers.personality === "extrovert" && activity.vibe.includes("extrovert")) score += 3;
-    if (answers.personality === "ambivert") score += 1; // ambiverts get a small bonus for everything
+    if (answers.personality === "ambivert") score += 1;
   }
 
-  // +3 setting match
   if (answers.setting) {
     if (answers.setting === "beach" && (activity.category === "beach" || activity.tags.includes("beach"))) score += 3;
     if (answers.setting === "mountains" && (activity.category === "mountain" || activity.tags.includes("nature"))) score += 3;
     if (answers.setting === "city" && (activity.category === "culture" || activity.category === "nightlife" || activity.category === "coffee" || activity.tags.includes("culture"))) score += 3;
   }
 
-  // +2 energy match
   if (answers.energy) {
     if (answers.energy === "chill" && activity.vibe.includes("chill")) score += 2;
     if (answers.energy === "active" && (activity.vibe.includes("adventurous") || activity.tags.includes("active"))) score += 2;
     if (answers.energy === "mix") score += 1;
   }
 
-  // +2 vibe category match
   if (answers.vibe) {
     if (answers.vibe === "nature" && activity.tags.includes("nature")) score += 2;
     if (answers.vibe === "culture" && activity.tags.includes("culture")) score += 2;
@@ -501,7 +883,6 @@ export function scoreActivity(activity: Activity, answers: Partial<QuizAnswer>):
 export function getRecommendedActivities(answers: Partial<QuizAnswer>): Activity[] {
   const scored = activities
     .filter(a => {
-      // Hide car-required activities if no car
       if (answers.hasCar === false && a.requiresCar) return false;
       return true;
     })
