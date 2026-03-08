@@ -9,6 +9,7 @@ import { useDatePlan } from "@/lib/dateContext";
 import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { ShareDateModal } from "@/components/ShareDateModal";
+import { DateTips } from "@/components/DateTips";
 import { fetchForecastForDate, type ForecastData } from "@/lib/weatherForecast";
 import { getHolidaysForDate } from "@/lib/saHolidays";
 import { cn } from "@/lib/utils";
@@ -255,6 +256,11 @@ export function DateSummary() {
               <span>{budget - grandTotal >= 0 ? "✓ Budget remaining" : "⚠️ Over budget"}</span>
               <span className="font-bold">R{budget - grandTotal}</span>
             </div>
+          </div>
+
+          {/* Tips section */}
+          <div className="mt-6">
+            <DateTips activities={activities} scheduledDate={scheduledDate} />
           </div>
 
           {/* Share button */}
