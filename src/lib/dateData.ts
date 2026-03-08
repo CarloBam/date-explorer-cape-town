@@ -348,6 +348,11 @@ export const activities: Activity[] = [
     requiresCar: true,
     prepTips: ["Pack a picnic blanket and basket", "Bring charcuterie, fruit, bread, cheese & sparkling water", "Walk the Boomslang canopy walkway together", "If she likes flowers, learn a few names to impress her"],
     websiteUrl: "https://www.sanbi.org/gardens/kirstenbosch",
+    reviews: [
+      { author: "Lisa R.", rating: 5, text: "We packed a full picnic — cheese, crackers, wine, strawberries. Sat on the lawn for hours. The Boomslang walkway is magical!", timeAgo: "5 days ago" },
+      { author: "Thabo J.", rating: 5, text: "Sunday sunset concerts in summer are THE date activity. Buy tickets early, bring a blanket, and enjoy live music surrounded by nature.", timeAgo: "2 weeks ago" },
+      { author: "Emma C.", rating: 4, text: "Beautiful gardens but can get busy on weekends. Go on a weekday morning for a quieter, more romantic experience.", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "wine-tasting",
