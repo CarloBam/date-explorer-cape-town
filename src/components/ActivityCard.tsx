@@ -70,7 +70,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
                 {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
               </div>
               {activity.estimatedCost > 0 && (
-                <div className="text-xs text-muted-foreground">per person</div>
+                <div className="text-xs text-muted-foreground">for two</div>
               )}
             </div>
           </div>
