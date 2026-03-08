@@ -173,7 +173,7 @@ export default function SharedDateView() {
           <p className="text-muted-foreground">{error}</p>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Shield className="h-4 w-4 text-secondary" />
-            <span>Cape Town Dates — Secure Sharing</span>
+            <span>Cape Town Dates • Secure Sharing</span>
           </div>
         </motion.div>
       </div>
