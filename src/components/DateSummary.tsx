@@ -60,6 +60,42 @@ export function DateSummary() {
   const transportCost = hasCar ? petrolCost : uberCost;
   const grandTotal = totalCost + transportCost;
 
+  // Total time calculation
+  const totalTimeMin = useMemo(() => {
+    let time = activities.reduce((sum, a) => sum + a.durationMin, 0);
+    // Add ~10 min travel buffer per leg
+    time += Math.max(0, activities.length - 1) * 10;
+    return time;
+  }, [activities]);
+
+  const formatTotalTime = (mins: number) => {
+    const hours = Math.floor(mins / 60);
+    const remaining = mins % 60;
+    if (hours === 0) return `${remaining} min`;
+    return remaining > 0 ? `${hours}h ${remaining}min` : `${hours}h`;
+  };
+
+  // Google Maps directions URL with waypoints
+  const googleMapsUrl = useMemo(() => {
+    if (activities.length < 2) return null;
+    const coords = activities
+      .map(a => areaCoordinates[a.area])
+      .filter(Boolean);
+    if (coords.length < 2) return null;
+    const origin = `${coords[0].lat},${coords[0].lng}`;
+    const destination = `${coords[coords.length - 1].lat},${coords[coords.length - 1].lng}`;
+    const waypoints = coords.slice(1, -1).map(c => `${c.lat},${c.lng}`).join("|");
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}${waypoints ? `&waypoints=${waypoints}` : ""}&travelmode=driving`;
+  }, [activities]);
+
+  // Uber deep link
+  const uberUrl = useMemo(() => {
+    if (activities.length === 0) return null;
+    const first = areaCoordinates[activities[0].area];
+    if (!first) return null;
+    return `https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=${first.lat}&dropoff[longitude]=${first.lng}&dropoff[nickname]=${encodeURIComponent(activities[0].name)}`;
+  }, [activities]);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto max-w-2xl px-4 py-8">
