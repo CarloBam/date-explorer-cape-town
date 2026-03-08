@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Tag, Car, Shield, Check, X, Edit3, Heart, Receipt, Fuel, ArrowRight, Loader2 } from "lucide-react";
+import { MapPin, Clock, Tag, Car, Shield, Check, X, Edit3, Heart, Receipt, Fuel, ArrowRight, Loader2, CalendarIcon, AlertTriangle, PartyPopper } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { activities as allActivities, Activity, getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
+import { fetchForecastForDate, type ForecastData } from "@/lib/weatherForecast";
+import { getHolidaysForDate } from "@/lib/saHolidays";
 import { toast } from "sonner";
 
 type DateResponse = "pending" | "accepted" | "rejected" | "customised";
