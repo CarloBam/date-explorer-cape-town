@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus, Info, Gift, Heart } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus, Info, Gift, Heart, Navigation, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useDatePlan } from "@/lib/dateContext";
-import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
+import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate, areaCoordinates } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { ShareDateModal } from "@/components/ShareDateModal";
 import { DateTips } from "@/components/DateTips";
@@ -60,6 +60,42 @@ export function DateSummary() {
   const transportCost = hasCar ? petrolCost : uberCost;
   const grandTotal = totalCost + transportCost;
 
+  // Total time calculation
+  const totalTimeMin = useMemo(() => {
+    let time = activities.reduce((sum, a) => sum + a.durationMin, 0);
+    // Add ~10 min travel buffer per leg
+    time += Math.max(0, activities.length - 1) * 10;
+    return time;
+  }, [activities]);
+
+  const formatTotalTime = (mins: number) => {
+    const hours = Math.floor(mins / 60);
+    const remaining = mins % 60;
+    if (hours === 0) return `${remaining} min`;
+    return remaining > 0 ? `${hours}h ${remaining}min` : `${hours}h`;
+  };
+
+  // Google Maps directions URL with waypoints
+  const googleMapsUrl = useMemo(() => {
+    if (activities.length < 2) return null;
+    const coords = activities
+      .map(a => areaCoordinates[a.area])
+      .filter(Boolean);
+    if (coords.length < 2) return null;
+    const origin = `${coords[0].lat},${coords[0].lng}`;
+    const destination = `${coords[coords.length - 1].lat},${coords[coords.length - 1].lng}`;
+    const waypoints = coords.slice(1, -1).map(c => `${c.lat},${c.lng}`).join("|");
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}${waypoints ? `&waypoints=${waypoints}` : ""}&travelmode=driving`;
+  }, [activities]);
+
+  // Uber deep link
+  const uberUrl = useMemo(() => {
+    if (activities.length === 0) return null;
+    const first = areaCoordinates[activities[0].area];
+    if (!first) return null;
+    return `https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=${first.lat}&dropoff[longitude]=${first.lng}&dropoff[nickname]=${encodeURIComponent(activities[0].name)}`;
+  }, [activities]);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto max-w-2xl px-4 py-8">
@@ -77,6 +113,12 @@ export function DateSummary() {
               Date Plan Ready!
             </h1>
             <p className="text-muted-foreground">Here's your curated Cape Town date</p>
+            {activities.length > 0 && (
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                <Clock className="h-4 w-4" />
+                Total time: ~{formatTotalTime(totalTimeMin)} (incl. travel)
+              </div>
+            )}
           </div>
 
           {/* Date Picker */}
@@ -301,6 +343,48 @@ export function DateSummary() {
           {activities.length > 0 && (
             <div className="mt-6">
               <DateMap activities={activities} />
+            </div>
+          )}
+
+          {/* Transport Planning */}
+          {activities.length >= 2 && totalDistance > 0 && (
+            <div className="mt-6 rounded-xl border border-border bg-card p-5 shadow-card">
+              <h3 className="font-display text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+                <Navigation className="h-5 w-5 text-primary" /> Plan Your Transport
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {hasCar
+                  ? "Open Google Maps with all your stops pre-loaded for easy navigation."
+                  : "Get an Uber to your first stop, then use Google Maps to see all your routes."}
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                {googleMapsUrl && (
+                  <a
+                    href={googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1"
+                  >
+                    <Button variant="outline" className="w-full gap-2">
+                      <MapPin className="h-4 w-4" /> Open in Google Maps
+                      <ExternalLink className="h-3 w-3 ml-auto" />
+                    </Button>
+                  </a>
+                )}
+                {!hasCar && uberUrl && (
+                  <a
+                    href={uberUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1"
+                  >
+                    <Button variant="outline" className="w-full gap-2">
+                      🚕 Open Uber
+                      <ExternalLink className="h-3 w-3 ml-auto" />
+                    </Button>
+                  </a>
+                )}
+              </div>
             </div>
           )}
 
