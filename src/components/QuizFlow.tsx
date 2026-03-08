@@ -12,8 +12,9 @@ export function QuizFlow() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showBudget, setShowBudget] = useState(false);
 
-  const question = quizQuestions[currentQ];
-  const isLastQuestion = currentQ === quizQuestions.length - 1;
+  const safeQ = Math.min(currentQ, quizQuestions.length - 1);
+  const question = quizQuestions[safeQ];
+  const isLastQuestion = safeQ === quizQuestions.length - 1;
 
   const handleSelect = (value: string) => {
     const newAnswers = { ...answers, [question.id]: value };
