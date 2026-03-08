@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useDatePlan } from "@/lib/dateContext";
-import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
+import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate, areaCoordinates } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { ShareDateModal } from "@/components/ShareDateModal";
 import { DateTips } from "@/components/DateTips";
