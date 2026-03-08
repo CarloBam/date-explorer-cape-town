@@ -48,6 +48,10 @@ export function QuizFlow() {
     setStep("browse");
   };
 
+  if (showDescribe) {
+    return <VoiceDescribeHer onFinish={handleDescribeFinish} />;
+  }
+
   if (showBudget) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
