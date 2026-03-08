@@ -612,6 +612,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Bo-Kaap",
     estimatedCost: 1700,
+    costMax: 2000,
     durationMin: 180,
     duration: "3 hours",
     description: "Learn to cook traditional Cape Malay dishes together in a local home. Includes the meal you make! Intimate and unique.",
