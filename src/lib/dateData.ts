@@ -561,6 +561,11 @@ export const activities: Activity[] = [
     requiresCar: false,
     websiteUrl: "https://www.truthcoffee.com",
     menuUrl: "https://www.truthcoffee.com/pages/menu",
+    reviews: [
+      { author: "Nadia K.", rating: 5, text: "The steampunk interior is SO cool — conversation flows naturally because there's so much to look at. Coffee is outstanding.", timeAgo: "1 week ago" },
+      { author: "Chris B.", rating: 5, text: "Voted best coffee shop in the world for a reason. My date was impressed I even knew about this place. Order the cold brew!", timeAgo: "2 weeks ago" },
+      { author: "Fatima A.", rating: 4, text: "Incredible atmosphere but can be busy on weekends. The breakfast menu is also great if you're doing a morning date.", timeAgo: "1 month ago" },
+    ],
   },
   {
     id: "rooftop-shift",
