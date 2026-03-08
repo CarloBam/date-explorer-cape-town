@@ -228,10 +228,13 @@ export default function SharedDateView() {
               </p>
             )}
             {dateData.date_scheduled && (
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-foreground">
-                <CalendarIcon className="h-4 w-4 text-primary" />
-                {format(new Date(dateData.date_scheduled), "EEEE, d MMMM yyyy")}
-              </div>
+              <>
+                <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-foreground">
+                  <CalendarIcon className="h-4 w-4 text-primary" />
+                  {format(new Date(dateData.date_scheduled), "EEEE, d MMMM yyyy")}
+                </div>
+                <CountdownTimer targetDate={new Date(dateData.date_scheduled)} />
+              </>
             )}
           </div>
 
