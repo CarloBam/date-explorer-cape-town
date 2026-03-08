@@ -729,6 +729,10 @@ export const activities: Activity[] = [
     rating: 4.9,
     requiresCar: false,
     websiteUrl: "https://www.paraglidecapetown.com",
+    reviews: [
+      { author: "Josh P.", rating: 5, text: "BEST EXPERIENCE OF MY LIFE! Flying over Camps Bay and landing on the beach. My girlfriend screamed the whole time but loved every second.", timeAgo: "5 days ago" },
+      { author: "Lebo N.", rating: 5, text: "If you want to impress her, do this. The adrenaline rush brings you closer together. Photos and video included!", timeAgo: "2 weeks ago" },
+    ],
   },
   {
     id: "abseil-table-mountain",
