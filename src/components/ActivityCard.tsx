@@ -26,7 +26,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
     >
       {/* Great match badge */}
       {greatMatch && (
-        <div className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-accent/20 px-2.5 py-1 text-xs font-semibold text-accent-foreground">
+        <div className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-accent/20 px-2.5 py-1 text-xs font-semibold text-accent-foreground backdrop-blur-sm">
           <Star className="h-3 w-3 text-accent" /> Great match
         </div>
       )}
@@ -38,8 +38,8 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2">
-            <div>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
               <h3 className="font-display text-lg font-semibold text-foreground leading-tight">
                 {activity.name}
               </h3>
@@ -65,7 +65,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
               </div>
             </div>
 
-            <div className="text-right shrink-0">
+            <div className={`text-right shrink-0 ${greatMatch ? "mt-6" : ""}`}>
               <div className={`font-display text-lg font-bold ${activity.estimatedCost === 0 ? "text-secondary" : "text-foreground"}`}>
                 {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
               </div>

@@ -5,6 +5,7 @@ interface DatePlan {
   activities: Activity[];
   budget: number;
   quizAnswers: Partial<QuizAnswer>;
+  scheduledDate: Date | undefined;
 }
 
 interface DateContextType {
@@ -14,6 +15,7 @@ interface DateContextType {
   reorderActivities: (startIndex: number, endIndex: number) => void;
   setBudget: (budget: number) => void;
   setQuizAnswers: (answers: Partial<QuizAnswer>) => void;
+  setScheduledDate: (date: Date | undefined) => void;
   totalCost: number;
   isInPlan: (id: string) => boolean;
   step: "landing" | "quiz" | "browse" | "summary";
@@ -27,6 +29,7 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     activities: [],
     budget: 1000,
     quizAnswers: {},
+    scheduledDate: undefined,
   });
   const [step, setStep] = useState<"landing" | "quiz" | "browse" | "summary">("landing");
 
@@ -61,6 +64,10 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
     setDatePlan(prev => ({ ...prev, quizAnswers: { ...prev.quizAnswers, ...answers } }));
   }, []);
 
+  const setScheduledDate = useCallback((date: Date | undefined) => {
+    setDatePlan(prev => ({ ...prev, scheduledDate: date }));
+  }, []);
+
   const totalCost = datePlan.activities.reduce((sum, a) => sum + a.estimatedCost, 0);
 
   const isInPlan = useCallback((id: string) => {
@@ -68,7 +75,7 @@ export function DateProvider({ children }: { children: React.ReactNode }) {
   }, [datePlan.activities]);
 
   return (
-    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, totalCost, isInPlan, step, setStep }}>
+    <DateContext.Provider value={{ datePlan, addActivity, removeActivity, reorderActivities, setBudget, setQuizAnswers, setScheduledDate, totalCost, isInPlan, step, setStep }}>
       {children}
     </DateContext.Provider>
   );
