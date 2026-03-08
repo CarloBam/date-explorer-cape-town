@@ -94,7 +94,8 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
     const message = encodeURIComponent(
       `Hey! 💝\n\n${userName} would like to ask you to go on a date!${titleText}${dateTimeText}\n\n🔗 Click here to see the activities planned for you:\n${shareUrl}${customiseNote}\n\n🤗🤗🤗`
     );
-    window.open(`https://web.whatsapp.com/send?text=${message}`, "_blank");
+    // Use api.whatsapp.com which works on both mobile and desktop
+    window.open(`https://api.whatsapp.com/send?text=${message}`, "_blank");
   };
 
   const shareEmail = () => {
