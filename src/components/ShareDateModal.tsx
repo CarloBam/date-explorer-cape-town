@@ -50,7 +50,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
 
       const { error } = await supabase.from("saved_dates").insert({
         user_id: user.id,
-        title,
+        title: title || "Date Plan",
         activities: activities.map(a => ({ id: a.id, name: a.name, area: a.area, estimatedCost: a.estimatedCost, duration: a.duration, image: a.image, description: a.description, deals: a.deals })),
         budget,
         total_cost: totalCost,
