@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
 import { quizQuestions } from "@/lib/dateData";
 import { Slider } from "@/components/ui/slider";
+import { VoiceDescribeHer } from "./VoiceDescribeHer";
 
 export function QuizFlow() {
   const { setQuizAnswers, datePlan, setBudget, setStep } = useDatePlan();
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showBudget, setShowBudget] = useState(false);
+  const [showDescribe, setShowDescribe] = useState(false);
 
   const safeQ = Math.min(currentQ, quizQuestions.length - 1);
   const question = quizQuestions[safeQ];
@@ -21,10 +23,19 @@ export function QuizFlow() {
     setAnswers(newAnswers);
 
     if (isLastQuestion) {
-      setShowBudget(true);
+      // Show describe her step before budget
+      setShowDescribe(true);
     } else {
       setTimeout(() => setCurrentQ(prev => prev + 1), 300);
     }
+  };
+
+  const handleDescribeFinish = (description: string) => {
+    if (description) {
+      setAnswers(prev => ({ ...prev, girlDescription: description }));
+    }
+    setShowDescribe(false);
+    setShowBudget(true);
   };
 
   const handleFinish = () => {
