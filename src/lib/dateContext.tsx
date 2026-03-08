@@ -5,6 +5,7 @@ interface DatePlan {
   activities: Activity[];
   budget: number;
   quizAnswers: Partial<QuizAnswer>;
+  scheduledDate: Date | undefined;
 }
 
 interface DateContextType {
