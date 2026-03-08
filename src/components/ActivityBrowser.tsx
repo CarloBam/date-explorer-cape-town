@@ -32,6 +32,7 @@ export function ActivityBrowser() {
   const { datePlan, setStep, setScheduledDate, pricingMode, setPricingMode } = useDatePlan();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
+  const [sortPrice, setSortPrice] = useState<"none" | "low" | "high">("none");
   const [showRecommended, setShowRecommended] = useState(
     Object.keys(datePlan.quizAnswers).length > 0
   );
@@ -39,13 +40,19 @@ export function ActivityBrowser() {
   const recommended = getRecommendedActivities(datePlan.quizAnswers);
   const baseActivities = showRecommended ? recommended : activities;
 
-  const filtered = baseActivities.filter(a => {
-    if (datePlan.quizAnswers.hasCar === false && a.requiresCar) return false;
-    const matchesSearch = a.name.toLowerCase().includes(search.toLowerCase()) ||
-      a.area.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory = category === "all" || a.category === category;
-    return matchesSearch && matchesCategory;
-  });
+  const filtered = baseActivities
+    .filter(a => {
+      if (datePlan.quizAnswers.hasCar === false && a.requiresCar) return false;
+      const matchesSearch = a.name.toLowerCase().includes(search.toLowerCase()) ||
+        a.area.toLowerCase().includes(search.toLowerCase());
+      const matchesCategory = category === "all" || a.category === category;
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortPrice === "low") return a.estimatedCost - b.estimatedCost;
+      if (sortPrice === "high") return b.estimatedCost - a.estimatedCost;
+      return 0;
+    });
 
   return (
     <div className="min-h-screen bg-background">
