@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, SlidersHorizontal, ArrowLeft, Star, CalendarIcon, Users, User } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowLeft, Star, CalendarIcon, Users, User, ArrowUpDown } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,7 @@ export function ActivityBrowser() {
   const { datePlan, setStep, setScheduledDate, pricingMode, setPricingMode } = useDatePlan();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
+  const [sortPrice, setSortPrice] = useState<"none" | "low" | "high">("none");
   const [showRecommended, setShowRecommended] = useState(
     Object.keys(datePlan.quizAnswers).length > 0
   );
@@ -39,13 +40,19 @@ export function ActivityBrowser() {
   const recommended = getRecommendedActivities(datePlan.quizAnswers);
   const baseActivities = showRecommended ? recommended : activities;
 
-  const filtered = baseActivities.filter(a => {
-    if (datePlan.quizAnswers.hasCar === false && a.requiresCar) return false;
-    const matchesSearch = a.name.toLowerCase().includes(search.toLowerCase()) ||
-      a.area.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory = category === "all" || a.category === category;
-    return matchesSearch && matchesCategory;
-  });
+  const filtered = baseActivities
+    .filter(a => {
+      if (datePlan.quizAnswers.hasCar === false && a.requiresCar) return false;
+      const matchesSearch = a.name.toLowerCase().includes(search.toLowerCase()) ||
+        a.area.toLowerCase().includes(search.toLowerCase());
+      const matchesCategory = category === "all" || a.category === category;
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortPrice === "low") return a.estimatedCost - b.estimatedCost;
+      if (sortPrice === "high") return b.estimatedCost - a.estimatedCost;
+      return 0;
+    });
 
   return (
     <div className="min-h-screen bg-background">
@@ -124,7 +131,7 @@ export function ActivityBrowser() {
           </div>
 
           {/* Search & Filter */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -134,6 +141,15 @@ export function ActivityBrowser() {
                 className="pl-10"
               />
             </div>
+            <Button
+              variant={sortPrice !== "none" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSortPrice(prev => prev === "none" ? "low" : prev === "low" ? "high" : "none")}
+              className="shrink-0 gap-1"
+            >
+              <ArrowUpDown className="h-3.5 w-3.5" />
+              {sortPrice === "low" ? "R↑" : sortPrice === "high" ? "R↓" : "Price"}
+            </Button>
             {Object.keys(datePlan.quizAnswers).length > 0 && (
               <Button
                 variant={showRecommended ? "default" : "outline"}
