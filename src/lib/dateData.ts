@@ -1725,6 +1725,7 @@ export function scoreActivity(activity: Activity, answers: Partial<QuizAnswer>):
     if (answers.setting === "beach" && (activity.category === "beach" || activity.tags.includes("beach"))) score += 3;
     if (answers.setting === "mountains" && (activity.category === "mountain" || activity.tags.includes("nature"))) score += 3;
     if (answers.setting === "city" && (activity.category === "culture" || activity.category === "nightlife" || activity.category === "coffee" || activity.tags.includes("culture"))) score += 3;
+    if (answers.setting === "waterfront" && (activity.area === "V&A Waterfront" || activity.tags.includes("scenic") || activity.tags.includes("luxury"))) score += 3;
   }
 
   if (answers.energy) {
