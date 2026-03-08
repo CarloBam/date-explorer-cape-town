@@ -1075,6 +1075,15 @@ export function scoreActivity(activity: Activity, answers: Partial<QuizAnswer>):
     if (answers.vibe === "romantic" && activity.tags.includes("romantic")) score += 2;
   }
 
+  // Stage-based scoring
+  if (answers.stage) {
+    if (answers.stage === "first-date" && activity.tags.includes("fun")) score += 2;
+    if (answers.stage === "early-dating" && activity.tags.includes("romantic")) score += 1;
+    if (answers.stage === "relationship" && activity.tags.includes("romantic")) score += 2;
+    if (answers.stage === "anniversary" && activity.tags.includes("luxury")) score += 3;
+    if (answers.stage === "anniversary" && activity.tags.includes("romantic")) score += 2;
+  }
+
   return score;
 }
 
