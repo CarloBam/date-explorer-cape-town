@@ -346,6 +346,48 @@ export function DateSummary() {
             </div>
           )}
 
+          {/* Transport Planning */}
+          {activities.length >= 2 && totalDistance > 0 && (
+            <div className="mt-6 rounded-xl border border-border bg-card p-5 shadow-card">
+              <h3 className="font-display text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+                <Navigation className="h-5 w-5 text-primary" /> Plan Your Transport
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {hasCar
+                  ? "Open Google Maps with all your stops pre-loaded for easy navigation."
+                  : "Get an Uber to your first stop, then use Google Maps to see all your routes."}
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                {googleMapsUrl && (
+                  <a
+                    href={googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1"
+                  >
+                    <Button variant="outline" className="w-full gap-2">
+                      <MapPin className="h-4 w-4" /> Open in Google Maps
+                      <ExternalLink className="h-3 w-3 ml-auto" />
+                    </Button>
+                  </a>
+                )}
+                {!hasCar && uberUrl && (
+                  <a
+                    href={uberUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1"
+                  >
+                    <Button variant="outline" className="w-full gap-2">
+                      🚕 Open Uber
+                      <ExternalLink className="h-3 w-3 ml-auto" />
+                    </Button>
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Tips section */}
           <div className="mt-6">
             <DateTips activities={activities} scheduledDate={scheduledDate} />
