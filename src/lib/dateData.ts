@@ -16,6 +16,7 @@ export interface Activity {
   requiresCar: boolean;
   prepTips?: string[];
   websiteUrl?: string;
+  menuUrl?: string;
 }
 
 export interface QuizAnswer {
