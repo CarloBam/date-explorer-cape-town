@@ -131,7 +131,7 @@ export function ActivityBrowser() {
           </div>
 
           {/* Search & Filter */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -141,6 +141,15 @@ export function ActivityBrowser() {
                 className="pl-10"
               />
             </div>
+            <Button
+              variant={sortPrice !== "none" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSortPrice(prev => prev === "none" ? "low" : prev === "low" ? "high" : "none")}
+              className="shrink-0 gap-1"
+            >
+              <ArrowUpDown className="h-3.5 w-3.5" />
+              {sortPrice === "low" ? "R↑" : sortPrice === "high" ? "R↓" : "Price"}
+            </Button>
             {Object.keys(datePlan.quizAnswers).length > 0 && (
               <Button
                 variant={showRecommended ? "default" : "outline"}
