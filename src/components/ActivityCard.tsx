@@ -65,7 +65,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
               </div>
             </div>
 
-            <div className="text-right shrink-0">
+            <div className={`text-right shrink-0 ${greatMatch ? "mt-6" : ""}`}>
               <div className={`font-display text-lg font-bold ${activity.estimatedCost === 0 ? "text-secondary" : "text-foreground"}`}>
                 {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
               </div>
