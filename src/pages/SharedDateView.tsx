@@ -326,7 +326,7 @@ export default function SharedDateView() {
                     {hasCar ? (
                       <><Car className="h-3 w-3" /> {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km drive</>
                     ) : (
-                      <>🚕 {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km — Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, displayActivities[index + 1].area))}</>
+                      <>🚕 {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km, Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, displayActivities[index + 1].area))}</>
                     )}
                   </div>
                 )}

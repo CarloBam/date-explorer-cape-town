@@ -186,7 +186,7 @@ export function DateTips({ activities, scheduledDate }: DateTipsProps) {
         </AnimatePresence>
       </div>
 
-      {/* Love letter option — only for dates a week+ away */}
+      {/* Love letter option, only for dates a week+ away */}
       {showLoveLetterOption && (
         <div className="rounded-xl border border-border bg-card shadow-card overflow-hidden">
           <button

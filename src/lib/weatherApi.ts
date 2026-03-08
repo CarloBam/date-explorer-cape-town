@@ -42,7 +42,7 @@ function getTip(weather: { windSpeed: number; weatherCode: number; temperature: 
     return "🔥 Hot day! Beach activities, ice cream, and shady spots are your best bet.";
   }
   if (weather.temperature < 15) {
-    return "🧥 Cool day — wine tasting, cozy cafés, and indoor culture are perfect picks.";
+    return "🧥 Cool day. Wine tasting, cozy cafés, and indoor culture are perfect picks.";
   }
   return "🌤️ Great weather for a date! Mix indoor and outdoor activities for the best experience.";
 }

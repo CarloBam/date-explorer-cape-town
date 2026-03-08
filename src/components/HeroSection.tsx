@@ -9,7 +9,7 @@ const features = [
   { emoji: "💝", title: "Personalised for her", description: "Answer a few questions and we'll match activities to her personality" },
   { emoji: "📍", title: "Route & Map", description: "See all your spots on a map with distances and transport costs" },
   { emoji: "📱", title: "Beautiful invite link", description: "Send her a stunning date invite via WhatsApp or email" },
-  { emoji: "✏️", title: "She can customise", description: "Optionally let her swap activities — so she feels included" },
+  { emoji: "✏️", title: "She can customise", description: "Optionally let her swap activities so she feels included" },
 ];
 
 const motivations = [

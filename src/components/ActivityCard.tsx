@@ -237,7 +237,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
           className="border-t border-border bg-muted/50 px-5 py-3"
         >
           <p className="mb-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            Nearby — easy to combine!
+            Nearby, easy to combine!
           </p>
           {nearby.map(n => (
             <NearbyRow key={n.id} activity={n} />
