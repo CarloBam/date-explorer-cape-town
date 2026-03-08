@@ -67,7 +67,7 @@ export function DateSummary() {
   const petrolCost = calculatePetrolCost(totalDistance);
   const uberCost = calculateUberEstimate(totalDistance);
   const transportCost = hasCar ? petrolCost : uberCost;
-  const grandTotal = totalCost + transportCost;
+  const grandTotal = adjustedTotalCost + transportCost;
 
   // Total time calculation
   const totalTimeMin = useMemo(() => {
