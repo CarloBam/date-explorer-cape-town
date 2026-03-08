@@ -258,6 +258,11 @@ export function DateSummary() {
             </div>
           </div>
 
+          {/* Tips section */}
+          <div className="mt-6">
+            <DateTips activities={activities} scheduledDate={scheduledDate} />
+          </div>
+
           {/* Share button */}
           <div className="mt-6 flex gap-3">
             <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
