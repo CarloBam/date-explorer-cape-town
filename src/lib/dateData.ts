@@ -701,6 +701,7 @@ export const activities: Activity[] = [
     rating: 4.4,
     requiresCar: false,
     websiteUrl: "https://www.unframed.co.za",
+    menuUrl: "https://www.unframed.co.za/flavours",
   },
   {
     id: "honest-chocolate",
