@@ -23,8 +23,7 @@ export function QuizFlow() {
     setAnswers(newAnswers);
 
     if (isLastQuestion) {
-      // Show describe her step before budget
-      setShowDescribe(true);
+      setShowBudget(true);
     } else {
       setTimeout(() => setCurrentQ(prev => prev + 1), 300);
     }
