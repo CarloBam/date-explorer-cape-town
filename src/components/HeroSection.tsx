@@ -7,6 +7,7 @@ import heroImage from "@/assets/hero-capetown.jpg";
 
 export function HeroSection() {
   const { setStep } = useDatePlan();
+  const { user, signOut } = useAuth();
 
   return (
     <div className="relative min-h-screen overflow-hidden">
