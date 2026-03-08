@@ -1,19 +1,23 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Heart, Tag } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
-import { getDistanceBetween, calculatePetrolCost } from "@/lib/dateData";
+import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
+import { WeatherWidget } from "@/components/WeatherWidget";
 
 export function DateSummary() {
   const { datePlan, totalCost, setStep } = useDatePlan();
   const { activities, budget } = datePlan;
+  const hasCar = datePlan.quizAnswers.hasCar !== false;
 
   let totalDistance = 0;
   for (let i = 0; i < activities.length - 1; i++) {
     totalDistance += getDistanceBetween(activities[i].area, activities[i + 1].area);
   }
   const petrolCost = calculatePetrolCost(totalDistance);
-  const grandTotal = totalCost + petrolCost;
+  const uberCost = calculateUberEstimate(totalDistance);
+  const transportCost = hasCar ? petrolCost : uberCost;
+  const grandTotal = totalCost + transportCost;
 
   return (
     <div className="min-h-screen bg-background">
@@ -34,11 +38,15 @@ export function DateSummary() {
             <p className="text-muted-foreground">Here's your curated Cape Town date</p>
           </div>
 
+          {/* Weather */}
+          <div className="mb-6">
+            <WeatherWidget />
+          </div>
+
           {/* Timeline */}
           <div className="space-y-0">
             {activities.map((activity, index) => (
               <div key={activity.id} className="relative">
-                {/* Timeline line */}
                 {index < activities.length - 1 && (
                   <div className="absolute left-6 top-14 bottom-0 w-0.5 bg-border" />
                 )}
@@ -54,7 +62,7 @@ export function DateSummary() {
                         <h3 className="font-display text-lg font-semibold text-foreground">
                           {activity.name}
                         </h3>
-                        <div className="mt-1 flex items-center gap-3 text-sm text-muted-foreground">
+                        <div className="mt-1 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <MapPin className="h-3.5 w-3.5" /> {activity.area}
                           </span>
@@ -63,7 +71,7 @@ export function DateSummary() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-display font-bold text-foreground">
+                      <span className={`font-display font-bold ${activity.estimatedCost === 0 ? "text-secondary" : "text-foreground"}`}>
                         {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
                       </span>
                     </div>
@@ -79,8 +87,16 @@ export function DateSummary() {
                 {/* Distance to next */}
                 {index < activities.length - 1 && (
                   <div className="ml-14 -mt-3 mb-3 text-xs text-muted-foreground flex items-center gap-1">
-                    <Fuel className="h-3 w-3" />
-                    {getDistanceBetween(activity.area, activities[index + 1].area)} km drive
+                    {hasCar ? (
+                      <>
+                        <Car className="h-3 w-3" />
+                        {getDistanceBetween(activity.area, activities[index + 1].area)} km drive
+                      </>
+                    ) : (
+                      <>
+                        🚕 {getDistanceBetween(activity.area, activities[index + 1].area)} km — Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, activities[index + 1].area))}
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -101,24 +117,32 @@ export function DateSummary() {
               </div>
             ))}
             {totalDistance > 0 && (
-              <div className="flex justify-between py-1.5 text-sm border-t border-border mt-2 pt-2">
-                <span className="text-muted-foreground flex items-center gap-1">
-                  <Fuel className="h-3.5 w-3.5" /> Petrol ({totalDistance} km)
-                </span>
-                <span className="font-medium text-foreground">~R{petrolCost}</span>
-              </div>
+              <>
+                <div className="flex justify-between py-1.5 text-sm border-t border-border mt-2 pt-2">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    {hasCar ? <Fuel className="h-3.5 w-3.5" /> : <span>🚕</span>}
+                    {hasCar ? `Petrol (${totalDistance} km)` : `Uber (${totalDistance} km)`}
+                  </span>
+                  <span className="font-medium text-foreground">~R{transportCost}</span>
+                </div>
+                {hasCar && (
+                  <div className="text-xs text-muted-foreground mt-1 pl-5">
+                    R23.80/L × 9.5L/100km × {totalDistance}km
+                  </div>
+                )}
+              </>
             )}
             <div className="flex justify-between border-t border-border mt-2 pt-3 text-lg font-bold">
               <span className="text-foreground">Total</span>
               <span className="text-gradient-sunset">R{grandTotal}</span>
             </div>
             <div className={`flex justify-between text-sm mt-1 ${budget - grandTotal < 0 ? "text-destructive" : "text-secondary"}`}>
-              <span>Budget remaining</span>
+              <span>{budget - grandTotal >= 0 ? "✓ Budget remaining" : "⚠️ Over budget"}</span>
               <span className="font-bold">R{budget - grandTotal}</span>
             </div>
           </div>
 
-          {/* Share button placeholder */}
+          {/* Share button */}
           <div className="mt-6 flex gap-3">
             <Button variant="hero" className="flex-1 gap-2">
               <Share2 className="h-4 w-4" /> Share Date Plan
@@ -127,10 +151,6 @@ export function DateSummary() {
               Edit Plan
             </Button>
           </div>
-
-          <p className="mt-4 text-center text-xs text-muted-foreground">
-            💡 To save your date plan and share a secure link, sign in with Lovable Cloud
-          </p>
         </motion.div>
       </div>
     </div>

@@ -1,20 +1,26 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Filter, SlidersHorizontal, ArrowLeft } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowLeft, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ActivityCard } from "@/components/ActivityCard";
 import { DateCart } from "@/components/DateCart";
+import { WeatherWidget } from "@/components/WeatherWidget";
 import { useDatePlan } from "@/lib/dateContext";
 import { activities, getRecommendedActivities } from "@/lib/dateData";
 
 const categories = [
   { value: "all", label: "All", emoji: "✨" },
   { value: "beach", label: "Beach", emoji: "🏖️" },
-  { value: "mountain", label: "Mountains", emoji: "⛰️" },
+  { value: "mountain", label: "Nature", emoji: "⛰️" },
   { value: "food", label: "Food & Drinks", emoji: "🍽️" },
   { value: "adventure", label: "Adventure", emoji: "🚀" },
   { value: "culture", label: "Culture", emoji: "🎨" },
+  { value: "coffee", label: "Coffee", emoji: "☕" },
+  { value: "nightlife", label: "Nightlife", emoji: "🍸" },
+  { value: "scenic", label: "Scenic", emoji: "🌅" },
+  { value: "chill", label: "Chill", emoji: "🧺" },
+  { value: "dessert", label: "Dessert", emoji: "🍦" },
 ];
 
 export function ActivityBrowser() {
@@ -26,9 +32,11 @@ export function ActivityBrowser() {
   );
 
   const recommended = getRecommendedActivities(datePlan.quizAnswers);
-  const displayActivities = showRecommended ? recommended : activities;
+  const baseActivities = showRecommended ? recommended : activities;
 
-  const filtered = displayActivities.filter(a => {
+  // Filter car-required activities if no car
+  const filtered = baseActivities.filter(a => {
+    if (datePlan.quizAnswers.hasCar === false && a.requiresCar) return false;
     const matchesSearch = a.name.toLowerCase().includes(search.toLowerCase()) ||
       a.area.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = category === "all" || a.category === category;
@@ -105,10 +113,14 @@ export function ActivityBrowser() {
         <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
           {/* Activity list */}
           <div className="space-y-4">
+            {/* Weather widget */}
+            <WeatherWidget />
+
             {showRecommended && recommended.length > 0 && (
               <div className="mb-2 rounded-lg bg-ocean-light/50 border border-secondary/20 px-4 py-3">
-                <p className="text-sm font-medium text-foreground">
-                  ✨ Curated picks based on her vibe — she'll love these!
+                <p className="text-sm font-medium text-foreground flex items-center gap-1">
+                  <Star className="h-4 w-4 text-accent" />
+                  Curated picks based on her vibe — activities with ⭐ are great matches!
                 </p>
               </div>
             )}

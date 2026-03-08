@@ -1,26 +1,29 @@
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import { motion, AnimatePresence } from "framer-motion";
-import { GripVertical, Trash2, MapPin, Fuel, Receipt, ArrowRight, Heart } from "lucide-react";
+import { GripVertical, Trash2, MapPin, Fuel, Receipt, ArrowRight, Heart, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
-import { getDistanceBetween, calculatePetrolCost } from "@/lib/dateData";
+import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 
 export function DateCart() {
   const { datePlan, removeActivity, reorderActivities, totalCost, setStep } = useDatePlan();
   const { activities, budget } = datePlan;
-  const remaining = budget - totalCost;
+  const hasCar = datePlan.quizAnswers.hasCar !== false;
 
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     reorderActivities(result.source.index, result.destination.index);
   };
 
-  // Calculate total distance and petrol
+  // Calculate total distance
   let totalDistance = 0;
   for (let i = 0; i < activities.length - 1; i++) {
     totalDistance += getDistanceBetween(activities[i].area, activities[i + 1].area);
   }
   const petrolCost = calculatePetrolCost(totalDistance);
+  const uberCost = calculateUberEstimate(totalDistance);
+  const transportCost = hasCar ? petrolCost : uberCost;
+  const remaining = budget - totalCost - transportCost;
 
   if (activities.length === 0) {
     return (
@@ -100,7 +103,12 @@ export function DateCart() {
                         {index < activities.length - 1 && (
                           <div className="mt-2 ml-7 flex items-center gap-1 text-xs text-muted-foreground">
                             <ArrowRight className="h-3 w-3" />
-                            {getDistanceBetween(activity.area, activities[index + 1].area)} km to next
+                            {getDistanceBetween(activity.area, activities[index + 1].area)} km •{" "}
+                            {hasCar ? (
+                              <span className="flex items-center gap-0.5"><Car className="h-3 w-3" /> drive</span>
+                            ) : (
+                              <span>🚕 Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, activities[index + 1].area))}</span>
+                            )}
                           </div>
                         )}
                       </div>
@@ -126,20 +134,21 @@ export function DateCart() {
         {totalDistance > 0 && (
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground flex items-center gap-1">
-              <Fuel className="h-3.5 w-3.5" /> Petrol ({totalDistance} km)
+              {hasCar ? <Fuel className="h-3.5 w-3.5" /> : <span>🚕</span>}
+              {hasCar ? `Petrol (${totalDistance} km)` : `Uber (${totalDistance} km)`}
             </span>
-            <span className="font-semibold text-foreground">~R{petrolCost}</span>
+            <span className="font-semibold text-foreground">~R{transportCost}</span>
           </div>
         )}
 
         <div className="flex justify-between border-t border-border pt-2 text-sm font-bold">
           <span className="text-foreground">Estimated Total</span>
-          <span className="text-foreground">R{totalCost + petrolCost}</span>
+          <span className="text-foreground">R{totalCost + transportCost}</span>
         </div>
 
         <div className={`flex justify-between text-sm ${remaining < 0 ? "text-destructive" : "text-secondary"}`}>
-          <span>Budget remaining</span>
-          <span className="font-bold">R{remaining - petrolCost}</span>
+          <span>{remaining >= 0 ? "✓ Budget remaining" : "⚠️ Over budget"}</span>
+          <span className="font-bold">R{remaining}</span>
         </div>
 
         <Button
