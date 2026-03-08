@@ -84,7 +84,7 @@ export function DateSummary() {
     if (coords.length < 2) return null;
     const origin = `${coords[0].lat},${coords[0].lng}`;
     const destination = `${coords[coords.length - 1].lat},${coords[coords.length - 1].lng}`;
-    const waypoints = coords.slice(1, -1).map(c => `${c.lat},${c.lng}`).join("|");
+    const waypoints = coords.slice(1, -1).map(c => `${c.lat},${c.lng}`).join("%7C");
     return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}${waypoints ? `&waypoints=${waypoints}` : ""}&travelmode=driving`;
   }, [activities]);
 
