@@ -558,6 +558,7 @@ export const activities: Activity[] = [
     category: "coffee",
     area: "CBD",
     estimatedCost: 260,
+    costMax: 400,
     durationMin: 75,
     duration: "75 min",
     description: "Voted best coffee shop in the world. Steampunk-themed interior with incredible coffee and conversation vibes.",
