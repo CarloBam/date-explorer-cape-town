@@ -187,6 +187,20 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
                 <p className="font-display font-bold text-foreground">Link Ready!</p>
               </div>
 
+              {/* QR Code */}
+              <div className="flex justify-center">
+                <div className="rounded-xl border border-border bg-white p-3 shadow-card">
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(shareUrl)}&color=2d2d2d&bgcolor=ffffff&margin=1`}
+                    alt="QR code for date plan"
+                    className="h-[180px] w-[180px]"
+                  />
+                </div>
+              </div>
+              <p className="text-xs text-center text-muted-foreground">
+                Save or screenshot the QR code to share in person 💌
+              </p>
+
               {/* Link display */}
               <div className="flex items-center gap-2">
                 <Input value={shareUrl} readOnly className="text-xs font-mono" />
