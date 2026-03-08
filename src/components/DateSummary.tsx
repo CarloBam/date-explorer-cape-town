@@ -1,9 +1,11 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDatePlan } from "@/lib/dateContext";
 import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
+import { ShareDateModal } from "@/components/ShareDateModal";
 
 export function DateSummary() {
   const { datePlan, totalCost, setStep } = useDatePlan();
