@@ -11,7 +11,7 @@ interface ActivityCardProps {
 }
 
 export function ActivityCard({ activity, showNearby = true }: ActivityCardProps) {
-  const { addActivity, removeActivity, isInPlan, datePlan } = useDatePlan();
+  const { addActivity, removeActivity, isInPlan, datePlan, getDisplayCost, pricingMode } = useDatePlan();
   const inPlan = isInPlan(activity.id);
   const [showNearbyList, setShowNearbyList] = useState(false);
   const nearby = showNearby ? getNearbyActivities(activity.id) : [];
