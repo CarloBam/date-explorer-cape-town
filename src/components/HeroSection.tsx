@@ -40,21 +40,20 @@ export function HeroSection() {
           className="max-w-2xl"
         >
           <div className="mb-6 flex items-center justify-center gap-2">
-            <MapPin className="h-5 w-5 text-primary" />
+            <Heart className="h-5 w-5 text-primary" />
             <span className="font-body text-sm uppercase tracking-widest text-primary">
-              Cape Town Date Planner
+              Cape Town Date Invitations
             </span>
           </div>
 
           <h1 className="mb-6 font-display text-5xl font-extrabold leading-tight text-primary-foreground md:text-7xl">
-            Plan the
-            <span className="text-gradient-sunset"> Perfect </span>
-            Date
+            Ask Her Out
+            <span className="text-gradient-sunset"> the Right Way </span>
           </h1>
 
           <p className="mb-10 font-body text-lg text-primary-foreground/80 md:text-xl">
-            Tell us about her vibe, and we'll curate an unforgettable Cape Town
-            date — with costs, deals, distances, and everything you need.
+            Plan the perfect Cape Town date, then send her a beautiful
+            invite — complete with activities, a map, and the option to customise.
           </p>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -65,7 +64,7 @@ export function HeroSection() {
               onClick={() => setStep("quiz")}
             >
               <Heart className="h-5 w-5" />
-              Start Planning
+              Plan a Date Invite
             </Button>
             <Button
               variant="ghost"
