@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Plus, Check, Tag, MapPin, Clock, Star, ChevronRight, Car } from "lucide-react";
+import { Plus, Check, Tag, MapPin, Clock, Star, ChevronRight, Car, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Activity, getNearbyActivities, isGreatMatch } from "@/lib/dateData";
 import { useDatePlan } from "@/lib/dateContext";
