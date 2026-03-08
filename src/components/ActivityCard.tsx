@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { Plus, Check, Tag, MapPin, Clock, Star, ChevronRight } from "lucide-react";
+import { Plus, Check, Tag, MapPin, Clock, Star, ChevronRight, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Activity, getNearbyActivities } from "@/lib/dateData";
+import { Activity, getNearbyActivities, isGreatMatch } from "@/lib/dateData";
 import { useDatePlan } from "@/lib/dateContext";
 import { useState } from "react";
 
@@ -11,10 +11,11 @@ interface ActivityCardProps {
 }
 
 export function ActivityCard({ activity, showNearby = true }: ActivityCardProps) {
-  const { addActivity, removeActivity, isInPlan } = useDatePlan();
+  const { addActivity, removeActivity, isInPlan, datePlan } = useDatePlan();
   const inPlan = isInPlan(activity.id);
   const [showNearbyList, setShowNearbyList] = useState(false);
   const nearby = showNearby ? getNearbyActivities(activity.id) : [];
+  const greatMatch = isGreatMatch(activity, datePlan.quizAnswers);
 
   return (
     <motion.div
@@ -23,7 +24,14 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
       animate={{ opacity: 1, y: 0 }}
       className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-card transition-shadow hover:shadow-warm"
     >
-      {/* Top section with emoji and deal badge */}
+      {/* Great match badge */}
+      {greatMatch && (
+        <div className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-accent/20 px-2.5 py-1 text-xs font-semibold text-accent-foreground">
+          <Star className="h-3 w-3 text-accent" /> Great match
+        </div>
+      )}
+
+      {/* Top section */}
       <div className="relative flex items-start gap-4 p-5">
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-muted text-3xl">
           {activity.image}
@@ -35,7 +43,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
               <h3 className="font-display text-lg font-semibold text-foreground leading-tight">
                 {activity.name}
               </h3>
-              <div className="mt-1 flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="mt-1 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <MapPin className="h-3.5 w-3.5" />
                   {activity.area}
@@ -48,19 +56,37 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
                   <Star className="h-3.5 w-3.5 text-accent" />
                   {activity.rating}
                 </span>
+                {activity.requiresCar && (
+                  <span className="flex items-center gap-1 text-primary">
+                    <Car className="h-3.5 w-3.5" />
+                    Car needed
+                  </span>
+                )}
               </div>
             </div>
 
             <div className="text-right shrink-0">
-              <div className="font-display text-lg font-bold text-foreground">
+              <div className={`font-display text-lg font-bold ${activity.estimatedCost === 0 ? "text-secondary" : "text-foreground"}`}>
                 {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
               </div>
+              {activity.estimatedCost > 0 && (
+                <div className="text-xs text-muted-foreground">per person</div>
+              )}
             </div>
           </div>
 
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
             {activity.description}
           </p>
+
+          {/* Tags */}
+          <div className="mt-2 flex flex-wrap gap-1">
+            {activity.tags.slice(0, 4).map(tag => (
+              <span key={tag} className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                {tag}
+              </span>
+            ))}
+          </div>
 
           {activity.deals && (
             <div className="mt-3 flex items-center gap-1.5 rounded-lg bg-accent/15 px-3 py-1.5 text-xs font-medium text-accent-foreground">
