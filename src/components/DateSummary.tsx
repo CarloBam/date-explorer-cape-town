@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Receipt, Share2, Tag, Car, CalendarIcon, AlertTriangle, PartyPopper, CalendarPlus } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -10,8 +10,10 @@ import { getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { ShareDateModal } from "@/components/ShareDateModal";
 import { DateTips } from "@/components/DateTips";
+import { DateMap } from "@/components/DateMap";
 import { fetchForecastForDate, type ForecastData } from "@/lib/weatherForecast";
 import { getHolidaysForDate } from "@/lib/saHolidays";
+import { downloadICS } from "@/lib/calendarExport";
 import { cn } from "@/lib/utils";
 
 export function DateSummary() {
@@ -258,19 +260,41 @@ export function DateSummary() {
             </div>
           </div>
 
+          {/* Map */}
+          {activities.length > 0 && (
+            <div className="mt-6">
+              <DateMap activities={activities} />
+            </div>
+          )}
+
           {/* Tips section */}
           <div className="mt-6">
             <DateTips activities={activities} scheduledDate={scheduledDate} />
           </div>
 
-          {/* Share button */}
-          <div className="mt-6 flex gap-3">
-            <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
-              <Share2 className="h-4 w-4" /> Share Date Plan
-            </Button>
-            <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
-              Edit Plan
-            </Button>
+          {/* Calendar & Share buttons */}
+          <div className="mt-6 space-y-3">
+            {scheduledDate && (
+              <Button
+                variant="outline"
+                className="w-full gap-2"
+                onClick={() => downloadICS(
+                  "Cape Town Date 💝",
+                  scheduledDate,
+                  activities
+                )}
+              >
+                <CalendarPlus className="h-4 w-4" /> Save to Calendar
+              </Button>
+            )}
+            <div className="flex gap-3">
+              <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
+                <Share2 className="h-4 w-4" /> Send Date Invite
+              </Button>
+              <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
+                Edit Plan
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>

@@ -63,14 +63,14 @@ export function QuizFlow() {
             value={[datePlan.budget]}
             onValueChange={([val]) => setBudget(val)}
             min={200}
-            max={5000}
+            max={2000}
             step={50}
             className="mb-8 mx-auto max-w-sm"
           />
 
           <div className="flex justify-between text-sm text-muted-foreground max-w-sm mx-auto mb-8">
             <span>R200</span>
-            <span>R5,000</span>
+            <span>R2,000</span>
           </div>
 
           <Button variant="hero" size="lg" onClick={handleFinish} className="px-10">
