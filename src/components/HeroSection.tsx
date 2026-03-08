@@ -13,9 +13,9 @@ const features = [
 ];
 
 const motivations = [
-  "Stop overthinking. Just ask her out. 💪",
-  "She's waiting for you to make a move.",
-  "The best dates are the ones you actually plan.",
+  "The best dates are the ones you actually plan. 💪",
+  "A great date starts with a great plan.",
+  "She deserves more than 'let's see what happens.'",
   "You miss 100% of the dates you don't plan.",
 ];
 
