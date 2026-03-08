@@ -453,14 +453,6 @@ export function DateSummary() {
                 <CalendarPlus className="h-4 w-4" /> Save to Calendar
               </Button>
             )}
-            <div className="flex gap-3">
-              <Button variant="hero" className="flex-1 gap-2" onClick={() => setShowShare(true)}>
-                <Share2 className="h-4 w-4" /> Send Date Invite
-              </Button>
-              <Button variant="outline" className="gap-2" onClick={() => setStep("browse")}>
-                Edit Plan
-              </Button>
-            </div>
           </div>
         </motion.div>
       </div>
