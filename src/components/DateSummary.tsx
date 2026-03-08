@@ -277,14 +277,40 @@ export function DateSummary() {
             <h3 className="font-display text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <Receipt className="h-5 w-5" /> Cost Breakdown
             </h3>
-            {activities.map(a => (
-              <div key={a.id} className="flex justify-between py-1.5 text-sm">
-                <span className="text-muted-foreground">{a.image} {a.name}</span>
-                <span className="font-medium text-foreground">
-                  {a.estimatedCost === 0 ? "Free" : `R${a.estimatedCost}`}
-                </span>
-              </div>
-            ))}
+            <p className="text-xs text-muted-foreground mb-3">
+              Slide to adjust expected spend per activity
+            </p>
+            {activities.map(a => {
+              const currentCost = getActivityCost(a);
+              const min = a.estimatedCost;
+              const max = a.costMax || a.estimatedCost;
+              const hasRange = max > min;
+              return (
+                <div key={a.id} className="py-2 border-b border-border last:border-0">
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-muted-foreground">{a.image} {a.name}</span>
+                    <span className="font-medium text-foreground">
+                      {currentCost === 0 ? "Free" : `R${currentCost}`}
+                    </span>
+                  </div>
+                  {hasRange && min > 0 && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground w-10">R{min}</span>
+                      <input
+                        type="range"
+                        min={min}
+                        max={max}
+                        step={10}
+                        value={currentCost}
+                        onChange={(e) => setPriceOverrides(prev => ({ ...prev, [a.id]: Number(e.target.value) }))}
+                        className="flex-1 h-1.5 accent-primary cursor-pointer"
+                      />
+                      <span className="text-xs text-muted-foreground w-10 text-right">R{max}</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             {totalDistance > 0 && (
               <>
                 <div className="flex justify-between py-1.5 text-sm border-t border-border mt-2 pt-2">
@@ -314,7 +340,7 @@ export function DateSummary() {
             <div className="mt-4 flex items-start gap-2 rounded-lg bg-muted px-3 py-2.5 text-xs text-muted-foreground">
               <Info className="h-4 w-4 shrink-0 mt-0.5 text-primary" />
               <span>
-                Prices shown are estimates for two people. Actual costs may vary depending on what you order, seasonal pricing, and availability. We recommend checking each venue's website or menu for the latest prices before your date.
+                Prices shown are estimates for two people. Adjust sliders to match what you expect to spend at each venue.
               </span>
             </div>
           </div>
