@@ -366,6 +366,7 @@ export const activities: Activity[] = [
     category: "food",
     area: "Constantia",
     estimatedCost: 440,
+    costMax: 700,
     durationMin: 150,
     duration: "2.5 hours",
     description: "Historic wine estates in SA's oldest wine region. Tastings, cheese boards, and gorgeous gardens.",
