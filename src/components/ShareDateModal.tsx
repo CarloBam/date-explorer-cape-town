@@ -90,10 +90,11 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
   const shareWhatsApp = () => {
     if (!shareUrl) return;
     const customiseNote = allowCustomise ? "\n\n✏️ You can also propose changes to the plan if you'd like!" : "";
+    const titleText = title ? ` — "${title}"` : "";
     const message = encodeURIComponent(
-      `Hey! 💝\n\n${userName} would like to ask you to go on a date!${dateTimeText}\n\n🔗 Click here to see the activities planned for you:\n${shareUrl}${customiseNote}\n\n🤗🤗🤗`
+      `Hey! 💝\n\n${userName} would like to ask you to go on a date!${titleText}${dateTimeText}\n\n🔗 Click here to see the activities planned for you:\n${shareUrl}${customiseNote}\n\n🤗🤗🤗`
     );
-    window.open(`https://wa.me/?text=${message}`, "_blank");
+    window.open(`https://web.whatsapp.com/send?text=${message}`, "_blank");
   };
 
   const shareEmail = () => {
