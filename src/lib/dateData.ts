@@ -30,7 +30,7 @@ export interface Activity {
 
 export interface QuizAnswer {
   personality: "introvert" | "extrovert" | "ambivert";
-  setting: "beach" | "mountains" | "city" | "waterfront";
+  setting: "beach" | "mountains" | "city" | "winelands" | "cozy-indoor";
   vibe: "nature" | "culture" | "spontaneous" | "romantic";
   energy: "chill" | "active" | "mix";
   stage: "first-date" | "early-dating" | "relationship" | "anniversary" | "long-term";
@@ -70,7 +70,8 @@ export const quizQuestions = [
       { value: "beach", label: "Beach & Ocean", emoji: "🏖️", description: "Waves, sand & salty air" },
       { value: "mountains", label: "Nature & Mountains", emoji: "⛰️", description: "Trails, wine farms & views" },
       { value: "city", label: "City & Culture", emoji: "🏙️", description: "Cafés, streets & buzzy spots" },
-      { value: "waterfront", label: "Waterfront & Harbour", emoji: "⚓", description: "Boats, sea views & shopping" },
+      { value: "winelands", label: "Winelands & Countryside", emoji: "🍇", description: "Wine estates, rolling hills & slow vibes" },
+      { value: "cozy-indoor", label: "Cozy & Indoor", emoji: "🕯️", description: "Coffee shops, galleries & intimate spots" },
     ],
   },
   {
@@ -1725,7 +1726,8 @@ export function scoreActivity(activity: Activity, answers: Partial<QuizAnswer>):
     if (answers.setting === "beach" && (activity.category === "beach" || activity.tags.includes("beach"))) score += 3;
     if (answers.setting === "mountains" && (activity.category === "mountain" || activity.tags.includes("nature"))) score += 3;
     if (answers.setting === "city" && (activity.category === "culture" || activity.category === "nightlife" || activity.category === "coffee" || activity.tags.includes("culture"))) score += 3;
-    if (answers.setting === "waterfront" && (activity.area === "V&A Waterfront" || activity.tags.includes("scenic") || activity.tags.includes("luxury"))) score += 3;
+    if (answers.setting === "winelands" && (activity.area === "Constantia" || activity.area === "Stellenbosch" || activity.area === "Franschhoek" || activity.area === "Durbanville" || activity.tags.includes("food"))) score += 3;
+    if (answers.setting === "cozy-indoor" && (activity.category === "coffee" || activity.category === "chill" || activity.tags.includes("indoor") || activity.tags.includes("romantic"))) score += 3;
   }
 
   if (answers.energy) {
