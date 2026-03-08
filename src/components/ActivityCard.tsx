@@ -110,6 +110,16 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
               <ExternalLink className="h-3 w-3" /> Book / Info
             </a>
           )}
+          {activity.menuUrl && (
+            <a
+              href={activity.menuUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <ExternalLink className="h-3 w-3" /> Menu
+            </a>
+          )}
           {nearby.length > 0 && showNearby && (
             <button
               onClick={() => setShowNearbyList(!showNearbyList)}
