@@ -82,22 +82,25 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const timeLabel = scheduledDate ? format(scheduledDate, "h:mm a") : "";
+  const dateLabel = scheduledDate ? format(scheduledDate, "EEEE, d MMMM yyyy") : "";
+  const dateTimeText = scheduledDate ? `\n📅 ${dateLabel} at ${timeLabel}` : "";
+
   const shareWhatsApp = () => {
     if (!shareUrl) return;
-    const actList = activities.map((a, i) => `${i + 1}. ${a.image} ${a.name} (${a.area})`).join("\n");
-    const dateText = scheduledDate ? `\n📅 ${format(scheduledDate, "EEEE, d MMMM yyyy")}` : "";
+    const customiseNote = allowCustomise ? "\n\n✏️ You can also propose changes to the plan if you'd like!" : "";
     const message = encodeURIComponent(
-      `Hey! 🌊 I've planned a Cape Town date for us!\n\n${actList}${dateText}\n\nCheck it out: ${shareUrl}`
+      `Hey! 💝\n\n${userName} would like to ask you to go on a date!${dateTimeText}\n\n🔗 Click here to see the activities planned for you:\n${shareUrl}${customiseNote}\n\n🤗🤗🤗`
     );
     window.open(`https://wa.me/?text=${message}`, "_blank");
   };
 
   const shareEmail = () => {
     if (!shareUrl) return;
-    const subject = encodeURIComponent("I planned a date for us! 💝");
-    const dateText = scheduledDate ? `\n📅 ${format(scheduledDate, "EEEE, d MMMM yyyy")}` : "";
+    const subject = encodeURIComponent(`${userName} wants to take you on a date! 💝`);
+    const customiseNote = allowCustomise ? "\n\n✏️ You can also propose changes to the plan if you'd like!" : "";
     const body = encodeURIComponent(
-      `Hey!\n\nI've planned a Cape Town date for us! 🌊\n\n${activities.map((a, i) => `${i + 1}. ${a.image} ${a.name} (${a.area})`).join("\n")}${dateText}\n\nView the full plan and let me know: ${shareUrl}\n\n💝`
+      `Hey! 💝\n\n${userName} would like to ask you to go on a date!${dateTimeText}\n\nClick here to see the activities planned for you:\n${shareUrl}${customiseNote}\n\n🤗🤗🤗`
     );
     window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
   };
