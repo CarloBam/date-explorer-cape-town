@@ -26,7 +26,7 @@ export function ActivityCard({ activity, showNearby = true }: ActivityCardProps)
     >
       {/* Great match badge */}
       {greatMatch && (
-        <div className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-accent/20 px-2.5 py-1 text-xs font-semibold text-accent-foreground">
+        <div className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-accent/20 px-2.5 py-1 text-xs font-semibold text-accent-foreground backdrop-blur-sm">
           <Star className="h-3 w-3 text-accent" /> Great match
         </div>
       )}
