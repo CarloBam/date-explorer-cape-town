@@ -9,6 +9,7 @@ import { ShareDateModal } from "@/components/ShareDateModal";
 
 export function DateSummary() {
   const { datePlan, totalCost, setStep } = useDatePlan();
+  const [showShare, setShowShare] = useState(false);
   const { activities, budget } = datePlan;
   const hasCar = datePlan.quizAnswers.hasCar !== false;
 
