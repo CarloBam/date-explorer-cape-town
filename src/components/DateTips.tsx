@@ -74,7 +74,7 @@ function getActivityTips(activities: Activity[]): { activity: string; emoji: str
 
     if (a.category === "adventure") {
       tips.push("Wear clothes you can move in");
-      tips.push("Check booking requirements — many need advance reservation");
+      tips.push("Check booking requirements, many need advance reservation");
     }
 
     if (a.category === "coffee") {
