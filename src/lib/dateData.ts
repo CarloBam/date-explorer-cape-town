@@ -718,6 +718,7 @@ export const activities: Activity[] = [
     rating: 4.6,
     requiresCar: false,
     websiteUrl: "https://www.honestchocolate.co.za",
+    menuUrl: "https://www.honestchocolate.co.za/pages/cafe",
   },
 
   // ─── CHILL & PICNIC ───
