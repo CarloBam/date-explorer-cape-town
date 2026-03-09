@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Tag, Car, Shield, Check, X, Edit3, Heart, Receipt, Fuel, ArrowRight, Loader2, CalendarIcon, AlertTriangle, PartyPopper } from "lucide-react";
+import { MapPin, Clock, Tag, Car, Shield, Check, X, Edit3, Heart, Receipt, Fuel, ArrowRight, Loader2, CalendarIcon, AlertTriangle, PartyPopper, Download, CalendarClock } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
 import { activities as allActivities, Activity, getDistanceBetween, calculatePetrolCost, calculateUberEstimate } from "@/lib/dateData";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { fetchForecastForDate, type ForecastData } from "@/lib/weatherForecast";
 import { getHolidaysForDate } from "@/lib/saHolidays";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 type DateResponse = "pending" | "accepted" | "rejected" | "customised";
 
@@ -29,6 +32,8 @@ interface SavedDate {
   customised_activities: any;
   quiz_answers: any;
   date_scheduled: string | null;
+  proposed_datetime: string | null;
+  proposed_by_name: string | null;
 }
 
 export default function SharedDateView() {
@@ -44,6 +49,41 @@ export default function SharedDateView() {
   const [hasResponded, setHasResponded] = useState(false);
   const [forecast, setForecast] = useState<ForecastData | null>(null);
   const [holidays, setHolidays] = useState<{ name: string; emoji: string }[]>([]);
+  const [showTimeProposal, setShowTimeProposal] = useState(false);
+  const [proposedDate, setProposedDate] = useState<Date | undefined>();
+  const [proposedTime, setProposedTime] = useState("18:00");
+  const [proposingTime, setProposingTime] = useState(false);
+  const [timeProposed, setTimeProposed] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  // PWA install prompt
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
+      if (result.outcome === "accepted") {
+        toast.success("App installed! 🎉");
+      }
+      setDeferredPrompt(null);
+    } else {
+      // Fallback: show instructions
+      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+      if (isIOS) {
+        toast.info("Tap the Share button ↗ then 'Add to Home Screen' to install", { duration: 5000 });
+      } else {
+        toast.info("Open your browser menu ⋮ and tap 'Install app' or 'Add to Home Screen'", { duration: 5000 });
+      }
+    }
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -70,12 +110,14 @@ export default function SharedDateView() {
         return;
       }
 
-      setDateData(data as SavedDate);
+      setDateData(data as unknown as SavedDate);
       if (data.date_response && data.date_response !== "pending") {
         setHasResponded(true);
       }
+      if (data.proposed_datetime) {
+        setTimeProposed(true);
+      }
 
-      // Resolve activities from IDs
       const activityData = data.activities as any[];
       if (activityData && activityData.length > 0) {
         const resolved = activityData
@@ -87,7 +129,6 @@ export default function SharedDateView() {
           .filter(Boolean) as Activity[];
         setCustomActivities(resolved);
 
-        // Load forecast if date is scheduled
         if (data.date_scheduled) {
           const scheduledDate = new Date(data.date_scheduled);
           setHolidays(getHolidaysForDate(scheduledDate));
@@ -143,6 +184,34 @@ export default function SharedDateView() {
       toast.error("Failed to send response. Please try again.");
     } finally {
       setResponding(false);
+    }
+  };
+
+  const handleProposeTime = async () => {
+    if (!proposedDate || !dateData) return;
+    setProposingTime(true);
+    try {
+      const [hours, minutes] = proposedTime.split(":").map(Number);
+      const proposedDateTime = new Date(proposedDate);
+      proposedDateTime.setHours(hours, minutes, 0, 0);
+
+      const { error } = await supabase.functions.invoke("propose-time-change", {
+        body: {
+          shareToken: token,
+          proposedDatetime: proposedDateTime.toISOString(),
+          proposerName: girlName || "Your date",
+        },
+      });
+
+      if (error) throw error;
+
+      setTimeProposed(true);
+      setShowTimeProposal(false);
+      toast.success("Time change proposed! He'll be notified 💌");
+    } catch (err: any) {
+      toast.error("Failed to propose time change. Please try again.");
+    } finally {
+      setProposingTime(false);
     }
   };
 
@@ -204,9 +273,18 @@ export default function SharedDateView() {
             </div>
             <span className="font-display font-bold text-foreground text-sm">Cape Town Dates</span>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-secondary font-medium">
-            <Shield className="h-3.5 w-3.5" />
-            Verified & Secure
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleInstall}
+              className="flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <Download className="h-3.5 w-3.5" />
+              Install App
+            </button>
+            <div className="flex items-center gap-1.5 text-xs text-secondary font-medium">
+              <Shield className="h-3.5 w-3.5" />
+              Verified
+            </div>
           </div>
         </div>
       </div>
@@ -235,6 +313,13 @@ export default function SharedDateView() {
                 </div>
                 <CountdownTimer targetDate={new Date(dateData.date_scheduled)} />
               </>
+            )}
+            {/* Show proposed time if exists */}
+            {dateData.proposed_datetime && (
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-2 text-sm font-medium text-foreground">
+                <CalendarClock className="h-4 w-4 text-accent-foreground" />
+                Proposed: {format(new Date(dateData.proposed_datetime), "EEEE, d MMMM yyyy 'at' h:mm a")}
+              </div>
             )}
           </div>
 
@@ -309,8 +394,6 @@ export default function SharedDateView() {
                         <Tag className="h-3 w-3" /> {activity.deals}
                       </div>
                     )}
-
-                    {/* Remove button in customise mode */}
                     {showCustomise && (
                       <Button
                         variant="ghost"
@@ -387,6 +470,73 @@ export default function SharedDateView() {
               <span className="text-gradient-sunset">R{totalCost + transportCost}</span>
             </div>
           </div>
+
+          {/* Propose time change */}
+          {dateData.date_scheduled && !timeProposed && (
+            <div className="rounded-xl border border-border bg-card p-5 shadow-card mb-6">
+              {!showTimeProposal ? (
+                <Button
+                  variant="outline"
+                  className="w-full gap-2"
+                  onClick={() => setShowTimeProposal(true)}
+                >
+                  <CalendarClock className="h-4 w-4" /> Propose a Different Time
+                </Button>
+              ) : (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+                  <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2">
+                    <CalendarClock className="h-5 w-5 text-primary" /> Propose New Time
+                  </h3>
+                  <p className="text-sm text-muted-foreground">Pick a new date and time — he'll get an email notification.</p>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className={cn("w-full justify-start gap-2", !proposedDate && "text-muted-foreground")}>
+                        <CalendarIcon className="h-4 w-4" />
+                        {proposedDate ? format(proposedDate, "EEEE, d MMMM yyyy") : "Pick a date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={proposedDate}
+                        onSelect={setProposedDate}
+                        disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                        initialFocus
+                        className="p-3 pointer-events-auto"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">Time</label>
+                    <Input
+                      type="time"
+                      value={proposedTime}
+                      onChange={e => setProposedTime(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="hero"
+                      className="flex-1 gap-2"
+                      onClick={handleProposeTime}
+                      disabled={!proposedDate || proposingTime}
+                    >
+                      {proposingTime ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
+                      Send Proposal
+                    </Button>
+                    <Button variant="ghost" onClick={() => setShowTimeProposal(false)}>Cancel</Button>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          )}
+
+          {timeProposed && (
+            <div className="rounded-xl border border-secondary/30 bg-secondary/5 p-4 mb-6 text-center">
+              <CalendarClock className="h-5 w-5 text-secondary mx-auto mb-2" />
+              <p className="text-sm font-medium text-foreground">You've proposed a new time — he's been notified! 💌</p>
+            </div>
+          )}
 
           {/* Response section */}
           {hasResponded ? (
@@ -468,6 +618,16 @@ export default function SharedDateView() {
               </div>
             </div>
           )}
+
+          {/* Install CTA */}
+          <div className="mt-8 rounded-xl border border-primary/20 bg-primary/5 p-5 text-center">
+            <Download className="h-6 w-6 text-primary mx-auto mb-2" />
+            <h3 className="font-display text-lg font-bold text-foreground mb-1">Get the App</h3>
+            <p className="text-sm text-muted-foreground mb-3">Install Cape Town Dates for date reminders and quick access</p>
+            <Button variant="hero" size="sm" className="gap-2" onClick={handleInstall}>
+              <Download className="h-4 w-4" /> Install to Home Screen
+            </Button>
+          </div>
 
           {/* Trust footer */}
           <div className="mt-8 text-center border-t border-border pt-6">
