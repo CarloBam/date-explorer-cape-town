@@ -86,6 +86,8 @@ export type Database = {
           girl_name: string | null
           girl_profile_id: string | null
           id: string
+          proposed_by_name: string | null
+          proposed_datetime: string | null
           quiz_answers: Json | null
           response_message: string | null
           share_expires_at: string | null
@@ -106,6 +108,8 @@ export type Database = {
           girl_name?: string | null
           girl_profile_id?: string | null
           id?: string
+          proposed_by_name?: string | null
+          proposed_datetime?: string | null
           quiz_answers?: Json | null
           response_message?: string | null
           share_expires_at?: string | null
@@ -126,6 +130,8 @@ export type Database = {
           girl_name?: string | null
           girl_profile_id?: string | null
           id?: string
+          proposed_by_name?: string | null
+          proposed_datetime?: string | null
           quiz_answers?: Json | null
           response_message?: string | null
           share_expires_at?: string | null
