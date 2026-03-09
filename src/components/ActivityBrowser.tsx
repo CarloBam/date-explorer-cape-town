@@ -210,7 +210,7 @@ export function ActivityBrowser() {
           </div>
 
           {/* Cart sidebar — desktop only */}
-          <div className="hidden lg:block lg:sticky lg:top-40 lg:self-start">
+          <div className="hidden lg:block lg:sticky lg:top-52 lg:self-start">
             <DateCart />
           </div>
         </div>
