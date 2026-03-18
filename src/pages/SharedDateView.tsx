@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Tag, Car, Shield, Check, X, Edit3, Heart, Receipt, Fuel, ArrowRight, Loader2, CalendarIcon, AlertTriangle, PartyPopper, Download, CalendarClock } from "lucide-react";
+import { MapPin, Clock, Tag, Car, Shield, Check, X, Edit3, Heart, Receipt, Fuel, ArrowRight, Loader2, CalendarIcon, AlertTriangle, PartyPopper, Download, CalendarClock, Mail } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -305,7 +305,7 @@ export default function SharedDateView() {
                 You may propose changes to the activities if you'd like 💫
               </p>
             )}
-            {dateData.date_scheduled && (
+            {dateData.date_scheduled && dateData.date_response === "accepted" && (
               <>
                 <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-foreground">
                   <CalendarIcon className="h-4 w-4 text-primary" />
@@ -357,6 +357,32 @@ export default function SharedDateView() {
             </div>
           )}
 
+          {/* Safety & General Tips */}
+          {dateData.quiz_answers?.stage === "first-date" ? (
+            <div className="mb-6 rounded-xl border border-secondary/20 bg-secondary/5 p-4 text-sm">
+              <h3 className="font-display font-bold text-secondary mb-2 flex items-center gap-2">
+                <Shield className="h-4 w-4" /> Girl Code: First Date Safety
+              </h3>
+              <ul className="list-disc space-y-1.5 pl-4 text-muted-foreground marker:text-secondary">
+                <li>Remember to share your live location with your bestie so they know where you are.</li>
+                <li>Keep a mini pepper spray in your bag just in case (always better safe than sorry!).</li>
+                <li>Have your own transport plan ready if you want to head out early.</li>
+                <li>Stay safe, but most importantly, have the best time! ✨</li>
+              </ul>
+            </div>
+          ) : (
+            <div className="mb-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm">
+              <h3 className="font-display font-bold text-primary mb-2 flex items-center gap-2">
+                <Heart className="h-4 w-4" /> Date Prep Tips
+              </h3>
+              <ul className="list-disc space-y-1.5 pl-4 text-muted-foreground marker:text-primary">
+                <li>Bring a light jacket or jersey, Cape Town weather loves to surprise us.</li>
+                <li>Take a few cute pictures to remember the day!</li>
+                <li>Stay present, soak in the vibe, and have an amazing time together! ✨</li>
+              </ul>
+            </div>
+          )}
+
           {/* Current Weather */}
           <div className="mb-6">
             <WeatherWidget />
@@ -382,9 +408,6 @@ export default function SharedDateView() {
                           <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" /> {activity.duration}</span>
                         </div>
                       </div>
-                      <span className={`font-display font-bold ${activity.estimatedCost === 0 ? "text-secondary" : "text-foreground"}`}>
-                        {activity.estimatedCost === 0 ? "FREE" : `R${activity.estimatedCost}`}
-                      </span>
                     </div>
                     {activity.description && (
                       <p className="mt-2 text-sm text-muted-foreground">{activity.description}</p>
@@ -412,7 +435,7 @@ export default function SharedDateView() {
                     {hasCar ? (
                       <><Car className="h-3 w-3" /> {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km drive</>
                     ) : (
-                      <>🚕 {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km, Uber ≈ R{calculateUberEstimate(getDistanceBetween(activity.area, displayActivities[index + 1].area))}</>
+                      <>🚕 {getDistanceBetween(activity.area, displayActivities[index + 1].area)} km distance</>
                     )}
                   </div>
                 )}
@@ -445,31 +468,7 @@ export default function SharedDateView() {
             </motion.div>
           )}
 
-          {/* Cost summary */}
-          <div className="rounded-xl border border-border bg-card p-5 shadow-card mb-6">
-            <h3 className="font-display text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-              <Receipt className="h-5 w-5" /> Estimated Costs
-            </h3>
-            {displayActivities.map(a => (
-              <div key={a.id} className="flex justify-between py-1.5 text-sm">
-                <span className="text-muted-foreground">{a.image} {a.name}</span>
-                <span className="font-medium text-foreground">{a.estimatedCost === 0 ? "Free" : `R${a.estimatedCost}`}</span>
-              </div>
-            ))}
-            {totalDistance > 0 && (
-              <div className="flex justify-between py-1.5 text-sm border-t border-border mt-2 pt-2">
-                <span className="text-muted-foreground flex items-center gap-1">
-                  {hasCar ? <Fuel className="h-3.5 w-3.5" /> : <span>🚕</span>}
-                  {hasCar ? `Petrol (${totalDistance} km)` : `Uber (${totalDistance} km)`}
-                </span>
-                <span className="font-medium text-foreground">~R{transportCost}</span>
-              </div>
-            )}
-            <div className="flex justify-between border-t border-border mt-2 pt-3 text-lg font-bold">
-              <span className="text-foreground">Total</span>
-              <span className="text-gradient-sunset">R{totalCost + transportCost}</span>
-            </div>
-          </div>
+
 
           {/* Propose time change */}
           {dateData.date_scheduled && !timeProposed && (
@@ -550,6 +549,42 @@ export default function SharedDateView() {
                 {dateData.date_response === "customised" && "You've sent your custom plan!"}
               </h3>
               <p className="text-sm text-muted-foreground">Your response has been sent.</p>
+              
+              {dateData.date_response === "accepted" && dateData.date_scheduled && (
+                <div className="mt-6 flex flex-col gap-3">
+                  <p className="font-medium text-primary mb-2">Almost done! What's next?</p>
+                  
+                  {dateData.quiz_answers?.senderEmail && (
+                    <Button 
+                      variant="hero" 
+                      className="w-full gap-2" 
+                      onClick={() => {
+                        const email = dateData.quiz_answers.senderEmail;
+                        const subject = encodeURIComponent("Yay! I said yes! 💝");
+                        const name = dateData.quiz_answers.senderName || "there";
+                        const dateNum = format(new Date(dateData.date_scheduled!), "EEEE, d MMMM");
+                        const body = encodeURIComponent(`Hi ${name},\n\nYay, she said yes! I would love to go on the date with you on ${dateNum}. I accept your invitation.\n\nHere are some tips to get ready:\n- Text me when we need to leave.\n- Don't forget any bookings you need to make!\n\nCan't wait! 🥰`);
+                        window.open(`mailto:${email}?subject=${subject}&body=${body}`, "_blank");
+                      }}
+                    >
+                      <Mail className="h-4 w-4" /> Tap to Email Him Confirmation
+                    </Button>
+                  )}
+                  
+                  <Button 
+                    variant="outline" 
+                    className="w-full gap-2 border-primary/20 hover:bg-primary/5 text-primary"
+                    onClick={() => {
+                      const dateStr = format(new Date(dateData.date_scheduled!), "yyyyMMdd");
+                      const plannerName = encodeURIComponent(dateData.quiz_answers?.senderName || "Special Someone");
+                      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Date+with+${plannerName}&dates=${dateStr}T100000Z/${dateStr}T220000Z&details=Excited+for+our+date!`;
+                      window.open(url, "_blank");
+                    }}
+                  >
+                    <CalendarIcon className="h-4 w-4" /> Save to My Google Calendar
+                  </Button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="space-y-4">

@@ -25,7 +25,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [title, setTitle] = useState("");
-  const [allowCustomise, setAllowCustomise] = useState(true);
+  const [allowCustomise, setAllowCustomise] = useState(false);
 
   // Get user's display name from metadata
   const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Someone special";
@@ -54,7 +54,7 @@ export function ShareDateModal({ activities, budget, totalCost, quizAnswers, sch
         activities: activities.map(a => ({ id: a.id, name: a.name, area: a.area, estimatedCost: a.estimatedCost, duration: a.duration, image: a.image, description: a.description, deals: a.deals })),
         budget,
         total_cost: totalCost,
-        quiz_answers: { ...quizAnswers, senderName: userName },
+        quiz_answers: { ...quizAnswers, senderName: userName, senderEmail: user.email },
         share_token: token,
         share_expires_at: expiresAt.toISOString(),
         allow_customise: allowCustomise,
